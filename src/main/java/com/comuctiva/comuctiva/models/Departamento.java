@@ -25,4 +25,5 @@ public class Departamento {
     public String getNom_Dep(){
         return Nom_Dep;
     }
+    
 }

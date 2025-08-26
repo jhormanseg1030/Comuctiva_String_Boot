@@ -6,4 +6,5 @@ import com.comuctiva.comuctiva.models.Departamento;
 
 public interface DepartamentoRepositories extends JpaRepository <Departamento, Integer> {
 
+    
 }
