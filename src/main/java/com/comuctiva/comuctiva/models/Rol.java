@@ -18,4 +18,8 @@ private Integer ID_Rol;
 
 @Column(nullable = false, length = 30)
 private String Nom_Rol;
+
+public Integer getID_Rol(){
+    return ID_Rol;
+}
 }
