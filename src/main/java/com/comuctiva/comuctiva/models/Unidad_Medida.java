@@ -6,23 +6,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
 public class Unidad_Medida {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id_Medida;
     @Column (length=20)
     private String tip_Medida;
-
-    public Integer getId_Medida(){
-        return id_Medida;
-    }
-
-    public String getTip_Medida(){
-        return tip_Medida;
-    }
 }

@@ -6,24 +6,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
 public class Departamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_Dep;
     @Column(length = 50)
     private String Nom_Dep;
-
-    public Integer getId_Dep(){
-        return id_Dep;
-    }
-
-    public String getNom_Dep(){
-        return Nom_Dep;
-    }
     
 }
