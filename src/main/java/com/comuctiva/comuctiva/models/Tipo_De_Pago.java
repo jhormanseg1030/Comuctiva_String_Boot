@@ -19,8 +19,4 @@ public class Tipo_De_Pago {
     private Integer id_TiPago;
     @Column(nullable = false,length = 20)
     private String Tipos;
-
-@Column(nullable = false,length = 20)
-private String Tipos;
-
 }
