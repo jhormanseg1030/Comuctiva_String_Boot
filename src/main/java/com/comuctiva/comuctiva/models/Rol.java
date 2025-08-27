@@ -13,14 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Getter
-public class Tipo_De_Pago {
+public class Rol {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_TiPago;
-    @Column(nullable = false,length = 20)
-    private String Tipos;
-
-@Column(nullable = false,length = 20)
-private String Tipos;
-
+    private Integer ID_Rol;
+    @Column(nullable = false, length = 30)
+    private String Nom_Rol;
 }

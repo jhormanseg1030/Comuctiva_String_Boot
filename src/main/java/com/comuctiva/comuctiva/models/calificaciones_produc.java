@@ -1,26 +1,29 @@
 package com.comuctiva.comuctiva.models;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Entity
-@Getter
-public class Tipo_De_Pago {
+public class calificaciones_produc {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_TiPago;
-    @Column(nullable = false,length = 20)
-    private String Tipos;
+private Integer ID_Calificaciones;
 
-@Column(nullable = false,length = 20)
-private String Tipos;
-
+@Column(length = 50)
+private String Comentario;
+@Column()
+private LocalDateTime Fecha_Calificacion;
+@Column()
+private Short Estrellas;
 }
