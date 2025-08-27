@@ -6,11 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
 public class Tipo_De_Pago {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +21,4 @@ private Integer id_TiPago;
 @Column(nullable = false,length = 20)
 private String Tipos;
 
-public Integer getid_TiPago(){
-    return id_TiPago;
-}
 }
