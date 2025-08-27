@@ -6,11 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
 public class Rol {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +21,4 @@ private Integer ID_Rol;
 @Column(nullable = false, length = 30)
 private String Nom_Rol;
 
-public Integer getID_Rol(){
-    return ID_Rol;
-}
 }
