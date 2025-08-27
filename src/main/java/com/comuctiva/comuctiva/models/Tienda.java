@@ -15,12 +15,14 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToOne;*/
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
+@Getter
 public class Tienda {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
