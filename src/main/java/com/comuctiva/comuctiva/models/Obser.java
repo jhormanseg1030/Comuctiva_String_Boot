@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 public class Obser {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ID_Obser;
+    private Integer id_obser;
 
     @Column(nullable = false,length = 40)
-    private String Obser;
+    private String obser;
 
 
 }
