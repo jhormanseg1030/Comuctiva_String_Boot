@@ -1,5 +1,13 @@
 package com.comuctiva.comuctiva.Dto;
 
-public class BarrioDto {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class BarrioDto {
+private Integer ID_Barrio;
+private String nom;
 }

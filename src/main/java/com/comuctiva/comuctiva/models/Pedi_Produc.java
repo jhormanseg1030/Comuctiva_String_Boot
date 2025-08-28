@@ -1,6 +1,8 @@
 package com.comuctiva.comuctiva.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,10 +10,11 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Entity
-public class Rol_Usuario {
+@Data
+public class Pedi_Produc {
     @Id
-    private Boolean Estado;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Short cant;
+    private Double valor;
 }

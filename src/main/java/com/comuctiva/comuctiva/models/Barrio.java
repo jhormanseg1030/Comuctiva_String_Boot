@@ -1,26 +1,22 @@
 package com.comuctiva.comuctiva.models;
 
-import java.security.Timestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Entity
-@Data
-public class Carrito {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer id_carrito;
-@Column (length=10)
-private Integer cantidad;
-@Column ()
-private Timestamp fecha_agre;
+public class Barrio {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer ID_Barrio;
+    @Column (length=50)
+    private String nom;
 }
