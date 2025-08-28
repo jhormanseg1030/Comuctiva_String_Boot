@@ -1,5 +1,8 @@
 package com.comuctiva.comuctiva.models;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,13 +16,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Getter
-public class Obser {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ID_Obser;
-
-    @Column(nullable = false,length = 40)
-    private String Obser;
-
-
+public class Descuento {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_Descu;
+    @Column (length = 50)
+    private String descripcion;
+    private LocalDateTime fech_des;
+    private BigDecimal valor;
 }
