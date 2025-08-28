@@ -21,4 +21,5 @@ public class Obser {
     @Column(nullable = false,length = 40)
     private String Obser;
 
+
 }
