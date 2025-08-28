@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Tipo_De_Pago {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_TiPago;
+    private Integer id_tipago;
     @Column(nullable = false,length = 20)
-    private String Tipos;
+    private String tipos;
 }
