@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 public class Rol_Usuario {
-    @Id
-    private Boolean Estado;
-
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Boolean estado;
 }
