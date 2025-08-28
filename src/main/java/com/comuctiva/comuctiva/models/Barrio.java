@@ -11,15 +11,12 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Getter
-public class Obser {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_obser;
-
-    @Column(nullable = false,length = 40)
-    private String obser;
-
-
+@Entity
+public class Barrio {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer ID_Barrio;
+    @Column (length=50)
+    private String nom;
 }

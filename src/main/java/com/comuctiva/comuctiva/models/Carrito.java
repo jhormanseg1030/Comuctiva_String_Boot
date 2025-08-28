@@ -19,7 +19,7 @@ public class Carrito {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Integer id_carrito;
-@Column (length=10) 
+@Column (length=10)
 private Integer id_producto;
 @Column (length=10)
 private Integer cantidad;

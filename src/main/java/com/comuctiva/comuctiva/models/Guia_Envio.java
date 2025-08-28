@@ -6,20 +6,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Entity
-@Getter
-public class Obser {
+public class Guia_Envio {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_obser;
-
-    @Column(nullable = false,length = 40)
-    private String obser;
-
-
+private Integer ID_Guia;
+@Column (length=50)
+private String Fec_Env;
 }
