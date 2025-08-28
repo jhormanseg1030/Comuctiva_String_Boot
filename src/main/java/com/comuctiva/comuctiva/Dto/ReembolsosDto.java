@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ReembolsosDto {
-    private Integer Id_Rem;
-    private LocalDateTime Fe_solici;
-    private Long Val;
-    private String Mot;
-    private LocalDateTime Fe_res;
-    private String Esta;
+    private Integer id_rem;
+    private LocalDateTime fe_solici;
+    private Long val;
+    private String mot;
+    private LocalDateTime fe_res;
+    private String esta;
 
 }

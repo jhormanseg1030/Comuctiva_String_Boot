@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ProductoDto {
-    private Integer  Id_Pro;
-    private String NoPro;
-    private Double Valoor;
-    private Short Cantid;
-    private String Image;
-    private String Descri;
+    private Integer  id_pro;
+    private String nopro;
+    private Double valoor;
+    private Short cantid;
+    private String image;
+    private String descri;
 
 }

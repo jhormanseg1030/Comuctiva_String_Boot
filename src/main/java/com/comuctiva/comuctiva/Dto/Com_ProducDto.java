@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Com_ProducDto {
-private Short Cantt;
-private Double Val;
+private Short cantt;
+private Double val;
 }

@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Guia_de_EnvioDto {
-    private Integer Id_gui;
-    private String Fech_en;
+    private Integer id_gui;
+    private String fech_en;
 }

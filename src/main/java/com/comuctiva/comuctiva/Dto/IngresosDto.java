@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class IngresosDto {
-    private Integer Id_Ingre;
-    private String  Obser;
-    private Timestamp Fech;
+    private Integer id_ingre;
+    private String  obser;
+    private Timestamp fech;
 
 }

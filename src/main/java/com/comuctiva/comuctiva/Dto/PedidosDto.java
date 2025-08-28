@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class PedidosDto {
-    private Integer Id_Pe;
-    private LocalDateTime FH_P;
+    private Integer id_pe;
+    private LocalDateTime fh_p;
 }

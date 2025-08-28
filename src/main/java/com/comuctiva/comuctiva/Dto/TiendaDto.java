@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class TiendaDto {
-    private Integer Id_Ti;
-    private String NomTi;
+    private Integer id_ti;
+    private String nomti;
     private String loogo;
 }

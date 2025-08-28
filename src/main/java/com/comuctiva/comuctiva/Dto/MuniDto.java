@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class MuniDto {
-    private Integer Id_Munic;
-    private String Nombr;
+    private Integer id_munic;
+    private String nombr;
 }
