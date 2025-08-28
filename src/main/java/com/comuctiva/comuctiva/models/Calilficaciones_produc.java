@@ -18,12 +18,12 @@ import lombok.NoArgsConstructor;
 public class Calilficaciones_produc {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer ID_Calificaciones;
+private Integer id_calificaciones;
 
 @Column(length = 50)
-private String Comentario;
+private String comentario;
 @Column()
-private LocalDateTime Fecha_Calificacion;
+private LocalDateTime fecha_calificacion;
 @Column()
-private Short Estrellas;
+private Short estrellas;
 }
