@@ -18,9 +18,9 @@ import lombok.NoArgsConstructor;
 public class Carrito {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer ID_Carrito;
+private Integer id_carrito;
 @Column (length=10)
-private Integer Cantidad;
+private Integer cantidad;
 @Column ()
-private Timestamp Fecha_Agre;
+private Timestamp fecha_agre;
 }
