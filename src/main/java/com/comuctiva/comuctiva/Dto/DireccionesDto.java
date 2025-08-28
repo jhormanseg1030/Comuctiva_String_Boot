@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class DireccionesDto {
-    private Integer ID_Direcc;
-    private String num;
-    private String comple;
-    private String Ubi_Geo;
+    private Integer Id_Direc;
+    private String Nume;
+    private String Compl;
+    private String Ubic_geo;
 
 }

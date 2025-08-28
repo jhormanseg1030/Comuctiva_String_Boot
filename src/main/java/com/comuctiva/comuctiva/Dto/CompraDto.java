@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CompraDto {
-    private Integer id_compra;
-    private Short total;
-    private String ref_pago;
-    private LocalDateTime fec_com;
+    private Integer Id_Comp;
+    private Short Tot;
+    private String Ref_Pag;
+    private LocalDateTime Fec_comp;
 }

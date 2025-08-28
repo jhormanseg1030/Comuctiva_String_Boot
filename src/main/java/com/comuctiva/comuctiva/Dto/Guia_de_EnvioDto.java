@@ -1,5 +1,13 @@
 package com.comuctiva.comuctiva.Dto;
 
-public class Guia_de_EnvioDto {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Guia_de_EnvioDto {
+    private Integer Id_gui;
+    private String Fech_en;
 }
