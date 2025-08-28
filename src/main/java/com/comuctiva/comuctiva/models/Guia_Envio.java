@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Guia_Envio {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer ID_Guia;
+private Integer id_guia;
 @Column (length=50)
-private String Fec_Env;
+private String fec_env;
 }
