@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class Comp_Produc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_com_produc;
     private Short cant;
     private Double valor;
 }
