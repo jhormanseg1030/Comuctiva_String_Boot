@@ -21,6 +21,5 @@ public class Carrito {
 private Integer id_carrito;
 @Column (length=10)
 private Integer cantidad;
-@Column ()
 private Timestamp fecha_agre;
 }
