@@ -1,5 +1,4 @@
 package com.comuctiva.comuctiva.models;
-
 //import java.util.ArrayList;
 //import java.util.List;
 
@@ -23,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Getter
+
 public class Tienda {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,4 +45,5 @@ private String Log;
 //joinColumns = @JoinColumn(name = "ID_Tienda"),
 //inverseJoinColumns = @JoinColumn(name = "ID_R_Social"))
 //private List<R_Social>r_social =new ArrayList<R_Social>();
+
 }

@@ -6,12 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
-public class Rol_Usuario {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Boolean estado;
+public class Ingres_Produc {
+    @Id
+    private Short cant;
 }

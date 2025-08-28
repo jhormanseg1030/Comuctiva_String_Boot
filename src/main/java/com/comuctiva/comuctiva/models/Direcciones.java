@@ -6,20 +6,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Getter
-public class Obser {
+@Data
+public class Direcciones {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_obser;
-
-    @Column(nullable = false,length = 40)
-    private String obser;
-
-
+private Integer id_direcc;
+@Column(length=10)
+private String num;
+@Column(length=50)
+private String comple;
+@Column(length=20)
+private String ubi_geo;
 }

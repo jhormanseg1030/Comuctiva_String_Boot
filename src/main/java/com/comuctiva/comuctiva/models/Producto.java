@@ -1,5 +1,6 @@
 package com.comuctiva.comuctiva.models;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,13 +14,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Getter
-public class Obser {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_obser;
+public class Producto {
 
-    @Column(nullable = false,length = 40)
-    private String obser;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_producto;
 
+    private String nomprod;
+    private Double valor;
+    private Short cant;
 
+    @Column (nullable = false, length = 50)
+    private String imagen;
+
+    @Column (nullable = false, length = 50)
+    private String descrip;
 }

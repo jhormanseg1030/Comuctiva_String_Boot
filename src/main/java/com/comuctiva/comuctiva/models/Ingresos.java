@@ -1,6 +1,6 @@
 package com.comuctiva.comuctiva.models;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,15 +15,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-public class calificaciones_produc {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer ID_Calificaciones;
-
-@Column(length = 50)
-private String Comentario;
-@Column()
-private LocalDateTime Fecha_Calificacion;
-@Column()
-private Short Estrellas;
+public class Ingresos {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_ingresos;
+    @Column(length = 50)
+    private String orbser;
+    private Timestamp fecha;
 }
