@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
 public class Direcciones {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer ID_Direcc;
+private Integer id_direcc;
 @Column(length=10)
 private String num;
 @Column(length=50)
 private String comple;
 @Column(length=20)
-private String Ubi_Geo;
+private String ubi_geo;
 }
