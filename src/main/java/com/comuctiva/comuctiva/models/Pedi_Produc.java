@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Entity
-public class Comp_Produc {
+@Data
+public class Pedi_Produc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short cant;

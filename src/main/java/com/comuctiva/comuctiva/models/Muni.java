@@ -1,5 +1,6 @@
 package com.comuctiva.comuctiva.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,9 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-public class Comp_Produc {
+public class Muni {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short cant;
-    private Double valor;
+    private Integer id_muni;
+    @Column(length = 30)
+    private String nom;
 }
