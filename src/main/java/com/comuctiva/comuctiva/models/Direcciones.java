@@ -1,12 +1,10 @@
 package com.comuctiva.comuctiva.models;
 
-import java.security.Timestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,14 +13,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Data
-public class Carrito {
+public class Direcciones {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer ID_Carrito;
-@Column (length=10) 
-private Integer ID_Producto;
-@Column (length=10)
-private Integer Cantidad;
-@Column ()
-private Timestamp Fecha_Agre;
+private Integer ID_Direcc;
+@Column(length=10)
+private String num;
+@Column(length=50)
+private String comple;
+@Column(length=20)
+private String Ubi_Geo;
 }
