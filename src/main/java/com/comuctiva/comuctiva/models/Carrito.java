@@ -24,7 +24,7 @@ public class Carrito {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Integer id_carrito;
 @Column (length=10)
-private Integer cantidad;
+private String cantidad;
 private Timestamp fecha_agre;
 
     @OneToOne(cascade = CascadeType.ALL)

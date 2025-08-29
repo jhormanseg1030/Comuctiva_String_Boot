@@ -1,5 +1,6 @@
 package com.comuctiva.comuctiva.Mapper;
 
-public class BarrioMapperImple {
 
+public class BarrioMapperImple
+{
 }
