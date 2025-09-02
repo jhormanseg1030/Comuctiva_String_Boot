@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(of = {"id_ingresos","id_producto"
+@EqualsAndHashCode(of = {"ingresoId","productoId"
 })
 public class Ingres_ProducId implements Serializable{
-    public Ingres_ProducId(Long id, Long id2 ){
+    public Ingres_ProducId(Integer id_ingreso, Integer id_producto ){
     }
-    private Integer id_ingresos;
-    private Integer id_producto;
+    private Long ingresoId;
+    private Long productoId;
 }

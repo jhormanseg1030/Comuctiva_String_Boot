@@ -1,7 +1,16 @@
 package com.comuctiva.comuctiva.models;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,23 +20,21 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 public class Ingres_Produc {
-    @Id
-    private Short cant;
-    /*
     @Embeddable
     public class Ingres_ProducId implements Serializable{
-        private Long id_ingresos;
-        private Long id_producto;
+        private Long ingresoId;
+        private Long productoId;
     }
+    
     @EmbeddedId
     private Ingres_ProducId id = new Ingres_ProducId();
 
     @ManyToOne
-    @MapsId("id_ingresos")
+    @MapsId("ingresoId")
     private Ingresos ingresos;
 
     @ManyToOne
-    @MapsId("id_producto")
+    @MapsId("productoId")
     private Producto producto;
 
     
@@ -38,6 +45,4 @@ public class Ingres_Produc {
     @Size(max = 500)
     @Column(name = "observaciones")
     private String observaciones;
-    */
-
 }
