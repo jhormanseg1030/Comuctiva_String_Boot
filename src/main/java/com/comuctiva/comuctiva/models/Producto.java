@@ -45,4 +45,7 @@ public class Producto {
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingres_Produc> ingre = new ArrayList<>();
+
+    @OneToMany(mappedBy = "produc", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comp_Produc> compras = new ArrayList<>();
 }
