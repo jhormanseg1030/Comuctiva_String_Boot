@@ -1,6 +1,8 @@
 package com.comuctiva.comuctiva.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,4 +39,8 @@ public class Compra {
     @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn (name = "id_TiPago", nullable = false, foreignKey = @ForeignKey(name = "FK_TiPago"))
     private Tipo_De_Pago tipo_pago;
+
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comp_Produc> produ = new ArrayList<>();
+
 }
