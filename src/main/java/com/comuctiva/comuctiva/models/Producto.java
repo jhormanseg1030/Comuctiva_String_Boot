@@ -16,13 +16,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Getter
+@Data
 public class Producto {
 
     @Id
@@ -48,4 +48,7 @@ public class Producto {
 
     @OneToMany(mappedBy = "produc", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comp_Produc> compras = new ArrayList<>();
+
+    @OneToMany(mappedBy = "produ", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Produc_Desc> descu = new ArrayList<>();
 }

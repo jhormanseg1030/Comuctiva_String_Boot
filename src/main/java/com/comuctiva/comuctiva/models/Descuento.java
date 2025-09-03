@@ -2,12 +2,16 @@ package com.comuctiva.comuctiva.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +28,7 @@ public class Descuento {
     private String descripcion;
     private LocalDateTime fech_des;
     private BigDecimal valor;
+
+    @OneToMany(mappedBy = "descuento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Produc_Desc> prod = new ArrayList<>();
 }
