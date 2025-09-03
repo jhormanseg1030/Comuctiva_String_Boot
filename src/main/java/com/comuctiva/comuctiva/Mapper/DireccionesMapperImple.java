@@ -1,4 +1,4 @@
- /*package com.comuctiva.comuctiva.Mapper;
+package com.comuctiva.comuctiva.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,24 +9,24 @@ import com.comuctiva.comuctiva.Dto.DireccionesDto;
 import com.comuctiva.comuctiva.models.Direcciones;
 
 @Component
-public class DireccionesMapperImple implements DireccionesMapper {
+public class DireccionesMapperImple implements DireccionesMapper{
 
-   @Override
-    public Direcciones toDirecciones( DireccionesDto direccionesDto){
-        if(direccionesDto == null){
-            return null;
-        }
-        Direcciones direcciones = new Direcciones();
-        direcciones.setId_direcc(direccionesDto.getId_direc());
-        direcciones.setComple(direccionesDto.getCompl());
-        direcciones.setNum(direccionesDto.getNume());
-        direcciones.setUbi_geo(direccionesDto.getUbic_geo());
-        return direcciones;
+@Override
+public Direcciones toDirecciones(DireccionesDto direccionesDto){
+    if (direccionesDto== null) {
+        return null;
     }
+    Direcciones direcciones= new Direcciones();
+    direcciones.setId_direcc(direccionesDto.getId_direc());
+    direcciones.setNum(direccionesDto.getNume());
+    direcciones.setComple(direccionesDto.getCompl());
+    direcciones.setUbi_geo(direccionesDto.getUbic_geo());
+    return direcciones;
+}
 
-    @Override
-    public DireccionesDto toDireccionesDto(Direcciones  direcciones){
-        if (direcciones == null) {
+@Override
+public DireccionesDto toDireccionesDto(Direcciones direcciones){
+if (direcciones == null) {
         return null;
         }
         DireccionesDto direccionesDto = new  DireccionesDto();
@@ -35,7 +35,7 @@ public class DireccionesMapperImple implements DireccionesMapper {
         direccionesDto.setNume(direcciones.getNum());
         direccionesDto.setUbic_geo(direcciones.getUbi_geo());
         return direccionesDto;
-    }
+}
 
     @Override
     public List<DireccionesDto> toDireccionesDtoList(List<Direcciones>direccioness){
@@ -58,7 +58,4 @@ public class DireccionesMapperImple implements DireccionesMapper {
         direcciones.setNum(direccionesDto.getNume());
         direcciones.setUbi_geo(direccionesDto.getUbic_geo());
     }
-
-
 }
-*/

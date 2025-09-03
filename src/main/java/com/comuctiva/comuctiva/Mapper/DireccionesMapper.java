@@ -7,8 +7,7 @@ import com.comuctiva.comuctiva.models.Direcciones;
 
 public interface DireccionesMapper {
 Direcciones toDirecciones(DireccionesDto direccionesDto);
-DireccionesDto tODireccionesDto(Direcciones direcciones);
-List<DireccionesDto> toDireccionesDtoList(List<Direcciones> direcciones);
+DireccionesDto toDireccionesDto(Direcciones direcciones);
+List<DireccionesDto> toDireccionesDtoList(List<Direcciones> direccioness);
 void updateDirecciones(Direcciones direcciones, DireccionesDto direccionesDto);
-
 }
