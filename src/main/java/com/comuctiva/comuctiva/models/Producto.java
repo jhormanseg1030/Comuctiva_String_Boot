@@ -51,4 +51,7 @@ public class Producto {
 
     @OneToMany(mappedBy = "produ", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Produc_Desc> descu = new ArrayList<>();
+
+    @OneToMany(mappedBy = "prod", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Produc_Carri> carrito = new ArrayList<>();
 }
