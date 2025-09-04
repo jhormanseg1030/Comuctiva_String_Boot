@@ -28,7 +28,7 @@ public class Pedidos {
     private LocalDateTime fehor_pedi;
 
     @ManyToOne (optional = false)
-    @JoinColumn (name = "id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usuario"))
+    @JoinColumn (name = "id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usuari"))
     private Usuario usuario;
 
     @OneToOne (cascade = CascadeType.ALL)

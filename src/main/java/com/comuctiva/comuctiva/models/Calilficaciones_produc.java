@@ -36,6 +36,6 @@ private Integer id_calificaciones;
     private Producto producto;
 
     @OneToOne(cascade =CascadeType.ALL)
-    @JoinColumn(name = "id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usur"))
+    @JoinColumn(name = "id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usu"))
     private Usuario usuario;
 }

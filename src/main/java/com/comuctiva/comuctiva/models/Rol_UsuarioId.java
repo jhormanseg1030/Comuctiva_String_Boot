@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Rol_UsuarioId implements Serializable {
-    private Long usuarioId;
+    private Integer usuarioId;
     private Integer rolId;
 }

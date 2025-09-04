@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pedi_producId implements Serializable {
-    private Long pedidosId;
+    private Integer pedidosId;
     private Long proId;
 }

@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class Produc_CarriId implements Serializable{
     private Long prodId;
-    private Long carritoId;
+    private Integer carritoId;
 }
 

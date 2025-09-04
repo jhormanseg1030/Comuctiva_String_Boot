@@ -21,7 +21,7 @@ public class Produc_Desc {
 
     @ManyToOne
     @MapsId("descuId")
-    @JoinColumn(name = "descuentos_id")
+    @JoinColumn(name = "descuentos_id", foreignKey = @ForeignKey(name = "FK_descuento_producto"))
     private Descuento descuento;
 
     @ManyToOne
