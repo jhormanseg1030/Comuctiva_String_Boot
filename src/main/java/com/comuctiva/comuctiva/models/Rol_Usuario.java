@@ -1,10 +1,9 @@
 package com.comuctiva.comuctiva.models;
 
-import java.io.Serializable;
-
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import lombok.AllArgsConstructor;
@@ -17,19 +16,16 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Rol_Usuario {
 private Boolean estado;
-    @Embeddable
-    public class Rol_UsuarioId implements Serializable{
-        private Long usuarioId;
-        private Long rolId;
-    }
     @EmbeddedId
     private Rol_UsuarioId id = new Rol_UsuarioId();
 
     @ManyToOne
     @MapsId("usuarioId")
+    @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "FK_rol_usuario"))
     private Usuario usuari;
 
     @ManyToOne
     @MapsId("rolId")
+    @JoinColumn(name = "rol_id", foreignKey = @ForeignKey(name = "FK_usuario_rol"))
     private Rol rol;
 }
