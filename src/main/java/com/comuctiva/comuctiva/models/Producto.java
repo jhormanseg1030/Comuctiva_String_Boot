@@ -2,7 +2,6 @@ package com.comuctiva.comuctiva.models;
 
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -46,8 +45,8 @@ public class Producto {
     @OneToMany(mappedBy = "producto")
     private List<Ingres_Produc> ingre;
 
-    @OneToMany(mappedBy = "produc", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comp_Produc> compras = new ArrayList<>();
+    @OneToMany(mappedBy = "produc")
+    private List<Comp_Produc> compras;
 
     @OneToMany(mappedBy = "produ")
     private List<Produc_Desc> descu;
