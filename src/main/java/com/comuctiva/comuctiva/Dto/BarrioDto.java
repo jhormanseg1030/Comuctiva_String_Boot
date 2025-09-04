@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class BarrioDto {
-private Integer id_barr;
-private String nomb;
+    private Integer id_barr;
+    private String nomb;
 }
