@@ -8,6 +8,6 @@ import com.comuctiva.comuctiva.models.Reembolsos;
 public interface ReembolsosMapper {
 Reembolsos toReembolsos(ReembolsosDto ReembolsosDto);
 ReembolsosDto toReembolsosDto(Reembolsos reembolsos);
-List<ReembolsosDto>toReembolsosDtoList(List<Reembolsos>reembolsos);
+List<ReembolsosDto>toReembolsosDtoList(List<Reembolsos>reem);
 void updateReembolsos(Reembolsos reembolsos, ReembolsosDto reembolsosDto);
 }
