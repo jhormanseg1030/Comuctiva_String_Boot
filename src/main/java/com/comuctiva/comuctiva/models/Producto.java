@@ -43,8 +43,8 @@ public class Producto {
     @JoinColumn (name = "ID_Tienda", nullable = false, foreignKey = @ForeignKey(name = "FK_Tienda"))
     private Tienda tienda;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ingres_Produc> ingre = new ArrayList<>();
+    @OneToMany(mappedBy = "producto")
+    private List<Ingres_Produc> ingre;
 
     @OneToMany(mappedBy = "produc", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comp_Produc> compras = new ArrayList<>();
