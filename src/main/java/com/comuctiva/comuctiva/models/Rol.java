@@ -1,9 +1,7 @@
 package com.comuctiva.comuctiva.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +23,6 @@ public class Rol {
     @Column(nullable = false, length = 30)
     private String nom_rol;
 
-    @OneToMany(mappedBy ="rol", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Rol_Usuario> usuario = new ArrayList<>();
+    @OneToMany(mappedBy ="rol")
+    private List<Rol_Usuario> usuario;
 }

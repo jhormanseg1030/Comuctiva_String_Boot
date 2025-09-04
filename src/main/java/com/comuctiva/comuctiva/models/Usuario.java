@@ -1,9 +1,7 @@
 package com.comuctiva.comuctiva.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -43,7 +41,7 @@ public class Usuario {
     @JoinColumn(name = "id_tipdocu", nullable = false, foreignKey = @ForeignKey(name = "FK_Tip_Doc"))
     private Tip_Doc tip_Doc;
 
-    @OneToMany(mappedBy = "usuari", cascade =CascadeType.ALL, orphanRemoval = true)
-    private List<Rol_Usuario> rol = new ArrayList<>();
+    @OneToMany(mappedBy = "usuari")
+    private List<Rol_Usuario> rol;
 }
 
