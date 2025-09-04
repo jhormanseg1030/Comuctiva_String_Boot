@@ -1,10 +1,9 @@
 package com.comuctiva.comuctiva.models;
 
-import java.io.Serializable;
-
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import lombok.AllArgsConstructor;
@@ -16,20 +15,17 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 public class Comp_Produc {
-    @Embeddable
-    public class Comp_ProducId implements Serializable  {
-        private Long compraId;
-        private Long producId;
-    }
     @EmbeddedId
     private Comp_ProducId id = new Comp_ProducId();
 
     @ManyToOne
     @MapsId("compraId")
+    @JoinColumn(name = "compra_id", foreignKey = @ForeignKey(name = "FK_producto_compra"))
     private Compra compra;
 
     @ManyToOne
     @MapsId("producId")
+    @JoinColumn(name = "producto_id", foreignKey = @ForeignKey(name = "FK_compra_producto"))
     private Producto produc;
 
     private Short valor;
