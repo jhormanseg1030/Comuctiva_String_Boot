@@ -28,6 +28,6 @@ public class Comp_Produc {
     @JoinColumn(name = "producto_id", foreignKey = @ForeignKey(name = "FK_compra_producto"))
     private Producto produc;
 
-    private Short valor;
+    private Double valor;
     private Short cant;
 }
