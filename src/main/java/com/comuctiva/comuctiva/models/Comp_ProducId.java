@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Data
     public class Comp_ProducId {
         private Integer compraId;
-        private Long producId;
+        private Integer producId;
 }

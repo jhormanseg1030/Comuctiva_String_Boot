@@ -26,7 +26,7 @@ public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_producto;
+    private Integer id_producto;
 
     private String nomprod;
     private Double valor;

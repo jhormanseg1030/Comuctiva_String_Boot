@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Produc_CarriId implements Serializable{
-    private Long prodId;
+    private Integer prodId;
     private Integer carritoId;
 }
 

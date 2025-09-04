@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class Produc_DescId implements Serializable {
     private Integer descuId;
-    private Long produId;
+    private Integer produId;
 }

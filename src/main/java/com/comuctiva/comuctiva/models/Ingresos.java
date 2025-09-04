@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class Ingresos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_ingreso;
+    private Integer id_ingreso;
     @Column(length = 50)
     private String orbser;
     private Timestamp fecha;

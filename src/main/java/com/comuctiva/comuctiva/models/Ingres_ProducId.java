@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Ingres_ProducId implements Serializable{
-    private Long ingresoId;
-    private Long productoId;
+    private Integer ingresoId;
+    private Integer productoId;
 }
