@@ -30,9 +30,9 @@ public class Reembolsos {
     @Column(length = 20)
     private String estado;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+  /* @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_Compra", nullable = false, foreignKey = @ForeignKey(name = "FK_Compra_producto"))
     @JoinColumn(name = "id_Produ", nullable = false, foreignKey = @ForeignKey(name = "FK_Producto_compra"))
-    private Comp_Produc comp_Produc;
+    private Comp_Produc comp_Produc; */ 
 
 }
