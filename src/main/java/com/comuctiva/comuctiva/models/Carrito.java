@@ -1,7 +1,6 @@
 package com.comuctiva.comuctiva.models;
 
 import java.security.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -34,6 +33,6 @@ private Timestamp fecha_agre;
     @JoinColumn(name = "Id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usuari"))
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Produc_Carri> pro = new ArrayList<>();
+    @OneToMany(mappedBy = "carrito")
+    private List<Produc_Carri> pro;
 }
