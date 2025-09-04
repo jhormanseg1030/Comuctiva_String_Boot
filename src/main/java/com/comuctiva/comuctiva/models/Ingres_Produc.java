@@ -1,16 +1,11 @@
 package com.comuctiva.comuctiva.models;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,29 +15,18 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 public class Ingres_Produc {
-    @Embeddable
-    public class Ingres_ProducId implements Serializable{
-        private Long ingresoId;
-        private Long productoId;
-    }
-    
     @EmbeddedId
     private Ingres_ProducId id = new Ingres_ProducId();
 
     @ManyToOne
     @MapsId("ingresoId")
+    @JoinColumn(name = "ingreso_id", foreignKey = @ForeignKey(name = "FK_producto_ingreso"))
     private Ingresos ingresos;
 
     @ManyToOne
     @MapsId("productoId")
+    @JoinColumn(name = "producto_id", foreignKey = @ForeignKey(name = "FK_producto_ingresos2"))
     private Producto producto;
-
-    
-    @NotNull
-    @Column(name = "fecha_asignacion")
-    private LocalDate fechaAsignacion;
-
-    @Size(max = 500)
-    @Column(name = "observaciones")
-    private String observaciones;
+    private Short cant;
+    private Double valor;
 }

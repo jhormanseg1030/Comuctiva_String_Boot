@@ -1,7 +1,6 @@
 package com.comuctiva.comuctiva.models;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -34,6 +33,6 @@ public class Ingresos {
     @JoinColumn (name = "id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usuar"))
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "ingresos", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ingres_Produc> produc = new ArrayList<>();
+    @OneToMany(mappedBy = "ingresos")
+    private List<Ingres_Produc> produc;
 }
