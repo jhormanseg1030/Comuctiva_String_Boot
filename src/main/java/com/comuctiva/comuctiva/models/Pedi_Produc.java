@@ -28,6 +28,6 @@ public class Pedi_Produc {
 
     @ManyToOne
     @MapsId("proId")
-    @JoinColumn(name = "producto_id")
+    @JoinColumn(name = "producto_id", foreignKey = @ForeignKey(name = "FK_pedidos_producto"))
     private Producto productos;
 }
