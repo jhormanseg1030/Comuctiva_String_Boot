@@ -41,7 +41,8 @@ public class Usuario {
     @JoinColumn(name = "id_tipdocu", nullable = false, foreignKey = @ForeignKey(name = "FK_Tip_Doc"))
     private Tip_Doc tip_Doc;
 
-    @OneToMany(mappedBy = "usuari")
-    private List<Rol_Usuario> rol;
+    @OneToMany(mappedBy = "usuario")
+    private List<Rol_Usuario> roles_de_usuarios;
+
 }
 

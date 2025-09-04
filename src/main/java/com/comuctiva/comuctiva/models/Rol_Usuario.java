@@ -15,17 +15,16 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 public class Rol_Usuario {
-private Boolean estado;
+
     @EmbeddedId
     private Rol_UsuarioId id = new Rol_UsuarioId();
-
     @ManyToOne
     @MapsId("usuarioId")
-    @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "FK_rol_usuario"))
-    private Usuario usuari;
+    @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "FK_usuario_rol"))
+    private Usuario usuario;
 
     @ManyToOne
     @MapsId("rolId")
-    @JoinColumn(name = "rol_id", foreignKey = @ForeignKey(name = "FK_usuario_rol"))
+    @JoinColumn(name = "rol_id", foreignKey = @ForeignKey(name = "FK_rol_usuario"))
     private Rol rol;
 }
