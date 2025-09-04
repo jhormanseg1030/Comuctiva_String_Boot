@@ -1,15 +1,11 @@
 package com.comuctiva.comuctiva.models;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,9 +26,9 @@ public class Rembolso {
     @Column(length = 20)
     private String estado;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_Compra", nullable = false, foreignKey = @ForeignKey(name = "FK_Compra_producto"))
-    @JoinColumn(name = "id_Produ", nullable = false, foreignKey = @ForeignKey(name = "FK_Producto_compra"))
-    private Comp_Produc comp_Produc;
+    // @ManyToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "id_Compra", nullable = false, foreignKey = @ForeignKey(name = "FK_Compra_producto"))
+    // @JoinColumn(name = "id_Produ", nullable = false, foreignKey = @ForeignKey(name = "FK_Producto_compra"))
+    // private Comp_Produc comp_Produc;
 
 }
