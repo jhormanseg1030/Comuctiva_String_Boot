@@ -17,7 +17,7 @@ public class CarritoMapperImple implements CarritoMapper{
             return null;
         }
         Carrito carrito= new Carrito();
-        carrito.setId_carrito(carritoDto.getId_carrito());
+        carrito.setId_carrito(carritoDto.getId_carrit());
         carrito.setCantidad(carritoDto.getCan());
         carrito.setFecha_agre(carritoDto.getFec_agre());
         return carrito;
@@ -28,7 +28,7 @@ public class CarritoMapperImple implements CarritoMapper{
             return null;
         }
         CarritoDto carritoDto = new CarritoDto();
-        carritoDto.setId_carrito(carrito.getId_carrito());
+        carritoDto.setId_carrit(carrito.getId_carrito());
         carritoDto.setCan(carrito.getCantidad());
         carritoDto.setFec_agre(carrito.getFecha_agre());
         return carritoDto;
@@ -49,7 +49,7 @@ public class CarritoMapperImple implements CarritoMapper{
         if (carritoDto == null ) {
             return;
         }
-        carrito.setId_carrito(carritoDto.getId_carrito());
+        carrito.setId_carrito(carritoDto.getId_carrit());
         carrito.setCantidad(carritoDto.getCan());
         carrito.setFecha_agre(carritoDto.getFec_agre());
 

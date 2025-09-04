@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ProductoDto {
-    private Integer  id_pro;
+    private Integer id_pro;
     private String nopro;
     private Double valoor;
     private Short cantid;

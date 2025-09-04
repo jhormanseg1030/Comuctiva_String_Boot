@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-public class Rembolso {
+public class Reembolsos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_Rembolso;
