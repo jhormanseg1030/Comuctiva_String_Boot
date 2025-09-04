@@ -17,4 +17,5 @@ public class UsuarioDto {
     private String corr;
     private Byte numdocu;
     private String passw;
+    private Short tipdocuId;
 }

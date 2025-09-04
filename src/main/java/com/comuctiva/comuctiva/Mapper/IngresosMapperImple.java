@@ -34,6 +34,7 @@ public class IngresosMapperImple implements IngresosMapper{
         ingresosDto.setObser(ingresos.getOrbser());
         return ingresosDto;
     }
+
 @Override
 public List<IngresosDto>toIngresosDtoList(List<Ingresos>ingresoss){
     if(ingresoss==null){
