@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CarritoDto {
-private Integer id_carrito;
+private Integer id_carrit;
 private String can;
 private Timestamp fec_agre;
 }

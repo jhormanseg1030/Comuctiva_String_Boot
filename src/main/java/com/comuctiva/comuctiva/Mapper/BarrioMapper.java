@@ -7,7 +7,7 @@ import com.comuctiva.comuctiva.models.Barrio;
 
 public interface BarrioMapper {
 Barrio toBarrio(BarrioDto barrioDto);
-BarrioDto ToBarrioDto(Barrio barrio);
+BarrioDto toBarrioDto(Barrio barrio);
 List<BarrioDto> toBarrioDtoList(List<Barrio>barrios);
-Void updateBarrio(Barrio barrio, BarrioDto barrioDto);
+void updateBarrio(Barrio barrio, BarrioDto barrioDto);
 }
