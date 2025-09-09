@@ -25,4 +25,5 @@ public class UsuarioController {
         UsuarioDto nuevoUsuario = usuarioServices.crearUsuario(usuarioDto);
         return ResponseEntity.ok(nuevoUsuario);
     }
+    
 }
