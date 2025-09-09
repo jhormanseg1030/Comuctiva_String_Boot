@@ -48,6 +48,7 @@ public class UsuarioMapperImple implements UsuarioMapper{
             usuario.getCorreo(),
             usuario.getNumDoc(),
             usuario.getPassword(),
-            usuario.getTip_Doc().getId_tipdocu());
+            usuario.getTip_Doc().getId_tipdocu(),
+            usuario.getTip_Doc().getTipo());
     }
 }

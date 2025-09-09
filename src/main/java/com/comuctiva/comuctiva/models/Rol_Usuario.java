@@ -27,4 +27,6 @@ public class Rol_Usuario {
     @MapsId("rolId")
     @JoinColumn(name = "rol_id", foreignKey = @ForeignKey(name = "FK_rol_usuarios_xd"))
     private Rol rol;
+
+    private Boolean estado;
 }

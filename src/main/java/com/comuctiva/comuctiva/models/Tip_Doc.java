@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Tip_Doc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id_tipdocu;
+    private Integer id_tipdocu;
     @Column(length = 30)
     private String tipo;
 }

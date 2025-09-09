@@ -20,14 +20,13 @@ public class Comp_Produc {
 
     @ManyToOne
     @MapsId("compraId")
-    @JoinColumn(name = "compra_id", foreignKey = @ForeignKey(name = "FK_producto_compra"))
+    @JoinColumn(name = "compra_id", foreignKey = @ForeignKey(name = "FK_producto_compra"), referencedColumnName = "id_compra" )
     private Compra compra;
 
     @ManyToOne
-    @MapsId("producId")
-    @JoinColumn(name = "producto_id", foreignKey = @ForeignKey(name = "FK_compra_producto"))
+    @MapsId("productoId")
+    @JoinColumn(name = "producto_id", foreignKey = @ForeignKey(name = "FK_compra_producto"), referencedColumnName = "id_producto")
     private Producto produc;
-
     private Double valor;
     private Short cant;
 }

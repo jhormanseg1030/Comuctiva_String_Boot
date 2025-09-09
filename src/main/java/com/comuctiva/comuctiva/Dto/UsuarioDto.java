@@ -15,7 +15,8 @@ public class UsuarioDto {
     private Long tele;
     private Long tele2;
     private String corr;
-    private Byte numdocu;
+    private Short numdocu;
     private String passw;
-    private Short tipdocuId;
+    private Integer tipdocuId;
+    private String tipo;
 }

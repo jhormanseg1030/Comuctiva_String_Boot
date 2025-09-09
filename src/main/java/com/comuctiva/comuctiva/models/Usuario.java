@@ -2,6 +2,7 @@ package com.comuctiva.comuctiva.models;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -34,10 +35,10 @@ public class Usuario {
     private Long tel2;
     @Column(length = 50)
     private String correo;
-    private Byte numDoc;
+    private Short numDoc;
     private String password;
     
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_tipdocu", nullable = false, foreignKey = @ForeignKey(name = "FK_Tip_Doc"))
     private Tip_Doc tip_Doc;
 
