@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class Guia_EnvioDto {
     private Integer id_gui;
     private String fech_en;
+    private Integer transpId;
+    private Integer obserId;
 }
