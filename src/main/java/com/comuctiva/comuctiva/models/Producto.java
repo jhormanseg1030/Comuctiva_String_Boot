@@ -56,4 +56,8 @@ public class Producto {
 
     @OneToMany(mappedBy = "productos")
     private List<Pedi_Produc> productos_de_pedidos;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_Medida", nullable = false, foreignKey = @ForeignKey(name = "FK_Unidad_Medida"))
+    private Unidad_Medida unidad_Medida;
 }

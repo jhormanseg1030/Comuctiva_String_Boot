@@ -7,36 +7,56 @@ import org.springframework.stereotype.Component;
 
 import com.comuctiva.comuctiva.Dto.ProductoDto;
 import com.comuctiva.comuctiva.models.Producto;
+import com.comuctiva.comuctiva.models.Tienda;
+import com.comuctiva.comuctiva.models.Unidad_Medida;
+import com.comuctiva.comuctiva.repositoryes.TiendaRepositories;
+import com.comuctiva.comuctiva.repositoryes.Unidad_MedidaRepositories;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Component
 public class ProductoMapperImple implements ProductoMapper{
-   @Override
-      public Producto toProducto(ProductoDto productoDto){
-         if(productoDto == null){
-         return null;
-         }
-   Producto producto =new Producto();
-   producto.setId_producto(productoDto.getId_pro());
-   producto.setNomprod(productoDto.getNopro());
-   producto.setValor(productoDto.getValoor());
-   producto.setCant(productoDto.getCantid());
-   producto.setImagen(productoDto.getImage());
-   producto.setDescrip(productoDto.getDescri());
-   return producto;
+
+   private final Unidad_MedidaRepositories unidad_MedidaRepositories;
+   private final TiendaRepositories tiendaRepositories;
+
+   public ProductoMapperImple(Unidad_MedidaRepositories unidad_MedidaRepositories, TiendaRepositories tiendaRepositories){
+      this.unidad_MedidaRepositories = unidad_MedidaRepositories;
+      this.tiendaRepositories = tiendaRepositories;
    }
+
    @Override
-   public ProductoDto toProductoDto( Producto producto){
-      if(producto == null){
-         return null;
-      }
-      ProductoDto productoDto=new ProductoDto();
-      productoDto.setId_pro(producto.getId_producto());
-      productoDto.setNopro(producto.getNomprod());
-      productoDto.setValoor(producto.getValor());
-      productoDto.setCantid(producto.getCant());
-      productoDto.setImage(producto.getImagen());
-      productoDto.setDescri(producto.getDescrip());
-      return productoDto;
+   public Producto toProducto(ProductoDto productoDto){
+      Producto producto = new Producto();
+      producto.setId_producto(productoDto.getId_pro());
+      producto.setNomprod(productoDto.getNopro());
+      producto.setValor(productoDto.getValoor());
+      producto.setCant(productoDto.getCantid());
+      producto.setImagen(productoDto.getImage());
+      producto.setDescrip(productoDto.getDescri());
+
+      Tienda tienda = tiendaRepositories.findById(productoDto.getId_tien())
+      .orElseThrow(() -> new EntityNotFoundException("Tienda no encontrada"));
+      producto.setTienda(tienda);
+
+      Unidad_Medida unidad_Medida = unidad_MedidaRepositories.findById(productoDto.getId_medi())
+      .orElseThrow(() -> new EntityNotFoundException("Unidad de medida no encontrada"));
+      producto.setUnidad_Medida(unidad_Medida);
+      return producto;
+   }
+
+   @Override
+   public ProductoDto toProductoDto(Producto producto){
+      return new ProductoDto(
+         producto.getId_producto(),
+         producto.getNomprod(),
+         producto.getValor(),
+         producto.getCant(),
+         producto.getImagen(),
+         producto.getDescrip(),
+         producto.getUnidad_Medida().getId_Medida(),
+         producto.getTienda().getID_Tienda()
+      );
    }
    @Override
    public List<ProductoDto> toProductoDtoList(List<Producto>product){
