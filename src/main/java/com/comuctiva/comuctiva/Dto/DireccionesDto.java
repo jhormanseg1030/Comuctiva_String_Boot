@@ -12,5 +12,8 @@ public class DireccionesDto {
     private String nume;
     private String compl;
     private String ubic_geo;
+    private Integer barrioId;
+    private Integer usariosId;
+    private Integer viasId;
 
 }

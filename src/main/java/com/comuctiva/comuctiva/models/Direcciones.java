@@ -35,4 +35,8 @@ public class Direcciones {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Id_Vias", nullable = false, foreignKey = @ForeignKey(name = "Fk_Vias"))
     private Vias vias;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usua"))
+    private Usuario usuario;
 }
