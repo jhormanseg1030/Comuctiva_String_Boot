@@ -13,4 +13,5 @@ public class CarritoDto {
 private Integer id_carrit;
 private String can;
 private Timestamp fec_agre;
+private Integer usuId;
 }
