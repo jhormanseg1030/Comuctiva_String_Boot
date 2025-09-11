@@ -32,7 +32,7 @@ public class UsuarioServicesImple implements UsuarioServices {
     public UsuarioDto usuarioPorId(Integer id) {
         return usuarioRepositories.findById(id)
                 .map(usuarioMapper::toUsuarioDto)
-                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con id: "));
     }
     @Override
     public List<UsuarioDto> listartodos() {

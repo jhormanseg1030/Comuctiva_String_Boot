@@ -6,31 +6,59 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.comuctiva.comuctiva.Dto.PedidosDto;
+import com.comuctiva.comuctiva.models.Estado;
+import com.comuctiva.comuctiva.models.Guia_Envio;
 import com.comuctiva.comuctiva.models.Pedidos;
+import com.comuctiva.comuctiva.models.Usuario;
+import com.comuctiva.comuctiva.repositoryes.EstadoRepositories;
+import com.comuctiva.comuctiva.repositoryes.Guia_EnvioRepositories;
+import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Component
 public class PedidosMapperImple implements PedidosMapper{
 
+    private final UsuarioRepositories usuarioRepositories;
+    private final Guia_EnvioRepositories guia_EnvioRepositories;
+    private final EstadoRepositories estadoRepositories;
+
+    public PedidosMapperImple(UsuarioRepositories usuarioRepositories, Guia_EnvioRepositories guia_EnvioRepositories, EstadoRepositories estadoRepositories){
+        this.usuarioRepositories=usuarioRepositories;
+        this.guia_EnvioRepositories=guia_EnvioRepositories;
+        this.estadoRepositories=estadoRepositories;
+    }
+
     @Override
     public Pedidos toPedidos(PedidosDto pedidosDto){
-        if(pedidosDto == null){
-            return null;
-        }
-    Pedidos pedidos = new Pedidos();
-    pedidos.setId_pedido(pedidosDto.getId_pe());
-    pedidos.setFehor_pedi(pedidosDto.getFh_p());
-    return pedidos;
+        Pedidos pedidos = new Pedidos();
+        pedidos.setId_pedido(pedidosDto.getId_pe());
+        pedidos.setFehor_pedi(pedidosDto.getFh_p());
+
+        Usuario usuario = usuarioRepositories.findById(pedidosDto.getId_Usu())
+        .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+        pedidos.setUsuario(usuario);
+
+        Guia_Envio guia_Envio = guia_EnvioRepositories.findById(pedidosDto.getId_GuiEn())
+        .orElseThrow(() -> new EntityNotFoundException("Guia de envio no encontrada"));
+        pedidos.setGuia_envio(guia_Envio);
+
+        Estado estado = estadoRepositories.findById(pedidosDto.getId_Est())
+        .orElseThrow(() -> new EntityNotFoundException("Estado no encontrado"));
+        pedidos.setEstado(estado);
+        return pedidos;
     }
+
     @Override
     public PedidosDto toPedidosDto(Pedidos pedidos){
-        if (pedidos==null) {
-            return null;
-        }
-        PedidosDto pedidosDto = new PedidosDto();
-        pedidosDto.setId_pe(pedidos.getId_pedido());
-        pedidosDto.setFh_p(pedidos.getFehor_pedi());
-        return pedidosDto;
+        return new PedidosDto(
+            pedidos.getId_pedido(),
+            pedidos.getFehor_pedi(),
+            pedidos.getUsuario().getId_Usuario(),
+            pedidos.getGuia_envio().getId_guia(),
+            pedidos.getEstado().getId_estado());
     }
+
     @Override
     public List<PedidosDto> toPedidosDtoList(List<Pedidos>pedi){
         if(pedi== null){

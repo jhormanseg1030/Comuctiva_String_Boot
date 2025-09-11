@@ -12,4 +12,7 @@ import lombok.NoArgsConstructor;
 public class PedidosDto {
     private Integer id_pe;
     private LocalDateTime fh_p;
+    private Integer id_Usu;
+    private Integer id_GuiEn;
+    private Integer id_Est;
 }
