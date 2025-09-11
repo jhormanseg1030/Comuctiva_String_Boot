@@ -1,6 +1,6 @@
 package com.comuctiva.comuctiva.Dto;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

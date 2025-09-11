@@ -10,6 +10,8 @@ import com.comuctiva.comuctiva.models.Carrito;
 import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Component
 public class CarritoMapperImple implements CarritoMapper{
 
@@ -26,7 +28,7 @@ public class CarritoMapperImple implements CarritoMapper{
         carrito.setFecha_agre(carritoDto.getFec_agre());
 
         Usuario usuario = usuarioRepositories.findById(carritoDto.getUsuId())
-        .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
         carrito.setUsuario(usuario);
         return carrito;
     }
@@ -38,6 +40,7 @@ public class CarritoMapperImple implements CarritoMapper{
             carrito.getCantidad(),
             carrito.getFecha_agre(),
             carrito.getUsuario().getId_Usuario());
+        
     }
     @Override
     public List<CarritoDto> toCarritoDtoList(List<Carrito>carritos){
