@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class MuniDto {
     private Integer id_munic;
     private String nombr;
+    private Integer depaId;
 }

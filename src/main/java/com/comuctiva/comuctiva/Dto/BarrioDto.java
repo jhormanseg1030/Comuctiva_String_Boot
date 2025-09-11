@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class BarrioDto {
     private Integer id_barr;
     private String nomb;
+    private Integer barr_verId;
+    private Integer muniId;
 }
