@@ -14,4 +14,6 @@ public class CompraDto {
     private Short tot;
     private String ref_pag;
     private LocalDateTime fec_comp;
+    private Integer id_tipago;
+    private Integer id_pedi;
 }
