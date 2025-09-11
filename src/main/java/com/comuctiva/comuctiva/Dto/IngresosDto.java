@@ -13,5 +13,6 @@ public class IngresosDto {
     private Integer id_ingre;
     private String  obser;
     private Timestamp fech;
+    private Integer id_usu;
 
 }
