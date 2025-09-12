@@ -6,9 +6,13 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.comuctiva.comuctiva.Dto.BarrioDto;
+import com.comuctiva.comuctiva.models.Barr_Vere;
 import com.comuctiva.comuctiva.models.Barrio;
+import com.comuctiva.comuctiva.models.Muni;
 import com.comuctiva.comuctiva.repositoryes.Barr_VereRepositories;
 import com.comuctiva.comuctiva.repositoryes.MuniRepositories;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Component
 public class BarrioMapperImple implements BarrioMapper{
@@ -27,11 +31,13 @@ public class BarrioMapperImple implements BarrioMapper{
         barrio.setId_barrio(barrioDto.getId_barr());
         barrio.setNom(barrioDto.getNomb());
 
-        barrio.setBarr_Vere(barr_VereRepositories.findById(barrioDto.getBarr_verId())
-        .orElseThrow(() -> new IllegalArgumentException("Barrio o vereda no encontrada")));
+        Barr_Vere barr_Vere = barr_VereRepositories.findById(barrioDto.getBarr_verId())
+        .orElseThrow(()-> new EntityNotFoundException("Barrio no encontrado con id:"));
+        barrio.setBarr_Vere(barr_Vere);
 
-        barrio.setMuni(muniRepositories.findById(barrioDto.getMuniId())
-        .orElseThrow(() -> new IllegalArgumentException("Municipio no encontrado")));
+        Muni muni = muniRepositories.findById(barrioDto.getMuniId())
+        .orElseThrow(()-> new EntityNotFoundException("Municipio no encontrado con id:"));
+        barrio.setMuni(muni);
         return barrio;
     }
 
