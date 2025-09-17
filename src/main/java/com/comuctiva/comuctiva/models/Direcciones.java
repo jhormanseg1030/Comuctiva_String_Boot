@@ -37,6 +37,6 @@ public class Direcciones {
     private Vias vias;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usua"))
+    @JoinColumn(name = "Id_Usario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usua"))
     private Usuario usuario;
 }

@@ -45,9 +45,9 @@ public class DireccionesMapperImple implements DireccionesMapper{
         .orElseThrow(() -> new EntityNotFoundException("Vias no encontrado"));
         direcciones.setVias(vias);
 
-        Usuario usariosId = usuarioRepositories.findById(direccionesDto.getUsariosId())
+        Usuario usuariosId = usuarioRepositories.findById(direccionesDto.getUsuariosId())
         .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
-        direcciones.setUsuario(usariosId);
+        direcciones.setUsuario(usuariosId);
         return direcciones;
     }
 
