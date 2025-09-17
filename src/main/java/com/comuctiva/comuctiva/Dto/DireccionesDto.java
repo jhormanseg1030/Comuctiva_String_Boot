@@ -13,7 +13,7 @@ public class DireccionesDto {
     private String compl;
     private String ubic_geo;
     private Integer barrioId;
-    private Integer usariosId;
+    private Integer usuariosId;
     private Integer viasId;
 
 }
