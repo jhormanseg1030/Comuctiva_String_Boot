@@ -1,10 +1,8 @@
 package com.comuctiva.comuctiva.Mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
+import com.comuctiva.comuctiva.Dto.Guia_EnvioCrearDtos;
 import com.comuctiva.comuctiva.Dto.Guia_EnvioDto;
 import com.comuctiva.comuctiva.models.Guia_Envio;
 import com.comuctiva.comuctiva.models.Obser;
@@ -25,16 +23,15 @@ public class Guia_EnvioMapperImple implements Guia_de_EnvioMapper{
         this.obserRepositories=obserRepositories;
     }
     @Override
-    public Guia_Envio toGuia_Envio(Guia_EnvioDto guia_envioDto){
+    public Guia_Envio toGuia_Envio(Guia_EnvioCrearDtos guia_EnvioCrearDtos){
         Guia_Envio guia_envio = new Guia_Envio();
-        guia_envio.setId_guia(guia_envioDto.getId_gui());
-        guia_envio.setFec_env(guia_envioDto.getFech_en());
+        guia_envio.setFec_env(guia_EnvioCrearDtos.getFech_en());
 
-        Transportadora transportadora = transportadoraRepositorie.findById(guia_envioDto.getTranspId())
+        Transportadora transportadora = transportadoraRepositorie.findById(guia_EnvioCrearDtos.getTranspId())
         .orElseThrow(() -> new EntityNotFoundException("Transportadora no encontrada"));
         guia_envio.setTransportadora(transportadora);
 
-    Obser obser = obserRepositories.findById(guia_envioDto.getObserId())
+        Obser obser = obserRepositories.findById(guia_EnvioCrearDtos.getObserId())
         .orElseThrow(() -> new EntityNotFoundException("Observacion no encontrada"));
         guia_envio.setObser(obser);
         return guia_envio;
@@ -45,27 +42,7 @@ public class Guia_EnvioMapperImple implements Guia_de_EnvioMapper{
         return new Guia_EnvioDto(
             guia_envio.getId_guia(),
             guia_envio.getFec_env(),
-            guia_envio.getTransportadora().getId_transpor(),
-            guia_envio.getObser().getId_obser());
-    }
-
-    @Override
-    public List<Guia_EnvioDto>toGuia_EnvioDtoList(List<Guia_Envio> guia_envios){
-        if (guia_envios== null) {
-            return List.of();
-        }
-        List<Guia_EnvioDto> guia_envioDtos = new ArrayList<Guia_EnvioDto>(guia_envios.size());
-        for(Guia_Envio guia_Envio: guia_envios){
-            guia_envioDtos.add(toGuia_EnvioDto(guia_Envio));
-        }
-        return guia_envioDtos;
-    }
-    @Override
-    public void updateGuia_Envio(Guia_Envio guia_envio,Guia_EnvioDto guia_envioDto){
-        if (guia_envioDto == null) {
-            return;
-        }
-        guia_envio.setId_guia(guia_envioDto.getId_gui());
-        guia_envio.setFec_env(guia_envioDto.getFech_en());
+            guia_envio.getTransportadora() != null ? guia_envio.getTransportadora().getId_transpor() : null,
+            guia_envio.getObser().getId_obser() != null ? guia_envio.getObser().getId_obser() : null);
     }
 }
