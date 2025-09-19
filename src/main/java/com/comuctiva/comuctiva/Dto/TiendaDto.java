@@ -11,4 +11,5 @@ public class TiendaDto {
     private Integer id_ti;
     private String nomti;
     private String loogo;
+    private Integer direccId;
 }

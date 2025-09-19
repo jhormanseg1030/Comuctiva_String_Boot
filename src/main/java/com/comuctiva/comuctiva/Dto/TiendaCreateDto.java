@@ -5,12 +5,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class Guia_EnvioCrearDtos {
+public class TiendaCreateDto {
 
     @NotBlank
-    private String fech_en;
+    private String nomti;
+    private String loogo;
 
     @NotNull
-    private Integer transpId;
-    private Integer obserId;
+    private Integer direccId;
 }

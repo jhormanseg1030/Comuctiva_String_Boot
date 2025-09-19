@@ -16,5 +16,6 @@ public class ReembolsosDto {
     private String mot;
     private LocalDateTime fe_res;
     private String esta;
+    private Integer id_compra;
 
 }

@@ -1,16 +1,16 @@
 package com.comuctiva.comuctiva.Dto;
 
+import java.sql.Timestamp;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class Guia_EnvioCrearDtos {
-
+public class IngresosCreateDto {
     @NotBlank
-    private String fech_en;
-
+    private String obser;
+    private Timestamp fech;
     @NotNull
-    private Integer transpId;
-    private Integer obserId;
+    private Integer id_usu;
 }
