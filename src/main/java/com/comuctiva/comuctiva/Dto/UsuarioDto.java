@@ -18,5 +18,4 @@ public class UsuarioDto {
     private Short numdocu;
     private String passw;
     private Integer tipdocuId;
-    private String tipo;
 }

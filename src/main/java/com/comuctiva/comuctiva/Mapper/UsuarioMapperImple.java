@@ -2,6 +2,7 @@ package com.comuctiva.comuctiva.Mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.comuctiva.comuctiva.Dto.UsuarioCreateDto;
 import com.comuctiva.comuctiva.Dto.UsuarioDto;
 import com.comuctiva.comuctiva.models.Tip_Doc;
 import com.comuctiva.comuctiva.models.Usuario;
@@ -15,29 +16,34 @@ public class UsuarioMapperImple implements UsuarioMapper{
     private final Tip_DocRepositories tip_DocRepositories;
 
     public UsuarioMapperImple(Tip_DocRepositories tip_DocRepositories){
-        this.tip_DocRepositories=tip_DocRepositories;
+        this.tip_DocRepositories = tip_DocRepositories;
     }
 
     @Override
-    public Usuario toUsuario(UsuarioDto usuarioDto){
+    public Usuario toUsuario(UsuarioCreateDto usuaCreDto){
+        if(usuaCreDto == null)
+        return null;
+
         Usuario usuario = new Usuario();
-        usuario.setId_Usuario(usuarioDto.getId_usu());
-        usuario.setNom_Usu(usuarioDto.getNom_u());
-        usuario.setApell1(usuarioDto.getApe());
-        usuario.setApell2(usuarioDto.getApe2());
-        usuario.setTel(usuarioDto.getTele());
-        usuario.setTel2(usuarioDto.getTele2());
-        usuario.setCorreo(usuarioDto.getCorr());
-        usuario.setNumDoc(usuarioDto.getNumdocu());
-        usuario.setPassword(usuarioDto.getPassw());
+        usuario.setNom_Usu(usuaCreDto.getNombre());
+        usuario.setApell1(usuaCreDto.getApellido());
+        usuario.setApell2(usuaCreDto.getApellido2());
+        usuario.setTel(usuaCreDto.getTelefono());
+        usuario.setTel2(usuaCreDto.getTelefono2());
+        usuario.setCorreo(usuaCreDto.getCorreo());
+        usuario.setNumDoc(usuaCreDto.getNumdocumento());
+        usuario.setPassword(usuaCreDto.getPassword());
         
-        Tip_Doc tip_Doc = tip_DocRepositories.findById(usuarioDto.getTipdocuId())
+        Tip_Doc tip_Doc = tip_DocRepositories.findById(usuaCreDto.getTipDocumenId())
         .orElseThrow(() -> new EntityNotFoundException("Tipo de documento no encontrado"));
         usuario.setTip_Doc(tip_Doc);
         return usuario;
     }
     @Override
     public UsuarioDto toUsuarioDto(Usuario usuario){
+        if (usuario == null)
+        return null;
+
         return new UsuarioDto(
             usuario.getId_Usuario(),
             usuario.getNom_Usu(),
@@ -48,7 +54,6 @@ public class UsuarioMapperImple implements UsuarioMapper{
             usuario.getCorreo(),
             usuario.getNumDoc(),
             usuario.getPassword(),
-            usuario.getTip_Doc().getId_tipdocu(),
-            usuario.getTip_Doc().getTipo());
+            usuario.getTip_Doc() != null ? usuario.getTip_Doc().getId_tipdocu() : null);
     }
 }
