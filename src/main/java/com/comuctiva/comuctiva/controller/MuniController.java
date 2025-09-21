@@ -1,16 +1,16 @@
 package com.comuctiva.comuctiva.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import java.util.List;
+
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comuctiva.comuctiva.Dto.MuniDto;
 import com.comuctiva.comuctiva.services.MuniServices;
 
-import jakarta.validation.Valid;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("api/muni")
@@ -21,9 +21,9 @@ public class MuniController {
     public MuniController(MuniServices muniServices) {
         this.muniServices = muniServices;
     }
-    @PostMapping("/crear")
-    public ResponseEntity<MuniDto> crearMuni(@Valid @RequestBody MuniDto muniDto) {
-        MuniDto entity = muniServices.crearMuniDto(muniDto);
-        return ResponseEntity.ok(entity);
+    @GetMapping("/municipios")
+    public ResponseEntity<List<MuniDto>> listartodos(){
+        List<MuniDto> municipios = muniServices.listartodos();
+        return ResponseEntity.ok(municipios);
     }
 }
