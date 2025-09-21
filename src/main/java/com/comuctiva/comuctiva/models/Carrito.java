@@ -30,7 +30,7 @@ private String cantidad;
 private Timestamp fecha_agre;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usua"))
+    @JoinColumn(name = "Id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usuariossssss"))
     private Usuario usuario;
 
     @OneToMany(mappedBy = "carrito")

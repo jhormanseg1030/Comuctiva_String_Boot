@@ -22,14 +22,6 @@ public class MuniServicesImple implements MuniServices {
         this.muniRepositories = muniRepositories;
         this.muniMapper = muniMapper;
     }
-
-    @Override
-    public MuniDto crearMuniDto(MuniDto muniDto){
-        Muni muni = muniMapper.toMuni(muniDto);
-        Muni muniGuardado = muniRepositories.save(muni);
-        return muniMapper.toMuniDto(muniGuardado);
-    }
-
     @Override
     public MuniDto muniPorId(Integer id){
         return muniRepositories.findById(id)

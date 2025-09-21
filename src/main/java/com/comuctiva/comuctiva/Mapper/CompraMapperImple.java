@@ -1,12 +1,9 @@
     package com.comuctiva.comuctiva.Mapper;
 
-    import java.util.ArrayList;
-    import java.util.List;
-
-    import org.springframework.stereotype.Component;
-
-    import com.comuctiva.comuctiva.Dto.CompraDto;
-    import com.comuctiva.comuctiva.models.Compra;
+import org.springframework.stereotype.Component;
+import com.comuctiva.comuctiva.Dto.CompraCreateDto;
+import com.comuctiva.comuctiva.Dto.CompraDto;
+import com.comuctiva.comuctiva.models.Compra;
 import com.comuctiva.comuctiva.models.Pedidos;
 import com.comuctiva.comuctiva.models.Tipo_De_Pago;
 import com.comuctiva.comuctiva.repositoryes.PedidoRepositorie;
@@ -26,18 +23,21 @@ import jakarta.persistence.EntityNotFoundException;
         }
 
         @Override
-        public Compra toCompra(CompraDto compraDto){
-            Compra compra = new Compra();
-            compra.setId_compra(compraDto.getId_comp());
-            compra.setTotal(compraDto.getTot());
-            compra.setRef_pago(compraDto.getRef_pag());
-            compra.setFec_com(compraDto.getFec_comp());
+        public Compra toCompra(CompraCreateDto compraCreateDto){
 
-            Tipo_De_Pago tipo_De_Pago = tipo_De_PagoRepositories.findById(compraDto.getId_tipago())
+            if (compraCreateDto == null) {
+                return null;
+            }
+            Compra compra = new Compra();
+            compra.setTotal(compraCreateDto.getTotal());
+            compra.setRef_pago(compraCreateDto.getReferencia_pago());
+            compra.setFec_com(compraCreateDto.getFecha_compra());
+
+            Tipo_De_Pago tipo_De_Pago = tipo_De_PagoRepositories.findById(compraCreateDto.getId_tipago())
             .orElseThrow(() -> new EntityNotFoundException("Tipo de pago no encontrado"));
             compra.setTipo_pago(tipo_De_Pago);
 
-            Pedidos pedido = pedidoRepositorie.findById(compraDto.getId_pedi())
+            Pedidos pedido = pedidoRepositorie.findById(compraCreateDto.getId_pedido())
             .orElseThrow(() -> new EntityNotFoundException("Pedido no encontrado"));
             compra.setPedido(pedido);
             return compra;
@@ -52,27 +52,5 @@ import jakarta.persistence.EntityNotFoundException;
                 compra.getFec_com(),
                 compra.getTipo_pago().getId_tipago(),
                 compra.getPedido().getId_pedido());
-        }
-
-        @Override
-        public List<CompraDto> toCompraDtoList(List<Compra>compras){
-            if (compras== null) {
-                return List.of();
-            }
-            List<CompraDto>compraDtos=new ArrayList<CompraDto>(compras.size());
-            for(Compra compra : compras){
-                compraDtos.add(toCompraDto(compra));
-            }
-            return compraDtos;
-        }
-        @Override
-        public void updateCompra(Compra compra, CompraDto compraDto){
-            if (compraDto == null) {
-                return;
-            }
-            compra.setId_compra(compraDto.getId_comp());
-            compra.setFec_com(compraDto.getFec_comp());
-            compra.setRef_pago(compraDto.getRef_pag());
-            compra.setTotal(compraDto.getTot());
         }
     }

@@ -6,8 +6,6 @@ import com.comuctiva.comuctiva.Dto.MuniDto;
 
 public interface MuniServices {
 
-    MuniDto crearMuniDto(MuniDto muniDto);
-
     MuniDto muniPorId(Integer id);
 
     List<MuniDto> listartodos();
