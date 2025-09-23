@@ -4,11 +4,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.comuctiva.comuctiva.Dto.CarritoCreateDto;
 import com.comuctiva.comuctiva.Dto.CarritoDto;
+import com.comuctiva.comuctiva.Dto.CarritoUpdateDto;
 import com.comuctiva.comuctiva.Mapper.CarritoMapper;
 import com.comuctiva.comuctiva.models.Carrito;
+import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.CarritoRepositories;
+import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -17,27 +22,32 @@ public class CarritoServicesImple implements CarritoServices {
 
     private final CarritoRepositories carritoRepositories;
     private final CarritoMapper carritoMapper;
+    private final UsuarioRepositories usuarioRepositories;
 
-    public CarritoServicesImple(CarritoRepositories carritoRepositories, CarritoMapper carritoMapper) {
+    public CarritoServicesImple(CarritoRepositories carritoRepositories, CarritoMapper carritoMapper, UsuarioRepositories usuarioRepositories) {
         this.carritoRepositories = carritoRepositories;
         this.carritoMapper = carritoMapper;
+        this.usuarioRepositories = usuarioRepositories;
     }
 
     @Override
-    public CarritoDto crearCarrito(CarritoDto carritoDto) {
-        Carrito carrito = carritoMapper.toCarrito(carritoDto);
+    @Transactional
+    public CarritoDto crearCarrito(CarritoCreateDto carritoCreateDto) {
+        Carrito carrito = carritoMapper.toCarrito(carritoCreateDto);
         Carrito carritoGuardado = carritoRepositories.save(carrito);
         return carritoMapper.toCarritoDto(carritoGuardado);
     }
 
     @Override
+    @Transactional()
     public CarritoDto carritoPorId(Integer id) {
-        return carritoRepositories.findById(id)
-                .map(carritoMapper::toCarritoDto)
+        Carrito carrito = carritoRepositories.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado"));
+                return carritoMapper.toCarritoDto(carrito);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CarritoDto> listartodos() {
         return carritoRepositories.findAll()
                 .stream()
@@ -47,6 +57,25 @@ public class CarritoServicesImple implements CarritoServices {
 
     @Override
     public void eliminarCarrito(Integer id) {
-        carritoRepositories.deleteById(id);
+        Carrito carritoElimi = carritoRepositories.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado con id: " + id));
+        carritoRepositories.save(carritoElimi);
+    }
+
+    @Override
+    @Transactional
+    public CarritoDto actualizarCarrito(CarritoUpdateDto carritoUpdateDto) {
+        Carrito carrito = carritoRepositories.findById(carritoUpdateDto.getId_carrit())
+                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado con id: "));
+
+        carrito.setCantidad(carritoUpdateDto.getCan());
+        carrito.setFecha_agre(carritoUpdateDto.getFec_agre());
+
+        Usuario usuario = usuarioRepositories.findById(carritoUpdateDto.getUsuId())
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+        carrito.setUsuario(usuario);
+
+        Carrito carritoGuardado = carritoRepositories.save(carrito);
+        return carritoMapper.toCarritoDto(carritoGuardado);
     }
 }

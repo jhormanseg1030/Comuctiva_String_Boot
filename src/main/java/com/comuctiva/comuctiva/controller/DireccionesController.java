@@ -48,7 +48,7 @@ public class DireccionesController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id_direc}")
     public ResponseEntity<DireccionesDto> obtenerId(@PathVariable Integer id_direc) {
         DireccionesDto direccion = direccionesServices.direccionPorId(id_direc);
         return ResponseEntity.ok(direccion);
@@ -60,7 +60,7 @@ public class DireccionesController {
         return ResponseEntity.ok(direcciones);
     }
     
-    @PutMapping("/{id}")
+    @PutMapping("/{id_direc}")
     public ResponseEntity<DireccionesDto> putActualizar(@PathVariable Integer id_direc, @RequestBody DireccionesUpdateDto direccUpdate) {
         direccUpdate.setId_direc(id_direc);
         DireccionesDto actualizado = direccionesServices.actualizarDireccion(direccUpdate);

@@ -1,10 +1,8 @@
 package com.comuctiva.comuctiva.Mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
+import com.comuctiva.comuctiva.Dto.CarritoCreateDto;
 import com.comuctiva.comuctiva.Dto.CarritoDto;
 import com.comuctiva.comuctiva.models.Carrito;
 import com.comuctiva.comuctiva.models.Usuario;
@@ -21,13 +19,15 @@ public class CarritoMapperImple implements CarritoMapper{
         this.usuarioRepositories=usuarioRepositories;
     }
     @Override
-    public Carrito toCarrito(CarritoDto carritoDto){
+    public Carrito toCarrito(CarritoCreateDto carritoCreateDto){
+        if (carritoCreateDto == null) {
+            return null;
+        }
         Carrito carrito = new Carrito();
-        carrito.setId_carrito(carritoDto.getId_carrit());
-        carrito.setCantidad(carritoDto.getCan());
-        carrito.setFecha_agre(carritoDto.getFec_agre());
+        carrito.setCantidad(carritoCreateDto.getCan());
+        carrito.setFecha_agre(carritoCreateDto.getFec_agre());
 
-        Usuario usuario = usuarioRepositories.findById(carritoDto.getUsuId())
+        Usuario usuario = usuarioRepositories.findById(carritoCreateDto.getUsuId())
         .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
         carrito.setUsuario(usuario);
         return carrito;
@@ -41,25 +41,5 @@ public class CarritoMapperImple implements CarritoMapper{
             carrito.getFecha_agre(),
             carrito.getUsuario().getId_Usuario());
         
-    }
-    @Override
-    public List<CarritoDto> toCarritoDtoList(List<Carrito>carritos){
-        if (carritos== null) {
-            return List.of();
-        }
-        List<CarritoDto>carritoDtos=new ArrayList<CarritoDto>(carritos.size());
-        for(Carrito carrito : carritos){
-            carritoDtos.add(toCarritoDto(carrito));
-        }
-        return carritoDtos;
-    }
-    @Override
-    public void updateCarrito(Carrito carrito, CarritoDto carritoDto){
-        if (carritoDto == null ) {
-            return;
-        }
-        carrito.setId_carrito(carritoDto.getId_carrit());
-        carrito.setCantidad(carritoDto.getCan());
-        carrito.setFecha_agre(carritoDto.getFec_agre());
     }
 }
