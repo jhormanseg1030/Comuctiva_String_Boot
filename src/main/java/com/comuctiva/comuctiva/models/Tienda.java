@@ -32,26 +32,14 @@ public class Tienda {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Integer ID_Tienda;
 
-@Column (length = 50)
-private String NombreT;
+        @Column (length = 50)
+        private String NombreT;
+        
+        @Column(length = 50)
+        private String Log;
 
-//@OneToOne(cascade = CascadeType.ALL)
-//@JoinTable(name = "Tienda-Direcciones",
-        //joinColumns = @JoinColumn(name = "ID_Tienda"),
-        //inverseJoinColumns = @JoinColumn(name = "ID_Direcc"))
-   // private List<Direcciones>direcciones =new ArrayList<Direcciones>();
-
-@Column(length = 50)
-private String Log;
-
-//@ManyToOne(cascade = CascadeType.ALL)
-//@JoinTable(name = "Tienda-R_Social",
-//joinColumns = @JoinColumn(name = "ID_Tienda"),
-//inverseJoinColumns = @JoinColumn(name = "ID_R_Social"))
-//private List<R_Social>r_social =new ArrayList<R_Social>();
-
-@ManyToOne(cascade = CascadeType.ALL)
-@JoinColumn(name = "Id_Direcc", nullable = false, foreignKey = @ForeignKey(name = "FK_Direcc"))
-private Direcciones direcciones;
+        @ManyToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "Id_Direcc", nullable = false, foreignKey = @ForeignKey(name = "FK_Direcc"))
+        private Direcciones direcciones;
 
 }

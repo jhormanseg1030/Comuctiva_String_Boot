@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
 @RestController
 @RequestMapping("api/barrio")
 public class BarrioController {
@@ -48,7 +45,7 @@ public class BarrioController {
         }
     }
     
-    @GetMapping("/{id}")
+    @GetMapping("/{id_barr}")
     public ResponseEntity<BarrioDto> obtenerporId(@PathVariable Integer id_barr){
         BarrioDto barrio = barrioServices.barrioPorId(id_barr);
         return ResponseEntity.ok(barrio);
@@ -60,8 +57,8 @@ public class BarrioController {
         return ResponseEntity.ok(barrios);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<BarrioDto> putActualizar(@PathVariable Integer id_barr,@Valid @RequestBody BarrioUpdateDto barrioUp ) {
+    @PutMapping("/{id_barr}")
+    public ResponseEntity<BarrioDto> putActualizar(@PathVariable Integer id_barr,@RequestBody BarrioUpdateDto barrioUp ) {
         barrioUp.setId_barr(id_barr);
         BarrioDto actualizado = barrioServices.actualizarBarrio(barrioUp);
         return ResponseEntity.ok(actualizado);

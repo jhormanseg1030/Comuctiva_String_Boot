@@ -1,10 +1,8 @@
 package com.comuctiva.comuctiva.Mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
+import com.comuctiva.comuctiva.Dto.ProductoCreateDto;
 import com.comuctiva.comuctiva.Dto.ProductoDto;
 import com.comuctiva.comuctiva.models.Producto;
 import com.comuctiva.comuctiva.models.Tienda;
@@ -26,20 +24,19 @@ public class ProductoMapperImple implements ProductoMapper{
    }
 
    @Override
-   public Producto toProducto(ProductoDto productoDto){
+   public Producto toProducto(ProductoCreateDto productoCreateDto){
       Producto producto = new Producto();
-      producto.setId_producto(productoDto.getId_pro());
-      producto.setNomprod(productoDto.getNopro());
-      producto.setValor(productoDto.getValoor());
-      producto.setCant(productoDto.getCantid());
-      producto.setImagen(productoDto.getImage());
-      producto.setDescrip(productoDto.getDescri());
+      producto.setNomprod(productoCreateDto.getNombre_Producto());
+      producto.setValor(productoCreateDto.getValor());
+      producto.setCant(productoCreateDto.getCantidad());
+      producto.setImagen(productoCreateDto.getImagen());
+      producto.setDescrip(productoCreateDto.getDescripcion());
 
-      Tienda tienda = tiendaRepositories.findById(productoDto.getId_tien())
+      Tienda tienda = tiendaRepositories.findById(productoCreateDto.getId_tienda())
       .orElseThrow(() -> new EntityNotFoundException("Tienda no encontrada"));
       producto.setTienda(tienda);
 
-      Unidad_Medida unidad_Medida = unidad_MedidaRepositories.findById(productoDto.getId_medi())
+      Unidad_Medida unidad_Medida = unidad_MedidaRepositories.findById(productoCreateDto.getId_medida())
       .orElseThrow(() -> new EntityNotFoundException("Unidad de medida no encontrada"));
       producto.setUnidad_Medida(unidad_Medida);
       return producto;
@@ -58,28 +55,4 @@ public class ProductoMapperImple implements ProductoMapper{
          producto.getTienda().getID_Tienda()
       );
    }
-   @Override
-   public List<ProductoDto> toProductoDtoList(List<Producto>product){
-      if(product==null){
-         return List.of();
-      }
-      List<ProductoDto> productoDtos=new ArrayList<ProductoDto>(product.size());
-      for(Producto producto : product){
-         productoDtos.add(toProductoDto(producto));
-      }
-      return productoDtos;
-   }
-   @Override
-   public  void updateProducto(Producto producto, ProductoDto productoDto){
-      if (productoDto==null) {
-         return;
-      }
-      producto.setId_producto(productoDto.getId_pro());
-      producto.setNomprod(productoDto.getNopro());
-      producto.setValor(productoDto.getValoor());
-      producto.setCant(productoDto.getCantid());
-      producto.setImagen(productoDto.getImage());
-      producto.setDescrip(productoDto.getDescri());
-   }
-
 }
