@@ -1,8 +1,8 @@
 package com.comuctiva.comuctiva.models;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,11 +24,11 @@ public class Guia_Envio {
     @Column (length=50)
     private String fec_env;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_Transpor", nullable = false, foreignKey = @ForeignKey(name = "FK_Transpor"))
     private Transportadora transportadora;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id_Obser", nullable = false, foreignKey = @ForeignKey(name = "FK_Obser"))
     private Obser obser;
 }

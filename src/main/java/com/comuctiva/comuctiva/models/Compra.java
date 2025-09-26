@@ -3,9 +3,9 @@ package com.comuctiva.comuctiva.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,11 +31,11 @@ public class Compra {
     private String ref_pago;
     private LocalDateTime fec_com;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "id_pedido", nullable = false, foreignKey = @ForeignKey(name = "FK_Pedido"))
     private Pedidos pedido;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "id_TiPago", nullable = false, foreignKey = @ForeignKey(name = "FK_TiPago"))
     private Tipo_De_Pago tipo_pago;
 

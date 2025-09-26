@@ -29,8 +29,7 @@ public class Unidad_MedidaController {
         }).toList();
     }
     
-
-    @GetMapping("/api/unidad_medida")
+    @GetMapping
     public List<Unidad_Medida> getMethodName() {
         return unidad_medidaRepo.findAll();
     }
