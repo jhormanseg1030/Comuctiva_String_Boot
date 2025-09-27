@@ -1,5 +1,7 @@
 package com.comuctiva.comuctiva.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +14,8 @@ import com.comuctiva.comuctiva.Dto.Guia_EnvioDto;
 import com.comuctiva.comuctiva.services.Guia_EnvioServices;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("api/guia_envio")
@@ -27,4 +31,10 @@ public class Guia_envioController {
         Guia_EnvioDto nuevaGuia_Envio = guia_EnvioServices.crearGuia_Envio(guia_EnvioCrearDtos);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaGuia_Envio);
     }
+    @GetMapping
+    public ResponseEntity<List<Guia_EnvioDto>> listarGuia() {
+        List<Guia_EnvioDto> guia = guia_EnvioServices.listartodos();
+        return ResponseEntity.ok(guia);
+    }
+    
 }

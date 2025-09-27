@@ -50,6 +50,7 @@ public class CarritoController {
         CarritoDto carrito = carritoServices.carritoPorId(id_carrit);
         return ResponseEntity.ok(carrito);
     }
+
     @GetMapping
     public ResponseEntity<List<CarritoDto>> listar(){
         List<CarritoDto> carrito = carritoServices.listartodos();
