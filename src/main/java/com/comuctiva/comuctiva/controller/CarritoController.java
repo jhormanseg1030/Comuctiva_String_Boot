@@ -30,7 +30,7 @@ public class CarritoController {
         this.carritoServices = carritoServices;
     }
 
-    @PostMapping("/cre")
+    @PostMapping
     public ResponseEntity<?> crearCarrito(@Valid @RequestBody CarritoCreateDto carritoCreateDto) {
         try{
             CarritoDto carrito = carritoServices.crearCarrito(carritoCreateDto);

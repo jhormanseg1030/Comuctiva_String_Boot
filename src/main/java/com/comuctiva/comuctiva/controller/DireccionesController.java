@@ -33,7 +33,7 @@ public class DireccionesController {
         this.direccionesServices = direccionesServices;
     }
 
-    @PostMapping("/crear")
+    @PostMapping
     public ResponseEntity<?> crearDireccion( @Valid @RequestBody DireccionesCreateDto direccionesCreateDto) {
         try{
         DireccionesDto nuevaDireccion = direccionesServices.crearDireccion(direccionesCreateDto);

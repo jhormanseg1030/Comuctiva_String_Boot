@@ -31,7 +31,7 @@ public class CompraController {
         this.compraServices = compraServices;
     }
 
-    @PostMapping("/realizarcompra")
+    @PostMapping
     public ResponseEntity<?> realizarCompra(@Valid @RequestBody CompraCreateDto compraCreateDto) {
         try{
             CompraDto compra = compraServices.crearCompra(compraCreateDto);

@@ -32,7 +32,7 @@ public class TiendaController {
         this.tiendaServices = tiendaServices;
     }
 
-    @PostMapping("/crear")
+    @PostMapping
     public ResponseEntity<?> crearTienda(@Valid @RequestBody TiendaCreateDto tiendaCreateDto) {
         try{
             TiendaDto tienda = tiendaServices.crearTienda(tiendaCreateDto);
