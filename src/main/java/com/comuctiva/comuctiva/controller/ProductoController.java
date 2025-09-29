@@ -30,7 +30,7 @@ public class ProductoController {
         this.productoServices = productoServices;
     }
 
-    @PostMapping("/crear")
+    @PostMapping
     public ResponseEntity<?> crearProducto(@Valid @RequestBody ProductoCreateDto productoCreateDto) {
         try{
             ProductoDto producto = productoServices.crearProducto(productoCreateDto);

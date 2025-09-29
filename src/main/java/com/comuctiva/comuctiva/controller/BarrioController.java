@@ -30,6 +30,7 @@ public class BarrioController {
         this.barrioServices = barrioServices;
     }
 
+    //crear barrio
     @PostMapping("/crear")
     public ResponseEntity<?> crearBarrio( @Valid @RequestBody BarrioCreateDto barrioCreateDto) {
         try{
@@ -45,18 +46,21 @@ public class BarrioController {
         }
     }
     
+    //consultar barrio por id
     @GetMapping("/{id_barr}")
     public ResponseEntity<BarrioDto> obtenerporId(@PathVariable Integer id_barr){
         BarrioDto barrio = barrioServices.barrioPorId(id_barr);
         return ResponseEntity.ok(barrio);
     }
     
+    //listar barrios
     @GetMapping
     public ResponseEntity<List<BarrioDto>> listar(){
         List<BarrioDto> barrios = barrioServices.listartodos();
         return ResponseEntity.ok(barrios);
     }
 
+    //actualizar barrio
     @PutMapping("/{id_barr}")
     public ResponseEntity<BarrioDto> putActualizar(@PathVariable Integer id_barr,@RequestBody BarrioUpdateDto barrioUp ) {
         barrioUp.setId_barr(id_barr);

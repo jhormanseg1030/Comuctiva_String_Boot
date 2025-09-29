@@ -21,7 +21,8 @@ public class MuniController {
     public MuniController(MuniServices muniServices) {
         this.muniServices = muniServices;
     }
-    @GetMapping("/municipios")
+
+    @GetMapping
     public ResponseEntity<List<MuniDto>> listartodos(){
         List<MuniDto> municipios = muniServices.listartodos();
         return ResponseEntity.ok(municipios);

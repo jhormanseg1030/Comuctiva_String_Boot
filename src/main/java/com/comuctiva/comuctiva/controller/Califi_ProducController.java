@@ -32,7 +32,7 @@ public class Califi_ProducController {
         this.califi_ProducServices = califi_ProducServices;
     }
 
-    @PostMapping("/crear")
+    @PostMapping
     public ResponseEntity<?> crearCalifi_Produc(@Valid @RequestBody Califi_ProduCreateDto califi_ProduCreateDto) {
         try{
             Califi_ProduDto califi_Produ = califi_ProducServices.crearCalif_Produ(califi_ProduCreateDto);
