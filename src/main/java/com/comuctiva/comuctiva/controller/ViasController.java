@@ -10,7 +10,6 @@ import com.comuctiva.comuctiva.Dto.ViasDto;
 import com.comuctiva.comuctiva.models.Vias;
 import com.comuctiva.comuctiva.repositoryes.ViasRepositories;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
