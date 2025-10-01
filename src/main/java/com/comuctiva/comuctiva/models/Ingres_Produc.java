@@ -28,5 +28,4 @@ public class Ingres_Produc {
     @JoinColumn(name = "producto_id", foreignKey = @ForeignKey(name = "FK_producto_ingresos2"))
     private Producto producto;
     private Short cant;
-    private Double valor;
 }
