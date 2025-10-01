@@ -11,8 +11,4 @@ public interface PedidosMapper {
     Pedidos toPedidos(PedidoCreateDto pediCreDto);
 
     PedidosDto toPedidosDto(Pedidos pedidos);
-
-    // List<PedidosDto>toPedidosDtoList(List<Pedidos>pedi);
-    
-    // void updatePedidos(Pedidos pedidos, PedidosDto pedidosDto);
 }

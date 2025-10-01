@@ -60,24 +60,4 @@ public class PedidosMapperImple implements PedidosMapper{
             pedidos.getGuia_envio() != null ? pedidos.getGuia_envio().getId_guia() : null,
             pedidos.getEstado() !=null ? pedidos.getEstado().getId_estado() : null);
     }
-
-    // @Override
-    // public List<PedidosDto> toPedidosDtoList(List<Pedidos>pedi){
-    //     if(pedi== null){
-    //         return List.of();
-    //     }
-    //     List<PedidosDto>pediDtos = new ArrayList<PedidosDto>(pedi.size());
-    //     for(Pedidos pedidos : pedi){
-    //         pediDtos.add(toPedidosDto(pedidos));
-    //     }
-    //     return pediDtos;
-    // }
-    // @Override
-    // public void updatePedidos(Pedidos pedidos, PedidosDto pedidosDto){
-    //     if (pedidosDto==null) {
-    //         return;
-    //     }
-    //     pedidos.setId_pedido(pedidosDto.getId_pe());
-    //     pedidos.setFehor_pedi(pedidosDto.getFh_p());
-    // }
 }
