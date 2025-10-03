@@ -27,4 +27,6 @@ public class Produc_Carri {
     @MapsId ("carritoId")
     @JoinColumn(name = "carrito_id", foreignKey = @ForeignKey(name = "FK_producto_carritos"))
     private Carrito carrito;
+    
+    private String nomprod;
 }
