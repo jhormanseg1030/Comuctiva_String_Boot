@@ -19,12 +19,12 @@ public class Tip_DocController {
     @Autowired
     private Tip_DocRepositories tipdocRepo;
 
-    @GetMapping("/listtipdoc")
+    @GetMapping("/tipdocList")
     public List<Tip_DocDto> gettip_doc(){
         return tipdocRepo.findAll().stream().map(tip_doc -> {
             Tip_DocDto tipdocdto = new Tip_DocDto();
-            tipdocdto.setId_tipdo(tipdocdto.getId_tipdo());
-            tipdocdto.setTipo(tipdocdto.getTipo());
+            tipdocdto.setId_tipdo(tip_doc.getId_tipdocu());
+            tipdocdto.setTipo(tip_doc.getTipo());
             return tipdocdto;
         }).toList();
     }

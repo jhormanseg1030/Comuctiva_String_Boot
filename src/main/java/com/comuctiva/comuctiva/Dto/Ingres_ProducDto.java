@@ -15,6 +15,7 @@ public class Ingres_ProducDto {
 
     @NotNull(message = "El ID de la compra no puede ser nulo")
     private Integer id_Producto;
+    private String nombre_producto;
 
     private Short cantidad;
 }
