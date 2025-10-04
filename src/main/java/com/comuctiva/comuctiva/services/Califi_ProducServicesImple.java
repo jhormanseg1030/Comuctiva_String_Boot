@@ -10,7 +10,7 @@ import com.comuctiva.comuctiva.Dto.Califi_ProduCreateDto;
 import com.comuctiva.comuctiva.Dto.Califi_ProduDto;
 import com.comuctiva.comuctiva.Dto.CalificacionUpdateDto;
 import com.comuctiva.comuctiva.Mapper.Califi_ProducMapper;
-import com.comuctiva.comuctiva.models.Calilficaciones_produc;
+import com.comuctiva.comuctiva.models.Calificaciones_produc;
 import com.comuctiva.comuctiva.models.Producto;
 import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.Calificaciones_producRespositories;
@@ -35,15 +35,15 @@ public class Califi_ProducServicesImple implements Califi_ProducServices {
     @Override
     @Transactional
     public Califi_ProduDto crearCalif_Produ(Califi_ProduCreateDto califi_ProduCreateDto) {
-        Calilficaciones_produc califi = califi_ProducMapper.toCalilficaciones_produc(califi_ProduCreateDto);
-        Calilficaciones_produc califiGuardado = califi_Respository.save(califi);
+        Calificaciones_produc califi = califi_ProducMapper.toCalilficaciones_produc(califi_ProduCreateDto);
+        Calificaciones_produc califiGuardado = califi_Respository.save(califi);
         return califi_ProducMapper.toCalifi_ProduDto(califiGuardado);
     }
 
     @Override
     @Transactional()
     public Califi_ProduDto califi_ProduPorId(Integer id) {
-        Calilficaciones_produc califi_Produ = califi_Respository.findById(id)
+        Calificaciones_produc califi_Produ = califi_Respository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Califi_Produ no encontrado con id:"));
         return califi_ProducMapper.toCalifi_ProduDto(califi_Produ);
     }
@@ -59,7 +59,7 @@ public class Califi_ProducServicesImple implements Califi_ProducServices {
 
     @Override
     public void eliminarCalif_Produ(Integer id) {
-        Calilficaciones_produc califi_ProduDtoElimi = califi_Respository.findById(id)
+        Calificaciones_produc califi_ProduDtoElimi = califi_Respository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Califi_Produ no encontrado con id: " + id));
         califi_Respository.save(califi_ProduDtoElimi);
     }
@@ -67,7 +67,7 @@ public class Califi_ProducServicesImple implements Califi_ProducServices {
     @Override
     @Transactional
     public Califi_ProduDto actualizarCalif_Produ(CalificacionUpdateDto califiUpdate) {
-        Calilficaciones_produc califi_Produ = califi_Respository.findById(califiUpdate.getId_califi())
+        Calificaciones_produc califi_Produ = califi_Respository.findById(califiUpdate.getId_califi())
                 .orElseThrow(() -> new IllegalStateException("Califi_Produ no encontrado con id: "));
 
         califi_Produ.setComentario(califiUpdate.getComent());
@@ -82,7 +82,7 @@ public class Califi_ProducServicesImple implements Califi_ProducServices {
                 .orElseThrow(() -> new IllegalStateException("Usuario no encontrado"));
         califi_Produ.setUsuario(usuario);
 
-        Calilficaciones_produc califi_ProduDtoGuardado = califi_Respository.save(califi_Produ);
+        Calificaciones_produc califi_ProduDtoGuardado = califi_Respository.save(califi_Produ);
         return califi_ProducMapper.toCalifi_ProduDto(califi_ProduDtoGuardado);
     }
 }

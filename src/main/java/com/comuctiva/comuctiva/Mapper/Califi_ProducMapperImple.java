@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.comuctiva.comuctiva.Dto.Califi_ProduCreateDto;
 import com.comuctiva.comuctiva.Dto.Califi_ProduDto;
-import com.comuctiva.comuctiva.models.Calilficaciones_produc;
+import com.comuctiva.comuctiva.models.Calificaciones_produc;
 import com.comuctiva.comuctiva.models.Producto;
 import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.ProductoRepositorie;
@@ -24,12 +24,12 @@ public class Califi_ProducMapperImple implements Califi_ProducMapper {
     }
 
     @Override
-    public Calilficaciones_produc toCalilficaciones_produc(Califi_ProduCreateDto califi_ProduCreateDto){
+    public Calificaciones_produc toCalilficaciones_produc(Califi_ProduCreateDto califi_ProduCreateDto){
         if (califi_ProduCreateDto == null) {
             return null;
         }
 
-        Calilficaciones_produc calilficaciones_produc = new Calilficaciones_produc();
+        Calificaciones_produc calilficaciones_produc = new Calificaciones_produc();
         calilficaciones_produc.setComentario(califi_ProduCreateDto.getComent());
         calilficaciones_produc.setFecha_calificacion(califi_ProduCreateDto.getFec_calif());
         calilficaciones_produc.setEstrellas(califi_ProduCreateDto.getEstre());
@@ -45,7 +45,7 @@ public class Califi_ProducMapperImple implements Califi_ProducMapper {
     }
 
     @Override
-    public Califi_ProduDto toCalifi_ProduDto(Calilficaciones_produc calilficaciones_produc){
+    public Califi_ProduDto toCalifi_ProduDto(Calificaciones_produc calilficaciones_produc){
         return new Califi_ProduDto(
             calilficaciones_produc.getId_calificaciones(),
             calilficaciones_produc.getComentario(),
