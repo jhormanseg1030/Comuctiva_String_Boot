@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-public class Calilficaciones_produc {
+public class Calificaciones_produc {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Integer id_calificaciones;

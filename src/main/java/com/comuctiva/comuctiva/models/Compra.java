@@ -26,7 +26,7 @@ public class Compra {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id_compra;
-    private Short total;
+    private Double total;
     @Column (length = 30)
     private String ref_pago;
     private LocalDateTime fec_com;

@@ -32,3 +32,4 @@ public class Guia_Envio {
     @JoinColumn(name = "Id_Obser", nullable = false, foreignKey = @ForeignKey(name = "FK_Obser"))
     private Obser obser;
 }
+

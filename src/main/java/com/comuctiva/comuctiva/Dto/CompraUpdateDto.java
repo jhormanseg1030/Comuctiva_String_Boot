@@ -11,7 +11,7 @@ public class CompraUpdateDto {
     @NotNull
     private Integer id_compra;
     @NotBlank
-    private Short total;
+    private Double total;
     private String referencia_pago;
     private LocalDateTime fecha_compra;
     @NotNull
