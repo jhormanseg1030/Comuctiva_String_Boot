@@ -15,6 +15,7 @@ public class UsuarioCreateDto {
     private String correo;
     private Short numdocumento;
     private String password;
+    
     @NotNull
     private Integer tipDocumenId;
 }
