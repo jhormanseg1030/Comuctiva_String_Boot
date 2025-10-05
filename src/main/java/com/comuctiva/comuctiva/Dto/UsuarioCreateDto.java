@@ -17,5 +17,5 @@ public class UsuarioCreateDto {
     private String password;
     
     @NotNull
-    private Integer tipDocumenId;
+    private Integer tipId;
 }

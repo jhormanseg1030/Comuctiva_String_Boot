@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +29,8 @@ public class UsuarioController {
         this.usuarioServices = usuarioServices;
     }
     
-    @PostMapping("/crear")
-    public ResponseEntity<?> crearUsuario(@Valid @RequestBody UsuarioCreateDto usuarioCreate) {
+    @PostMapping
+    public ResponseEntity<?> crear(@Valid @RequestBody UsuarioCreateDto usuarioCreate) {
         try{
             UsuarioDto usuario = usuarioServices.crearUsuario(usuarioCreate);
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -42,6 +43,7 @@ public class UsuarioController {
             .body(Map.of("Error", "Error al crear un usuario, por favor vuelva a intentar", "Detalles", ex.getMessage()));
         }
     }
+
     @GetMapping("/{id_Usuario}")
     public ResponseEntity<UsuarioDto> obtenerId(@PathVariable Integer id_Usuario) {
         UsuarioDto usuario = usuarioServices.buscarPorId(id_Usuario);
@@ -57,5 +59,11 @@ public class UsuarioController {
         uptadeUsu.setId_us(id_Usuario);
         UsuarioDto actualizar = usuarioServices.actualizarUsuario(uptadeUsu);
         return ResponseEntity.ok(actualizar);
+    }
+
+    @DeleteMapping("/{id_Usuario}")
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable Integer id_Usuario) {
+        usuarioServices.eliminarUsuario(id_Usuario);
+        return ResponseEntity.ok().build();
     }
 }

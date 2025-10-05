@@ -34,7 +34,7 @@ public class UsuarioMapperImple implements UsuarioMapper{
         usuario.setNumDoc(usuaCreDto.getNumdocumento());
         usuario.setPassword(usuaCreDto.getPassword());
         
-        Tip_Doc tip_Doc = tip_DocRepositories.findById(usuaCreDto.getTipDocumenId())
+        Tip_Doc tip_Doc = tip_DocRepositories.findById(usuaCreDto.getTipId())
         .orElseThrow(() -> new EntityNotFoundException("Tipo de documento no encontrado"));
         usuario.setTip_Doc(tip_Doc);
         return usuario;
@@ -54,6 +54,7 @@ public class UsuarioMapperImple implements UsuarioMapper{
             usuario.getCorreo(),
             usuario.getNumDoc(),
             usuario.getPassword(),
-            usuario.getTip_Doc() != null ? usuario.getTip_Doc().getId_tipdocu() : null);
+            usuario.getTip_Doc() != null ? usuario.getTip_Doc().getId_tipdocu() : null,
+            usuario.getTip_Doc() != null ? usuario.getTip_Doc().getTipo() : null);
     }
 }
