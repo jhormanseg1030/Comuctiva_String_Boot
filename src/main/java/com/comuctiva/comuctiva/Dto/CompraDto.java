@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class CompraDto {
     private Integer id_comp;
-    private Short tot;
+    private Double tot;
     private String ref_pag;
     private LocalDateTime fec_comp;
     private Integer id_tipago;

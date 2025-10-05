@@ -10,7 +10,7 @@ import lombok.Data;
 public class CompraCreateDto {
 
     @NotBlank
-    private Short total;
+    private Double total;
     private String referencia_pago;
     private LocalDateTime fecha_compra;
 
