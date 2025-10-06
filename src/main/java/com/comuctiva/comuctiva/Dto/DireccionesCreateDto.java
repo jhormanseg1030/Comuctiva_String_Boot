@@ -14,6 +14,6 @@ public class DireccionesCreateDto {
     @NotNull
     private Integer barrioId;
     private Integer usuariosId;
-    private Integer viasId;
+    private Integer viasId; 
     
 }

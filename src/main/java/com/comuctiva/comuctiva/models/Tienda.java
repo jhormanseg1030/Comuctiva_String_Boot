@@ -29,7 +29,7 @@ private Integer ID_Tienda;
         private String NombreT;
         
         @Column(length = 50)
-        private String Log;
+        private String Logo;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "Id_Direcc", nullable = false, foreignKey = @ForeignKey(name = "FK_Direcc"))

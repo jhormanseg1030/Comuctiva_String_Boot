@@ -24,7 +24,7 @@ public class TiendaMapperImple implements TiendaMapper {
         }
             Tienda tienda = new Tienda();
             tienda.setNombreT(tiendaCreateDto.getNomti());
-            tienda.setLog(tiendaCreateDto.getLoogo());
+            tienda.setLogo(tiendaCreateDto.getLoogo());
 
             Direcciones direcciones = direccionesRepositories.findById(tiendaCreateDto.getDireccId())
             .orElseThrow(()-> new EntityNotFoundException("Direcciones no encontrado con id:"));
@@ -37,7 +37,7 @@ public class TiendaMapperImple implements TiendaMapper {
         return new TiendaDto(
             tienda.getID_Tienda(),
             tienda.getNombreT(),
-            tienda.getLog(),
+            tienda.getLogo(),
             tienda.getDirecciones().getId_direcc());
     }
 }

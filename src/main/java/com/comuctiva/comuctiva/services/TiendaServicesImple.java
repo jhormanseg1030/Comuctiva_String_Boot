@@ -67,7 +67,7 @@ public class TiendaServicesImple implements TiendaServices {
             .orElseThrow(() -> new IllegalStateException("Tienda no encontrada con id: "));
 
         tienda.setNombreT(tiendaUpdateDto.getNomti());
-        tienda.setLog(tiendaUpdateDto.getLoogo());
+        tienda.setLogo(tiendaUpdateDto.getLoogo());
 
         Direcciones direcciones = direccionesRepositories.findById(tiendaUpdateDto.getDireccId())
             .orElseThrow(() -> new IllegalStateException("Direcciones no encontrada con id:"));
