@@ -35,7 +35,7 @@ public class Usuario {
     private Long tel2;
     @Column(length = 50)
     private String correo;
-    private Short numDoc;
+    private Long numDoc;
     private String password;
     
     @ManyToOne(fetch = FetchType.LAZY)

@@ -38,10 +38,6 @@ public class Producto {
     @Column (nullable = false, length = 50)
     private String descrip;
 
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "ID_Tienda", nullable = false, foreignKey = @ForeignKey(name = "FK_Tienda"))
-    private Tienda tienda;
-
     @OneToMany(mappedBy = "producto")
     private List<Ingres_Produc> ingre;
 

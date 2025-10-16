@@ -15,5 +15,4 @@ public class ProductoDto {
     private String image;
     private String descri;
     private Integer id_medi;
-    private Integer id_tien;
 }

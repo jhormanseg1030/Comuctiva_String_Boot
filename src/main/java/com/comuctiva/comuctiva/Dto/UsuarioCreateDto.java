@@ -13,7 +13,7 @@ public class UsuarioCreateDto {
     private Long telefono;
     private Long telefono2;
     private String correo;
-    private Short numdocumento;
+    private Long numdocumento;
     private String password;
     
     @NotNull

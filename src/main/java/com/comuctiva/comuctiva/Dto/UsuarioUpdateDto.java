@@ -15,7 +15,7 @@ public class UsuarioUpdateDto {
     private Long telefo;
     private Long telefo2;
     private String corr;
-    private Short numdocument;
+    private Long numdocument;
     private String passwo;
     @NotNull
     private Integer tipDocuId;

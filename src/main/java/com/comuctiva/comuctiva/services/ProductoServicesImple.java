@@ -11,10 +11,8 @@ import com.comuctiva.comuctiva.Dto.ProductoDto;
 import com.comuctiva.comuctiva.Dto.ProductoUpdateDto;
 import com.comuctiva.comuctiva.Mapper.ProductoMapper;
 import com.comuctiva.comuctiva.models.Producto;
-import com.comuctiva.comuctiva.models.Tienda;
 import com.comuctiva.comuctiva.models.Unidad_Medida;
 import com.comuctiva.comuctiva.repositoryes.ProductoRepositorie;
-import com.comuctiva.comuctiva.repositoryes.TiendaRepositories;
 import com.comuctiva.comuctiva.repositoryes.Unidad_MedidaRepositories;
 
 @Service
@@ -23,13 +21,11 @@ public class ProductoServicesImple implements ProductoServices {
     private final ProductoRepositorie productoRepositorie;
     private final ProductoMapper productoMapper;
     private final Unidad_MedidaRepositories unidad_MedidaRepositories;
-    private final TiendaRepositories tiendaRepositories;
 
-    public ProductoServicesImple(ProductoRepositorie productoRepositorie, ProductoMapper productoMapper, Unidad_MedidaRepositories unidad_MedidaRepositories, TiendaRepositories tiendaRepositories) {
+    public ProductoServicesImple(ProductoRepositorie productoRepositorie, ProductoMapper productoMapper, Unidad_MedidaRepositories unidad_MedidaRepositories) {
         this.productoRepositorie = productoRepositorie;
         this.productoMapper = productoMapper;
         this.unidad_MedidaRepositories = unidad_MedidaRepositories;
-        this.tiendaRepositories = tiendaRepositories;
     }
 
     @Override
@@ -75,10 +71,6 @@ public class ProductoServicesImple implements ProductoServices {
         producto.setCant(productoUpdateDto.getCantidad());
         producto.setImagen(productoUpdateDto.getImagen());
         producto.setDescrip(productoUpdateDto.getDescripcion());
-
-        Tienda tienda = tiendaRepositories.findById(productoUpdateDto.getId_tienda())
-                .orElseThrow(() -> new IllegalStateException("Tienda no encontrada"));
-        producto.setTienda(tienda);
 
         Unidad_Medida unidad_Medida = unidad_MedidaRepositories.findById(productoUpdateDto  .getId_medida())
                 .orElseThrow(() -> new IllegalStateException("Unidad de medida no encontrada"));

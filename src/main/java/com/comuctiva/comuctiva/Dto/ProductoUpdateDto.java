@@ -19,5 +19,4 @@ public class ProductoUpdateDto {
 
     @NotNull
     private Integer id_medida;
-    private Integer id_tienda;
 }
