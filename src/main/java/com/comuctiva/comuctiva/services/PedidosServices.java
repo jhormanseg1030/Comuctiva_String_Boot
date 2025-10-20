@@ -13,6 +13,7 @@ public interface PedidosServices {
     PedidosDto pedidosPorId(Integer id);
 
     List<PedidosDto> listartodos();
+    List<PedidosDto> listarPorDocumentoVendedor(String documento);
 
     void eliminarPedidos(Integer id);
 

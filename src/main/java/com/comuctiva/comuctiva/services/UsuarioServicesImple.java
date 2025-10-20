@@ -1,3 +1,5 @@
+    // ...existing code...
+
 package com.comuctiva.comuctiva.services;
 
 import java.util.List;
@@ -19,6 +21,21 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UsuarioServicesImple implements UsuarioServices {
+
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario buscarPorDocumento(String documento) {
+        Long numDoc;
+        try {
+            numDoc = Long.parseLong(documento);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Documento inválido");
+        }
+        return usuarioRepositories.findAll().stream()
+                .filter(u -> u.getNumDoc() != null && u.getNumDoc().equals(numDoc))
+                .findFirst()
+                .orElse(null);
+    }
 
     private final UsuarioRepositories usuarioRepositories;
     private final UsuarioMapper usuarioMapper;

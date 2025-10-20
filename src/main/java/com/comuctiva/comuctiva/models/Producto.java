@@ -1,7 +1,5 @@
 package com.comuctiva.comuctiva.models;
 
-
-
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -56,4 +54,8 @@ public class Producto {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_Medida", nullable = false, foreignKey = @ForeignKey(name = "FK_Unidad_Medida"))
     private Unidad_Medida unidad_Medida;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usuario_Producto"))
+    private Usuario usuario;
 }

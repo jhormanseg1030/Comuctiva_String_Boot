@@ -17,6 +17,7 @@ import com.comuctiva.comuctiva.services.PedidosServices;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -55,10 +56,11 @@ public class PedidosController {
         return ResponseEntity.ok(pedidos);
     }
 
-    //listar pedidos
+    //listar pedidos solo del usuario autenticado
     @GetMapping
-    public ResponseEntity<List<PedidosDto>> listartodos(){
-        List<PedidosDto> pedidos =pedidosServices.listartodos();
+    public ResponseEntity<List<PedidosDto>> listartodos(Authentication authentication){
+        String documento = authentication.getName();
+        List<PedidosDto> pedidos = pedidosServices.listarPorDocumentoVendedor(documento);
         return ResponseEntity.ok(pedidos);
     }
 

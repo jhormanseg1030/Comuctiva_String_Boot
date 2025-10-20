@@ -18,6 +18,9 @@ import com.comuctiva.comuctiva.Dto.UsuarioCreateDto;
 import com.comuctiva.comuctiva.Dto.UsuarioDto;
 import com.comuctiva.comuctiva.Dto.UsuarioUpdateDto;
 import com.comuctiva.comuctiva.services.UsuarioServices;
+import com.comuctiva.comuctiva.Dto.LoginRequest;
+import com.comuctiva.comuctiva.config.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.validation.Valid;
 
@@ -25,8 +28,22 @@ import jakarta.validation.Valid;
 @RequestMapping("api/usuario")
 public class UsuarioController {
     private final UsuarioServices usuarioServices;
+    @Autowired
+    private JwtUtil jwtUtil;
+
     public UsuarioController(UsuarioServices usuarioServices) {
         this.usuarioServices = usuarioServices;
+    }
+    // Endpoint de login que retorna el token JWT
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        // Busca el usuario por documento y valida la contraseña (ajusta según tu lógica real)
+        var usuario = usuarioServices.buscarPorDocumento(loginRequest.getDocumento());
+        if (usuario != null && usuario.getPassword().equals(loginRequest.getPassword())) {
+            String token = jwtUtil.generateToken(usuario.getNumDoc().toString());
+            return ResponseEntity.ok(Map.of("token", token, "usuario", usuario));
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
     }
     
     @PostMapping
