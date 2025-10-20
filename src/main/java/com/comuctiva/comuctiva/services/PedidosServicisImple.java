@@ -1,3 +1,5 @@
+    // ...existing code...
+
 package com.comuctiva.comuctiva.services;
 
 import java.util.List;
@@ -23,6 +25,21 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class PedidosServicisImple implements PedidosServices {
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PedidosDto> listarPorDocumentoVendedor(String documento) {
+        Long numDoc;
+        try {
+            numDoc = Long.parseLong(documento);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Documento inválido");
+        }
+        return pedidoRepositorie.findByUsuario_NumDoc(numDoc)
+                .stream()
+                .map(pedidosMapper::toPedidosDto)
+                .collect(Collectors.toList());
+    }
 
     private final PedidoRepositorie pedidoRepositorie;
     private final PedidosMapper pedidosMapper;

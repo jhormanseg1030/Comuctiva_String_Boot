@@ -18,6 +18,21 @@ import com.comuctiva.comuctiva.repositoryes.Unidad_MedidaRepositories;
 @Service
 public class ProductoServicesImple implements ProductoServices {
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProductoDto> listarPorDocumentoVendedor(String documento) {
+        Long numDoc;
+        try {
+            numDoc = Long.parseLong(documento);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Documento inválido");
+        }
+        return productoRepositorie.findByUsuario_NumDoc(numDoc)
+                .stream()
+                .map(productoMapper::toProductoDto)
+                .collect(Collectors.toList());
+    }
+
     private final ProductoRepositorie productoRepositorie;
     private final ProductoMapper productoMapper;
     private final Unidad_MedidaRepositories unidad_MedidaRepositories;

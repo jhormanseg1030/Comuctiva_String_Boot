@@ -13,6 +13,7 @@ public interface ProductoServices {
     ProductoDto productoPorId(Integer id);
 
     List<ProductoDto> listar();
+    List<ProductoDto> listarPorDocumentoVendedor(String documento);
 
     void eliminarProducto(Integer id);
 
