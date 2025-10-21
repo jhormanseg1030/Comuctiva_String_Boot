@@ -19,23 +19,36 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     @NonNull jakarta.servlet.http.HttpServletResponse response,
                                     @NonNull jakarta.servlet.FilterChain chain)
             throws jakarta.servlet.ServletException, IOException {
+        
+        System.out.println("=== JWT FILTER ===");
+        System.out.println("Request URI: " + request.getRequestURI());
+        System.out.println("Request Method: " + request.getMethod());
+        
         final String authHeader = request.getHeader("Authorization");
+        System.out.println("Authorization Header: " + (authHeader != null ? "presente" : "ausente"));
+        
         String username = null;
         String jwt = null;
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
             username = jwtUtil.extractUsername(jwt);
+            System.out.println("Token JWT extraído, username: " + username);
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             if (jwtUtil.validateToken(jwt)) {
+                System.out.println("Token válido, autenticando usuario: " + username);
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(username, null, null);
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                System.out.println("Token inválido");
             }
         }
+        
+        System.out.println("=== FIN JWT FILTER ===");
         chain.doFilter(request, response);
     }
 }
