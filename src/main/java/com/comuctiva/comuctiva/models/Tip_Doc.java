@@ -15,4 +15,8 @@ public class Tip_Doc {
     private Integer id_tipdocu;
     @Column(length = 30)
     private String tipo;
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }

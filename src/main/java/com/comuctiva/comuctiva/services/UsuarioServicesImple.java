@@ -1,4 +1,4 @@
-    // ...existing code...
+// ...existing code...
 
 package com.comuctiva.comuctiva.services;
 
@@ -95,5 +95,10 @@ public class UsuarioServicesImple implements UsuarioServices {
 
         Usuario actualizado = usuarioRepositories.save(usuario);
         return usuarioMapper.toUsuarioDto(actualizado);
+    }
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario buscarPorLogin(Integer tipDocId, Long numDoc, String password) {
+        return usuarioRepositories.findByLogin(tipDocId, numDoc, password);
     }
 }

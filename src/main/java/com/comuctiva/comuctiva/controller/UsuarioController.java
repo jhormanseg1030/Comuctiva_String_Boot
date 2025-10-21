@@ -19,6 +19,7 @@ import com.comuctiva.comuctiva.Dto.UsuarioDto;
 import com.comuctiva.comuctiva.Dto.UsuarioUpdateDto;
 import com.comuctiva.comuctiva.services.UsuarioServices;
 import com.comuctiva.comuctiva.Dto.LoginRequest;
+import com.comuctiva.comuctiva.Dto.RespuestaLoginDto;
 import com.comuctiva.comuctiva.config.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,12 +38,42 @@ public class UsuarioController {
     // Endpoint de login que retorna el token JWT
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        // Busca el usuario por documento y valida la contraseña (ajusta según tu lógica real)
-        var usuario = usuarioServices.buscarPorDocumento(loginRequest.getDocumento());
-        if (usuario != null && usuario.getPassword().equals(loginRequest.getPassword())) {
+        System.out.println("=== INICIO LOGIN ===");
+        System.out.println("TipDocId: " + loginRequest.getTipDocId());
+        System.out.println("NumDoc: " + loginRequest.getNumDoc());
+        System.out.println("Password: " + loginRequest.getPassword());
+        
+        var usuario = usuarioServices.buscarPorLogin(
+            loginRequest.getTipDocId(),
+            loginRequest.getNumDoc(),
+            loginRequest.getPassword()
+        );
+        
+        System.out.println("Usuario encontrado: " + (usuario != null ? usuario.getNom_Usu() : "null"));
+        
+        if (usuario != null) {
             String token = jwtUtil.generateToken(usuario.getNumDoc().toString());
-            return ResponseEntity.ok(Map.of("token", token, "usuario", usuario));
+            System.out.println("Token generado: " + token);
+            
+            // Crear el DTO de respuesta evitando problemas de serialización con Hibernate
+            RespuestaLoginDto respuesta = new RespuestaLoginDto(
+                token,
+                usuario.getId_Usuario(),
+                usuario.getNom_Usu(),
+                usuario.getApell1(),
+                usuario.getApell2(),
+                usuario.getTel(),
+                usuario.getTel2(),
+                usuario.getCorreo(),
+                usuario.getNumDoc(),
+                usuario.getTip_Doc().getId_tipdocu(),
+                usuario.getTip_Doc().getTipo()
+            );
+            
+            System.out.println("=== FIN LOGIN EXITOSO ===");
+            return ResponseEntity.ok(respuesta);
         }
+        System.out.println("=== FIN LOGIN FALLIDO ===");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
     }
     
