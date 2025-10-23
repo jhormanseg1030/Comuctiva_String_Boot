@@ -49,6 +49,35 @@ public class UsuarioServicesImple implements UsuarioServices {
     @Override
     @Transactional
     public UsuarioDto crearUsuario(UsuarioCreateDto usuarioCreateDto) {
+        // Validar campos obligatorios
+        if (usuarioCreateDto.getNombre() == null || usuarioCreateDto.getNombre().trim().isEmpty()) {
+            throw new IllegalStateException("Falta el campo: nombre");
+        }
+        if (usuarioCreateDto.getApellido() == null || usuarioCreateDto.getApellido().trim().isEmpty()) {
+            throw new IllegalStateException("Falta el campo: apellido");
+        }
+        if (usuarioCreateDto.getCorreo() == null || usuarioCreateDto.getCorreo().trim().isEmpty()) {
+            throw new IllegalStateException("Falta el campo: correo");
+        }
+        if (usuarioCreateDto.getNumdocumento() == null) {
+            throw new IllegalStateException("Falta el campo: numdocumento");
+        }
+        if (usuarioCreateDto.getPassword() == null || usuarioCreateDto.getPassword().trim().isEmpty()) {
+            throw new IllegalStateException("Falta el campo: password");
+        }
+        if (usuarioCreateDto.getTipId() == null) {
+            throw new IllegalStateException("Falta el campo: tipId");
+        }
+        // Verificar si ya existe un usuario con el mismo número de documento
+        Usuario usuarioExistente = usuarioRepositories.findAll().stream()
+                .filter(u -> u.getNumDoc() != null && u.getNumDoc().equals(usuarioCreateDto.getNumdocumento()))
+                .findFirst()
+                .orElse(null);
+
+        if (usuarioExistente != null) {
+            throw new IllegalStateException("Ya existe un usuario con este número de documento");
+        }
+
         Usuario usuario = usuarioMapper.toUsuario(usuarioCreateDto);
         Usuario usuarioGuardado = usuarioRepositories.save(usuario);
         return usuarioMapper.toUsuarioDto(usuarioGuardado);
