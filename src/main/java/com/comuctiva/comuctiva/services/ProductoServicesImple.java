@@ -3,6 +3,7 @@ package com.comuctiva.comuctiva.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +15,11 @@ import com.comuctiva.comuctiva.models.Producto;
 import com.comuctiva.comuctiva.models.Unidad_Medida;
 import com.comuctiva.comuctiva.repositoryes.ProductoRepositorie;
 import com.comuctiva.comuctiva.repositoryes.Unidad_MedidaRepositories;
+import com.comuctiva.comuctiva.models.Usuario;
+import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
 
 @Service
+
 public class ProductoServicesImple implements ProductoServices {
 
     @Override
@@ -36,17 +40,39 @@ public class ProductoServicesImple implements ProductoServices {
     private final ProductoRepositorie productoRepositorie;
     private final ProductoMapper productoMapper;
     private final Unidad_MedidaRepositories unidad_MedidaRepositories;
+    private final UsuarioRepositories usuarioRepositories;
 
-    public ProductoServicesImple(ProductoRepositorie productoRepositorie, ProductoMapper productoMapper, Unidad_MedidaRepositories unidad_MedidaRepositories) {
+    public ProductoServicesImple(ProductoRepositorie productoRepositorie, ProductoMapper productoMapper, Unidad_MedidaRepositories unidad_MedidaRepositories, UsuarioRepositories usuarioRepositories) {
         this.productoRepositorie = productoRepositorie;
         this.productoMapper = productoMapper;
         this.unidad_MedidaRepositories = unidad_MedidaRepositories;
+        this.usuarioRepositories = usuarioRepositories;
     }
 
     @Override
     @Transactional
     public ProductoDto crearProducto(ProductoCreateDto productoCreateDto) {
         Producto producto = productoMapper.toProducto(productoCreateDto);
+        Producto productoGuardado = productoRepositorie.save(producto);
+        return productoMapper.toProductoDto(productoGuardado);
+    }
+
+    @Override
+    @Transactional
+    public ProductoDto crearProductoConUsuario(ProductoCreateDto productoCreateDto, String documento) {
+        Producto producto = productoMapper.toProducto(productoCreateDto);
+        // Buscar usuario por documento
+        Long numDoc;
+        try {
+            numDoc = Long.parseLong(documento);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Documento inválido");
+        }
+        Usuario usuario = usuarioRepositories.findByNumDoc(numDoc);
+        if (usuario == null) {
+            throw new IllegalStateException("Usuario no encontrado");
+        }
+        producto.setUsuario(usuario);
         Producto productoGuardado = productoRepositorie.save(producto);
         return productoMapper.toProductoDto(productoGuardado);
     }
