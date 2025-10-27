@@ -12,13 +12,14 @@ public class RespuestaLoginDto {
     private Long numDoc;
     private Integer tipDocId;
     private String tipDocNombre;
+    private String rol;
 
     // Constructor vacío
     public RespuestaLoginDto() {}
 
     // Constructor completo
     public RespuestaLoginDto(String token, Integer id_Usuario, String nom_Usu, String apell1, String apell2, 
-                            Long tel, Long tel2, String correo, Long numDoc, Integer tipDocId, String tipDocNombre) {
+                            Long tel, Long tel2, String correo, Long numDoc, Integer tipDocId, String tipDocNombre, String rol) {
         this.token = token;
         this.id_Usuario = id_Usuario;
         this.nom_Usu = nom_Usu;
@@ -30,6 +31,7 @@ public class RespuestaLoginDto {
         this.numDoc = numDoc;
         this.tipDocId = tipDocId;
         this.tipDocNombre = tipDocNombre;
+        this.rol = rol;
     }
 
     // Getters y Setters
@@ -65,4 +67,7 @@ public class RespuestaLoginDto {
 
     public String getTipDocNombre() { return tipDocNombre; }
     public void setTipDocNombre(String tipDocNombre) { this.tipDocNombre = tipDocNombre; }
+
+    public String getRol() { return rol; }
+    public void setRol(String rol) { this.rol = rol; }
 }

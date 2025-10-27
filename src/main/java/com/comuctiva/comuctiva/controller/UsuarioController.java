@@ -65,7 +65,19 @@ public class UsuarioController {
             
             String token = jwtUtil.generateToken(usuario.getNumDoc().toString(), roles);
             System.out.println("Token generado: " + token);
-            
+
+            // Obtener el rol principal del usuario (el primero activo)
+            String rolPrincipal = "Cliente"; // Valor por defecto
+            if (usuario.getRoles_de_usuarios() != null && !usuario.getRoles_de_usuarios().isEmpty()) {
+                var rolUsuarioActivo = usuario.getRoles_de_usuarios().stream()
+                    .filter(ru -> ru.getEstado() != null && ru.getEstado())
+                    .findFirst()
+                    .orElse(null);
+                if (rolUsuarioActivo != null && rolUsuarioActivo.getRol() != null) {
+                    rolPrincipal = rolUsuarioActivo.getRol().getNom_rol();
+                }
+            }
+
             // Crear el DTO de respuesta evitando problemas de serialización con Hibernate
             RespuestaLoginDto respuesta = new RespuestaLoginDto(
                 token,
@@ -78,9 +90,10 @@ public class UsuarioController {
                 usuario.getCorreo(),
                 usuario.getNumDoc(),
                 usuario.getTip_Doc().getId_tipdocu(),
-                usuario.getTip_Doc().getTipo()
+                usuario.getTip_Doc().getTipo(),
+                rolPrincipal // <-- aquí se pasa el rol
             );
-            
+
             System.out.println("=== FIN LOGIN EXITOSO ===");
             return ResponseEntity.ok(respuesta);
         }

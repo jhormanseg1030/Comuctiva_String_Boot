@@ -25,4 +25,8 @@ public class Rol {
 
     @OneToMany(mappedBy = "rol")
     private List<Rol_Usuario> roles_de_usuarios;
+
+    public void setNom_rol(String nom_rol) {
+        this.nom_rol = nom_rol;
+    }
 }
