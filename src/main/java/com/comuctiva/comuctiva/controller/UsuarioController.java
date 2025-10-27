@@ -52,7 +52,18 @@ public class UsuarioController {
         System.out.println("Usuario encontrado: " + (usuario != null ? usuario.getNom_Usu() : "null"));
         
         if (usuario != null) {
-            String token = jwtUtil.generateToken(usuario.getNumDoc().toString());
+            // Obtener roles del usuario
+            java.util.List<String> roles = new java.util.ArrayList<>();
+            if (usuario.getRoles_de_usuarios() != null && !usuario.getRoles_de_usuarios().isEmpty()) {
+                roles = usuario.getRoles_de_usuarios().stream()
+                    .map(rolUsuario -> rolUsuario.getRol().getNom_rol())
+                    .collect(java.util.stream.Collectors.toList());
+            } else {
+                // Si no tiene roles asignados, asignar un rol por defecto
+                roles.add("VENDEDOR");
+            }
+            
+            String token = jwtUtil.generateToken(usuario.getNumDoc().toString(), roles);
             System.out.println("Token generado: " + token);
 
             // Obtener el rol principal del usuario (el primero activo)

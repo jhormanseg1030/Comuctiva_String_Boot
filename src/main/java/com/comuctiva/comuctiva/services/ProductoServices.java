@@ -8,7 +8,7 @@ import com.comuctiva.comuctiva.Dto.ProductoUpdateDto;
 
 public interface ProductoServices {
 
-    ProductoDto crearProducto(ProductoCreateDto productoCreateDto);
+    ProductoDto crearProducto(ProductoCreateDto productoCreateDto, String documentoVendedor);
 
     ProductoDto productoPorId(Integer id);
 
