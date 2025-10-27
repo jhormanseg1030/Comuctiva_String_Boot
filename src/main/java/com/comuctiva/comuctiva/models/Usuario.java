@@ -69,5 +69,8 @@ public class Usuario {
 
     public Tip_Doc getTip_Doc() { return tip_Doc; }
     public void setTip_Doc(Tip_Doc tip_Doc) { this.tip_Doc = tip_Doc; }
+
+    public List<Rol_Usuario> getRoles_de_usuarios() { return roles_de_usuarios; }
+    public void setRoles_de_usuarios(List<Rol_Usuario> roles_de_usuarios) { this.roles_de_usuarios = roles_de_usuarios; }
 }
 

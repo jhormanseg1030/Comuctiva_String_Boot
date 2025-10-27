@@ -27,6 +27,7 @@ public class ProductoMapperImple implements ProductoMapper{
       producto.setCant(productoCreateDto.getCantidad());
       producto.setImagen(productoCreateDto.getImagen());
       producto.setDescrip(productoCreateDto.getDescripcion());
+      producto.setCategoria(productoCreateDto.getCategoria());
 
       Unidad_Medida unidad_Medida = unidad_MedidaRepositories.findById(productoCreateDto.getId_medida())
       .orElseThrow(() -> new EntityNotFoundException("Unidad de medida no encontrada"));
@@ -43,6 +44,7 @@ public class ProductoMapperImple implements ProductoMapper{
          producto.getCant(),
          producto.getImagen(),
          producto.getDescrip(),
+         producto.getCategoria(),
          producto.getUnidad_Medida().getId_Medida()
       );
    }

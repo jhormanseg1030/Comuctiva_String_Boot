@@ -36,6 +36,9 @@ public class Producto {
     @Column (nullable = false, length = 50)
     private String descrip;
 
+    @Column (length = 50)
+    private String categoria;
+
     @OneToMany(mappedBy = "producto")
     private List<Ingres_Produc> ingre;
 

@@ -11,6 +11,7 @@ public class ProductoCreateDto {
     private Short cantidad;
     private String imagen;
     private String descripcion;
+    private String categoria;
 
     @NotNull
     private Integer id_medida;

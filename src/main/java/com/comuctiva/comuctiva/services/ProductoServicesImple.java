@@ -12,8 +12,10 @@ import com.comuctiva.comuctiva.Dto.ProductoUpdateDto;
 import com.comuctiva.comuctiva.Mapper.ProductoMapper;
 import com.comuctiva.comuctiva.models.Producto;
 import com.comuctiva.comuctiva.models.Unidad_Medida;
+import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.ProductoRepositorie;
 import com.comuctiva.comuctiva.repositoryes.Unidad_MedidaRepositories;
+import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
 
 @Service
 public class ProductoServicesImple implements ProductoServices {
@@ -36,17 +38,33 @@ public class ProductoServicesImple implements ProductoServices {
     private final ProductoRepositorie productoRepositorie;
     private final ProductoMapper productoMapper;
     private final Unidad_MedidaRepositories unidad_MedidaRepositories;
+    private final UsuarioRepositories usuarioRepositories;
 
-    public ProductoServicesImple(ProductoRepositorie productoRepositorie, ProductoMapper productoMapper, Unidad_MedidaRepositories unidad_MedidaRepositories) {
+    public ProductoServicesImple(ProductoRepositorie productoRepositorie, ProductoMapper productoMapper, Unidad_MedidaRepositories unidad_MedidaRepositories, UsuarioRepositories usuarioRepositories) {
         this.productoRepositorie = productoRepositorie;
         this.productoMapper = productoMapper;
         this.unidad_MedidaRepositories = unidad_MedidaRepositories;
+        this.usuarioRepositories = usuarioRepositories;
     }
 
     @Override
     @Transactional
-    public ProductoDto crearProducto(ProductoCreateDto productoCreateDto) {
+    public ProductoDto crearProducto(ProductoCreateDto productoCreateDto, String documentoVendedor) {
+        // Buscar el usuario vendedor
+        Long numDoc;
+        try {
+            numDoc = Long.parseLong(documentoVendedor);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Documento de vendedor inválido");
+        }
+        
+        Usuario vendedor = usuarioRepositories.findByNumDoc(numDoc);
+        if (vendedor == null) {
+            throw new IllegalStateException("Vendedor no encontrado con documento: " + documentoVendedor);
+        }
+        
         Producto producto = productoMapper.toProducto(productoCreateDto);
+        producto.setUsuario(vendedor);
         Producto productoGuardado = productoRepositorie.save(producto);
         return productoMapper.toProductoDto(productoGuardado);
     }
