@@ -14,5 +14,6 @@ public class ProductoDto {
     private Short cantid;
     private String image;
     private String descri;
+    private String categoria;
     private Integer id_medi;
 }
