@@ -1,5 +1,6 @@
 package com.comuctiva.comuctiva.Mapper;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.comuctiva.comuctiva.Dto.UsuarioCreateDto;
@@ -14,9 +15,11 @@ import jakarta.persistence.EntityNotFoundException;
 public class UsuarioMapperImple implements UsuarioMapper{
 
     private final Tip_DocRepositories tip_DocRepositories;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioMapperImple(Tip_DocRepositories tip_DocRepositories){
+    public UsuarioMapperImple(Tip_DocRepositories tip_DocRepositories, PasswordEncoder passwordEncoder){
         this.tip_DocRepositories = tip_DocRepositories;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,7 +35,8 @@ public class UsuarioMapperImple implements UsuarioMapper{
         usuario.setTel2(usuaCreDto.getTelefono2());
         usuario.setCorreo(usuaCreDto.getCorreo());
         usuario.setNumDoc(usuaCreDto.getNumdocumento());
-        usuario.setPassword(usuaCreDto.getPassword());
+        // Encriptar la contraseña antes de guardarla
+        usuario.setPassword(passwordEncoder.encode(usuaCreDto.getPassword()));
         
         Tip_Doc tip_Doc = tip_DocRepositories.findById(usuaCreDto.getTipId())
         .orElseThrow(() -> new EntityNotFoundException("Tipo de documento no encontrado"));

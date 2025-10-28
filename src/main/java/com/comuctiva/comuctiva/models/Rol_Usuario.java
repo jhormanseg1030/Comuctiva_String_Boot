@@ -18,14 +18,15 @@ public class Rol_Usuario {
 
     @EmbeddedId
     private Rol_UsuarioId id = new Rol_UsuarioId();
+    
     @ManyToOne
     @MapsId("usuarioId")
-    @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "FK_usuario_roles"))
+    @JoinColumn(name = "ID_Usuario", foreignKey = @ForeignKey(name = "FK_usuario_roles"))
     private Usuario usuario;
 
     @ManyToOne
     @MapsId("rolId")
-    @JoinColumn(name = "rol_id", foreignKey = @ForeignKey(name = "FK_rol_usuarios_xd"))
+    @JoinColumn(name = "ID_Rol", foreignKey = @ForeignKey(name = "FK_rol_usuarios_xd"))
     private Rol rol;
 
     private Boolean estado;

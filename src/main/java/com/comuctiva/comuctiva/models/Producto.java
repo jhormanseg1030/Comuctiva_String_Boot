@@ -58,7 +58,6 @@ public class Producto {
     @JoinColumn(name = "ID_Medida", nullable = false, foreignKey = @ForeignKey(name = "FK_Unidad_Medida"))
     private Unidad_Medida unidad_Medida;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usuario_Producto"))
-    private Usuario usuario;
+    // Eliminado: Ya no hay relación con Tienda
+    // Eliminado: Ya no hay relación directa con Usuario (productos son gestionados por Admin)
 }
