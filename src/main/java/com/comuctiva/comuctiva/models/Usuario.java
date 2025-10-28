@@ -17,23 +17,35 @@ import jakarta.persistence.OneToMany;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_Usuario")
     private Integer id_Usuario;
-    @Column(length = 50)
+    
+    @Column(name = "NomUsu", nullable = false, length = 50)
     private String nom_Usu;
-    @Column( nullable = false ,length = 50)
+    
+    @Column(nullable = false, length = 50)
     private String apell1;
+    
     @Column(length = 50)
     private String apell2;
+    
+    @Column(name = "tel1", nullable = false)
     private Long tel;
+    
     @Column(nullable = false)
     private Long tel2;
-    @Column(length = 50)
+    
+    @Column(nullable = false, length = 50)
     private String correo;
+    
+    @Column(name = "NumDoc", nullable = false)
     private Long numDoc;
+    
+    @Column(length = 255)
     private String password;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tipdocu", nullable = false, foreignKey = @ForeignKey(name = "FK_Tip_Doc"))
+    @JoinColumn(name = "ID_TipDocu", nullable = false, foreignKey = @ForeignKey(name = "FK_Tip_Doc"))
     private Tip_Doc tip_Doc;
 
     @OneToMany(mappedBy = "usuario")

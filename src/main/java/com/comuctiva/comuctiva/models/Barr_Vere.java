@@ -16,7 +16,9 @@ import lombok.NoArgsConstructor;
 public class Barr_Vere {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_Barr_Vere")
     private Integer id_vere;
-    @Column(length = 20)
+    
+    @Column(name = "Nombre", nullable = false, length = 20)
     private String nombre;
 }

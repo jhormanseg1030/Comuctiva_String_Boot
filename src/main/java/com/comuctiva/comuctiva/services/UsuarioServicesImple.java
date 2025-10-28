@@ -1,10 +1,9 @@
-// ...existing code...
-
 package com.comuctiva.comuctiva.services;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +21,17 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class UsuarioServicesImple implements UsuarioServices {
 
+    private final UsuarioRepositories usuarioRepositories;
+    private final UsuarioMapper usuarioMapper;
+    private final Tip_DocRepositories tip_DocRepositories;
+    private final PasswordEncoder passwordEncoder;
+
+    public UsuarioServicesImple(UsuarioRepositories usuarioRepositories, UsuarioMapper usuarioMapper, Tip_DocRepositories tip_DocRepositories, PasswordEncoder passwordEncoder) {
+        this.usuarioRepositories = usuarioRepositories;
+        this.usuarioMapper = usuarioMapper;
+        this.tip_DocRepositories = tip_DocRepositories;
+        this.passwordEncoder = passwordEncoder;
+    }
     @Override
     @Transactional(readOnly = true)
     public Usuario buscarPorDocumento(String documento) {
@@ -36,16 +46,32 @@ public class UsuarioServicesImple implements UsuarioServices {
                 .findFirst()
                 .orElse(null);
     }
-
-    private final UsuarioRepositories usuarioRepositories;
-    private final UsuarioMapper usuarioMapper;
-    private final Tip_DocRepositories tip_DocRepositories;
-
-    public UsuarioServicesImple(UsuarioRepositories usuarioRepositories, UsuarioMapper usuarioMapper, Tip_DocRepositories tip_DocRepositories) {
-        this.usuarioRepositories = usuarioRepositories;
-        this.usuarioMapper = usuarioMapper;
-        this.tip_DocRepositories = tip_DocRepositories;
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario buscarPorLogin(Integer tipDocId, Long numDoc, String password) {
+        System.out.println("=== BUSCANDO USUARIO ===");
+        System.out.println("TipDocId recibido: " + tipDocId + " (tipo: " + (tipDocId != null ? tipDocId.getClass().getName() : "null") + ")");
+        System.out.println("NumDoc recibido: " + numDoc + " (tipo: " + (numDoc != null ? numDoc.getClass().getName() : "null") + ")");
+        
+        // Buscar usuario por tipo de documento y número de documento
+        Usuario usuario = usuarioRepositories.findFirstByTipDocAndNumDoc(tipDocId, numDoc).orElse(null);
+        
+        System.out.println("Usuario encontrado en BD: " + (usuario != null ? usuario.getNom_Usu() : "null"));
+        
+        // Verificar si el usuario existe y si la contraseña coincide
+        if (usuario != null && passwordEncoder.matches(password, usuario.getPassword())) {
+            System.out.println("✅ Contraseña correcta");
+            return usuario;
+        }
+        
+        if (usuario != null) {
+            System.out.println("❌ Contraseña incorrecta");
+        }
+        
+        return null;
     }
+    
     @Override
     @Transactional
     public UsuarioDto crearUsuario(UsuarioCreateDto usuarioCreateDto) {
@@ -116,7 +142,11 @@ public class UsuarioServicesImple implements UsuarioServices {
         usuario.setTel2(usuaUpdaDto.getTelefo2());
         usuario.setCorreo(usuaUpdaDto.getCorr());
         usuario.setNumDoc(usuaUpdaDto.getNumdocument());
-        usuario.setPassword(usuaUpdaDto.getPasswo());
+        
+        // Encriptar la contraseña si se está actualizando
+        if (usuaUpdaDto.getPasswo() != null && !usuaUpdaDto.getPasswo().trim().isEmpty()) {
+            usuario.setPassword(passwordEncoder.encode(usuaUpdaDto.getPasswo()));
+        }
 
         Tip_Doc tip_Doc = tip_DocRepositories.findById(usuaUpdaDto.getTipDocuId())
         .orElseThrow(() -> new EntityNotFoundException("Tipo de Documento no encontrado"));
@@ -124,10 +154,5 @@ public class UsuarioServicesImple implements UsuarioServices {
 
         Usuario actualizado = usuarioRepositories.save(usuario);
         return usuarioMapper.toUsuarioDto(actualizado);
-    }
-    @Override
-    @Transactional(readOnly = true)
-    public Usuario buscarPorLogin(Integer tipDocId, Long numDoc, String password) {
-        return usuarioRepositories.findByLogin(tipDocId, numDoc, password);
     }
 }

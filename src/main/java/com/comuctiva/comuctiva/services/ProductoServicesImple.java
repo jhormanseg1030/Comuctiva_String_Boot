@@ -20,20 +20,7 @@ import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
 @Service
 public class ProductoServicesImple implements ProductoServices {
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<ProductoDto> listarPorDocumentoVendedor(String documento) {
-        Long numDoc;
-        try {
-            numDoc = Long.parseLong(documento);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Documento inválido");
-        }
-        return productoRepositorie.findByUsuario_NumDoc(numDoc)
-                .stream()
-                .map(productoMapper::toProductoDto)
-                .collect(Collectors.toList());
-    }
+    // Método eliminado: listarPorDocumentoVendedor - No hay relación Producto-Usuario
 
     private final ProductoRepositorie productoRepositorie;
     private final ProductoMapper productoMapper;
@@ -58,13 +45,8 @@ public class ProductoServicesImple implements ProductoServices {
             throw new IllegalArgumentException("Documento de vendedor inválido");
         }
         
-        Usuario vendedor = usuarioRepositories.findByNumDoc(numDoc);
-        if (vendedor == null) {
-            throw new IllegalStateException("Vendedor no encontrado con documento: " + documentoVendedor);
-        }
-        
+        // Ya no se necesita asociar con usuario/vendedor
         Producto producto = productoMapper.toProducto(productoCreateDto);
-        producto.setUsuario(vendedor);
         Producto productoGuardado = productoRepositorie.save(producto);
         return productoMapper.toProductoDto(productoGuardado);
     }

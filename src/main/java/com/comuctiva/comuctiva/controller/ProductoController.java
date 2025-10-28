@@ -86,9 +86,9 @@ public class ProductoController {
     }
     
     @GetMapping
-    public ResponseEntity<List<ProductoDto>> listar(org.springframework.security.core.Authentication authentication) {
-        String documento = authentication.getName();
-        List<ProductoDto> productos = productoServices.listarPorDocumentoVendedor(documento);
+    public ResponseEntity<List<ProductoDto>> listar() {
+        // Ya no se filtra por vendedor, se listan todos los productos
+        List<ProductoDto> productos = productoServices.listar();
         return ResponseEntity.ok(productos);
     }
 
