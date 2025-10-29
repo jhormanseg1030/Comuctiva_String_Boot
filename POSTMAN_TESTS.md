@@ -51,7 +51,7 @@ Content-Type: application/json
 
 **Body (Cliente):**
 ```json
-{
+{ 
   "tipDocId": 1,
   "numDoc": "55555555",
   "password": "1234"

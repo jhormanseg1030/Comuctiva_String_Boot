@@ -32,7 +32,7 @@ public class Usuario {
     @Column(name = "tel1", nullable = false)
     private Long tel;
     
-    @Column(nullable = false)
+    @Column(name = "tel2")
     private Long tel2;
     
     @Column(nullable = false, length = 50)
@@ -41,7 +41,7 @@ public class Usuario {
     @Column(name = "NumDoc", nullable = false)
     private Long numDoc;
     
-    @Column(length = 255)
+    @Column(name = "Password", length = 500)
     private String password;
     
     @ManyToOne(fetch = FetchType.LAZY)
