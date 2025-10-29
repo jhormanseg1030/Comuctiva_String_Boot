@@ -15,7 +15,7 @@ public interface UsuarioRepositories extends JpaRepository<Usuario, Integer> {
     List<Usuario> findAllByTipDocAndNumDoc(@Param("tipDocId") Integer tipDocId, @Param("numDoc") Long numDoc);
     
     // Buscar el primer usuario por tipo de documento y número de documento
-    @Query("SELECT u FROM Usuario u WHERE u.tip_Doc.id_tipdocu = :tipDocId AND u.numDoc = :numDoc ORDER BY u.id_Usuario ASC")
+    @Query("SELECT u FROM Usuario u LEFT JOIN FETCH u.roles_de_usuarios ru LEFT JOIN FETCH ru.rol WHERE u.tip_Doc.id_tipdocu = :tipDocId AND u.numDoc = :numDoc")
     Optional<Usuario> findFirstByTipDocAndNumDoc(@Param("tipDocId") Integer tipDocId, @Param("numDoc") Long numDoc);
     
     Usuario findByNumDoc(Long numDoc);
