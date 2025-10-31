@@ -23,11 +23,11 @@ public class Pedi_Produc {
 
     @ManyToOne
     @MapsId("pedidosId")
-    @JoinColumn(name = "pedidos_id", foreignKey = @ForeignKey(name = "FK_producto_pedidos"))
+    @JoinColumn(name = "ID_Pedido", foreignKey = @ForeignKey(name = "FK_producto_pedidos"))
     private Pedidos pedi;
 
     @ManyToOne
     @MapsId("proId")
-    @JoinColumn(name = "producto_id", foreignKey = @ForeignKey(name = "FK_pedidos_producto"))
+    @JoinColumn(name = "ID_Producto", foreignKey = @ForeignKey(name = "FK_pedidos_producto"))
     private Producto productos;
 }

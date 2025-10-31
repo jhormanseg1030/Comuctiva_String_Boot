@@ -16,6 +16,8 @@ import com.comuctiva.comuctiva.Dto.CarritoUpdateDto;
 import com.comuctiva.comuctiva.services.CarritoServices;
 
 import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,5 +64,11 @@ public class CarritoController {
         carritoUpdateDto.setId_carrit(id_carrito);
         CarritoDto actualizado = carritoServices.actualizarCarrito(carritoUpdateDto);
         return ResponseEntity.ok(actualizado);
+    }
+
+    @DeleteMapping("/{id_carrito}")
+    public ResponseEntity<CarritoDto> deleteCarrito(@PathVariable Integer id_carrito) {
+        carritoServices.eliminarCarrito(id_carrito);
+        return ResponseEntity.ok().build();
     }
 }

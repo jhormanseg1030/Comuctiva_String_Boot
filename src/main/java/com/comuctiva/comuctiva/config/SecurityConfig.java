@@ -44,9 +44,10 @@ public class SecurityConfig {
                 
                 .requestMatchers(HttpMethod.POST, "/api/producto/**").hasAnyAuthority("Administrador", "Cliente")
                 // POST y PUT - Administrador y Cliente
+                
+                .requestMatchers(HttpMethod.POST, "/api/pedi_produc/").hasAnyAuthority("Administrador","Cliente")
                 .requestMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority("Administrador", "Cliente")
                 .requestMatchers(HttpMethod.PUT, "/api/**").hasAnyAuthority("Administrador", "Cliente")
-                
                 // GET autenticado - Administrador y Cliente
                 .requestMatchers(HttpMethod.GET, "/api/**").hasAnyAuthority("Administrador", "Cliente")
                 
