@@ -27,13 +27,17 @@ public class Pedi_ProducMapperImple implements Pedi_ProducMapper {
 
     @Override
     public Pedi_Produc toPedi_Produc(Pedi_ProducDto pedi_ProducDto){
+
         Pedidos pedido = pedidoRepositorie.findById(pedi_ProducDto.getId_pedido())
         .orElseThrow(() -> new EntityNotFoundException("pedido no encontrado con el id"));
 
         Producto producto = productoRepositorie.findById(pedi_ProducDto.getId_producto())
         .orElseThrow(()-> new EntityNotFoundException("Producto no encontrada con el id"));
-        Pedi_producId id = new Pedi_producId(pedi_ProducDto.getId_pedido(),pedi_ProducDto.getId_producto());
 
+        Pedi_producId id = new Pedi_producId();
+            id.setPedidosId(pedi_ProducDto.getId_pedido());
+            id.setProId(pedi_ProducDto.getId_producto());
+        
         Pedi_Produc pp = new Pedi_Produc();
         pp.setId(id);
         pp.setCant(pedi_ProducDto.getCantidad());
@@ -44,13 +48,14 @@ public class Pedi_ProducMapperImple implements Pedi_ProducMapper {
     }
 
     @Override
-    public Pedi_ProducDto toPedi_ProducDto(Pedi_Produc pedi_Produc){
-        return new Pedi_ProducDto(
-            pedi_Produc.getPedi().getId_pedido(),
-            pedi_Produc.getProductos().getId_producto(),
-            pedi_Produc.getProductos().getNomprod(),
-            pedi_Produc.getCant(),
-            pedi_Produc.getValor());
+    public Pedi_ProducDto toPedi_ProducDto(Pedi_Produc pediProduc) {
+        Pedi_ProducDto dto = new Pedi_ProducDto();
+        dto.setId_pedido(pediProduc.getId().getPedidosId());
+        dto.setId_producto(pediProduc.getId().getProId());
+        dto.setNombre_del_producto(pediProduc.getProductos().getNomprod());
+        dto.setCantidad(pediProduc.getCant());
+        dto.setValor(pediProduc.getValor());
+        return dto;
     }
     
     @Override

@@ -14,6 +14,7 @@ import com.comuctiva.comuctiva.models.Pedi_producId;
 import com.comuctiva.comuctiva.repositoryes.Pedi_ProducRepositories;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class Pedi_ProducServicesImple implements Pedi_ProducServices {
@@ -27,13 +28,17 @@ public class Pedi_ProducServicesImple implements Pedi_ProducServices {
     }
 
     @Override
+    @Transactional
     public Pedi_ProducDto asignar(Pedi_ProducDto pedi_p){
+
         Pedi_Produc pe = mapper.toPedi_Produc(pedi_p);
 
-        Pedi_producId id = new Pedi_producId(pe.getPedi().getId_pedido(), pe.getProductos().getId_producto());
-        if (repositories.existsById(id)) {
-            throw new IllegalStateException("el produto ya esta asignado a la pedido");
+        // Verificar si ya existe
+
+        if (repositories.existsById(pe.getId())) {
+            throw new IllegalStateException("El producto ya está asignado al pedido");
         }
+
         Pedi_Produc guardar = repositories.save(pe);
         return mapper.toPedi_ProducDto(guardar);
     }

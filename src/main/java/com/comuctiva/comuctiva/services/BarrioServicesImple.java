@@ -60,10 +60,10 @@ public class BarrioServicesImple implements BarrioServices {
     }
 
     @Override
-    public void eliminarPedidos(Integer id) {
-        Barrio barrioElimi = barrioRepositories.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Barrio no encontrado con id: " + id));
-        barrioRepositories.save(barrioElimi);
+    public void eliminarBarrio(Integer id_barr) {
+        Barrio barrioElimi = barrioRepositories.findById(id_barr)
+            .orElseThrow(() -> new EntityNotFoundException("Barrio no encontrado con id: " + id_barr));
+        barrioRepositories.delete(barrioElimi);
     }
 
     @Override
@@ -85,4 +85,6 @@ public class BarrioServicesImple implements BarrioServices {
         Barrio barrioGuardado = barrioRepositories.save(barrio);
         return barrioMapper.toBarrioDto(barrioGuardado);
     }
+
+
 }

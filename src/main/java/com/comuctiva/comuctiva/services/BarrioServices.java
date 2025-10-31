@@ -14,7 +14,7 @@ public interface BarrioServices {
 
     List<BarrioDto> listartodos();
 
-    void eliminarPedidos(Integer id);
+    void eliminarBarrio(Integer id);
 
     BarrioDto actualizarBarrio(BarrioUpdateDto barrioUpdateDto);
 }

@@ -40,8 +40,8 @@ public class CarritoServicesImple implements CarritoServices {
 
     @Override
     @Transactional()
-    public CarritoDto carritoPorId(Integer id) {
-        Carrito carrito = carritoRepositories.findById(id)
+    public CarritoDto carritoPorId(Integer id_carrit) {
+        Carrito carrito = carritoRepositories.findById(id_carrit)
                 .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado"));
                 return carritoMapper.toCarritoDto(carrito);
     }
@@ -56,10 +56,10 @@ public class CarritoServicesImple implements CarritoServices {
     }
 
     @Override
-    public void eliminarCarrito(Integer id) {
-        Carrito carritoElimi = carritoRepositories.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado con id: " + id));
-        carritoRepositories.save(carritoElimi);
+    public void eliminarCarrito(Integer id_carrit) {
+        Carrito carritoElimi = carritoRepositories.findById(id_carrit)
+                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado con id: " + id_carrit));
+        carritoRepositories.delete(carritoElimi);
     }
 
     @Override

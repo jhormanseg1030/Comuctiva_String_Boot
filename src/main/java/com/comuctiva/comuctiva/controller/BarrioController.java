@@ -16,6 +16,7 @@ import com.comuctiva.comuctiva.services.BarrioServices;
 
 import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,7 +32,7 @@ public class BarrioController {
     }
 
     //crear barrio
-    @PostMapping("/crear")
+    @PostMapping
     public ResponseEntity<?> crearBarrio( @Valid @RequestBody BarrioCreateDto barrioCreateDto) {
         try{
             BarrioDto barrioDto = barrioServices.crearBarrioDto(barrioCreateDto);
@@ -67,4 +68,13 @@ public class BarrioController {
         BarrioDto actualizado = barrioServices.actualizarBarrio(barrioUp);
         return ResponseEntity.ok(actualizado);
     }
+
+    //eliminar barrio
+    @DeleteMapping("/{id_barr}")    
+    public ResponseEntity<Void> eliminarBarrio(@PathVariable Integer id_barr) {
+        barrioServices.eliminarBarrio(id_barr);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
