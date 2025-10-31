@@ -36,7 +36,7 @@ public class Compra {
     private Pedidos pedido;
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "id_TiPago", nullable = false, foreignKey = @ForeignKey(name = "FK_TiPago"))
+    @JoinColumn (name = "id_ti_pago", nullable = false, foreignKey = @ForeignKey(name = "FK_TiPago"))
     private Tipo_De_Pago tipo_pago;
 
     @OneToMany(mappedBy = "compra")

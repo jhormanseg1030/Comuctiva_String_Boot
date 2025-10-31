@@ -17,8 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
@@ -46,9 +46,9 @@ public class CompraController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CompraDto> obtenerCompra(@RequestParam Integer id) {
-        CompraDto compra = compraServices.compraPorId(id);
+    @GetMapping("/{id_compra}")
+    public ResponseEntity<CompraDto> obtenerCompra(@PathVariable Integer id_compra) {
+        CompraDto compra = compraServices.compraPorId(id_compra);
         return ResponseEntity.ok(compra);
     }
     
@@ -58,11 +58,17 @@ public class CompraController {
         return ResponseEntity.ok(compras);
     }
     
-    @PutMapping("/{id}")
-    public ResponseEntity<CompraDto> putActualizar(@PathVariable Integer id, @RequestBody CompraUpdateDto compraUpdate) {
-        compraUpdate.setId_compra(id);
+    @PutMapping("/{id_compra}")
+    public ResponseEntity<CompraDto> putActualizar(@PathVariable Integer id_compra, @RequestBody CompraUpdateDto compraUpdate) {
+        compraUpdate.setId_compra(id_compra);
         CompraDto actualizado = compraServices.actualizarCompra(compraUpdate);
         return ResponseEntity.ok(actualizado);
+    }
+
+    @DeleteMapping("/{id_compra}")
+    public ResponseEntity<Void> eliminarCompra(@PathVariable Integer id_compra, @RequestBody CompraUpdateDto compraUpdate) {
+        compraServices.eliminarCompra(id_compra);
+        return ResponseEntity.ok().build();
     }
 }
 

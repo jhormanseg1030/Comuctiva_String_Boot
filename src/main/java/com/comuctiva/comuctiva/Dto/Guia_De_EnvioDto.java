@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Guia_EnvioDto {
+public class Guia_De_EnvioDto {
     private Integer id_gui;
     private String fech_en;
     private Integer transpId;

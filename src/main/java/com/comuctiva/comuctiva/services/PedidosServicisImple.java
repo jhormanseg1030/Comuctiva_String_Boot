@@ -13,11 +13,11 @@ import com.comuctiva.comuctiva.Dto.PedidoUpdateDto;
 import com.comuctiva.comuctiva.Dto.PedidosDto;
 import com.comuctiva.comuctiva.Mapper.PedidosMapper;
 import com.comuctiva.comuctiva.models.Estado;
-import com.comuctiva.comuctiva.models.Guia_Envio;
+import com.comuctiva.comuctiva.models.Guia_De_Envio;
 import com.comuctiva.comuctiva.models.Pedidos;
 import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.EstadoRepositories;
-import com.comuctiva.comuctiva.repositoryes.Guia_EnvioRepositories;
+import com.comuctiva.comuctiva.repositoryes.Guia_De_EnvioRepositories;
 import com.comuctiva.comuctiva.repositoryes.PedidoRepositorie;
 import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
 
@@ -26,28 +26,13 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class PedidosServicisImple implements PedidosServices {
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<PedidosDto> listarPorDocumentoVendedor(String documento) {
-        Long numDoc;
-        try {
-            numDoc = Long.parseLong(documento);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Documento inválido");
-        }
-        return pedidoRepositorie.findByUsuario_NumDoc(numDoc)
-                .stream()
-                .map(pedidosMapper::toPedidosDto)
-                .collect(Collectors.toList());
-    }
-
     private final PedidoRepositorie pedidoRepositorie;
     private final PedidosMapper pedidosMapper;
     private final UsuarioRepositories usuarioRepositories;
-    private final Guia_EnvioRepositories guia_EnvioRepositories;
+    private final Guia_De_EnvioRepositories guia_EnvioRepositories;
     private final EstadoRepositories estadoRepositories;
 
-    public PedidosServicisImple(PedidoRepositorie pedidosRepositories, PedidosMapper pedidosMapper, UsuarioRepositories usuarioRepositories, Guia_EnvioRepositories guia_EnvioRepositories, EstadoRepositories estadoRepositories) {
+    public PedidosServicisImple(PedidoRepositorie pedidosRepositories, PedidosMapper pedidosMapper, UsuarioRepositories usuarioRepositories, Guia_De_EnvioRepositories guia_EnvioRepositories, EstadoRepositories estadoRepositories) {
         this.pedidoRepositorie = pedidosRepositories;
         this.pedidosMapper = pedidosMapper;
         this.usuarioRepositories = usuarioRepositories;
@@ -92,16 +77,16 @@ public class PedidosServicisImple implements PedidosServices {
         .orElseThrow(() -> new EntityNotFoundException("Pedido no encontrado"));
 
         pedidos.setFehor_pedi(pedidoUpdateDto.getFechor_pedi());
-        
-        Usuario usuario = usuarioRepositories.findById(pedidoUpdateDto.getUsuId())
+
+        Usuario usuario = usuarioRepositories.findById(pedidoUpdateDto.getUsuarioId())
         .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
         pedidos.setUsuario(usuario);
 
-        Guia_Envio guia_Envio = guia_EnvioRepositories.findById(pedidoUpdateDto.getGuienId())
+        Guia_De_Envio guia_Envio = guia_EnvioRepositories.findById(pedidoUpdateDto.getGuiaenviId())
         .orElseThrow(() -> new EntityNotFoundException("Guia de envio no encontrada"));
         pedidos.setGuia_envio(guia_Envio);
 
-        Estado estado = estadoRepositories.findById(pedidoUpdateDto.getEstId())
+        Estado estado = estadoRepositories.findById(pedidoUpdateDto.getEstadoId())
         .orElseThrow(() -> new EntityNotFoundException("Estado no encontrado"));
         pedidos.setEstado(estado);
         

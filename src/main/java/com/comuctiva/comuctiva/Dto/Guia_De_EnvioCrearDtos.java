@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class Guia_EnvioCrearDtos {
+public class Guia_De_EnvioCrearDtos {
 
     @NotBlank
     private String fech_en;

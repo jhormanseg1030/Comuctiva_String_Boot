@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 import com.comuctiva.comuctiva.Dto.PedidoCreateDto;
 import com.comuctiva.comuctiva.Dto.PedidosDto;
 import com.comuctiva.comuctiva.models.Estado;
-import com.comuctiva.comuctiva.models.Guia_Envio;
+import com.comuctiva.comuctiva.models.Guia_De_Envio;
 import com.comuctiva.comuctiva.models.Pedidos;
 import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.EstadoRepositories;
-import com.comuctiva.comuctiva.repositoryes.Guia_EnvioRepositories;
+import com.comuctiva.comuctiva.repositoryes.Guia_De_EnvioRepositories;
 import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -20,10 +20,10 @@ import jakarta.persistence.EntityNotFoundException;
 public class PedidosMapperImple implements PedidosMapper{
 
     private final UsuarioRepositories usuarioRepositories;
-    private final Guia_EnvioRepositories guia_EnvioRepositories;
+    private final Guia_De_EnvioRepositories guia_EnvioRepositories;
     private final EstadoRepositories estadoRepositories;
 
-    public PedidosMapperImple(UsuarioRepositories usuarioRepositories, Guia_EnvioRepositories guia_EnvioRepositories, EstadoRepositories estadoRepositories){
+    public PedidosMapperImple(UsuarioRepositories usuarioRepositories, Guia_De_EnvioRepositories guia_EnvioRepositories, EstadoRepositories estadoRepositories){
         this.usuarioRepositories=usuarioRepositories;
         this.guia_EnvioRepositories=guia_EnvioRepositories;
         this.estadoRepositories=estadoRepositories;
@@ -41,7 +41,7 @@ public class PedidosMapperImple implements PedidosMapper{
         .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
         pedidos.setUsuario(usuario);
 
-        Guia_Envio guia_Envio = guia_EnvioRepositories.findById(pediCreDto.getGuiaenviId())
+        Guia_De_Envio guia_Envio = guia_EnvioRepositories.findById(pediCreDto.getGuiaenviId())
         .orElseThrow(() -> new EntityNotFoundException("Guia de envio no encontrada"));
         pedidos.setGuia_envio(guia_Envio);
 

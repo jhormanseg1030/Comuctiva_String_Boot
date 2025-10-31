@@ -15,6 +15,6 @@ public class CompraUpdateDto {
     private String referencia_pago;
     private LocalDateTime fecha_compra;
     @NotNull
-    private Integer id_tipago;
+    private Integer id_ti_pago;
     private Integer id_pedido;
 }

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class Guia_EnvioUpdateDto {
+public class Guia_De_EnvioUpdateDto {
 
     @NotNull
     private Integer id_guia;

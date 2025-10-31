@@ -2,9 +2,9 @@ package com.comuctiva.comuctiva.Mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.comuctiva.comuctiva.Dto.Guia_EnvioCrearDtos;
-import com.comuctiva.comuctiva.Dto.Guia_EnvioDto;
-import com.comuctiva.comuctiva.models.Guia_Envio;
+import com.comuctiva.comuctiva.Dto.Guia_De_EnvioCrearDtos;
+import com.comuctiva.comuctiva.Dto.Guia_De_EnvioDto;
+import com.comuctiva.comuctiva.models.Guia_De_Envio;
 import com.comuctiva.comuctiva.models.Obser;
 import com.comuctiva.comuctiva.models.Transportadora;
 import com.comuctiva.comuctiva.repositoryes.ObserRepositories;
@@ -13,18 +13,18 @@ import com.comuctiva.comuctiva.repositoryes.TransportadoraRepositorie;
 import jakarta.persistence.EntityNotFoundException;
 
 @Component
-public class Guia_EnvioMapperImple implements Guia_de_EnvioMapper{
+public class Guia_De_EnvioMapperImple implements Guia_de_EnvioMapper{
 
     private final TransportadoraRepositorie transportadoraRepositorie;
     private final ObserRepositories obserRepositories;
 
-    public Guia_EnvioMapperImple(TransportadoraRepositorie transportadoraRepositorie,ObserRepositories obserRepositories){
+    public Guia_De_EnvioMapperImple(TransportadoraRepositorie transportadoraRepositorie,ObserRepositories obserRepositories){
         this.transportadoraRepositorie=transportadoraRepositorie;
         this.obserRepositories=obserRepositories;
     }
     @Override
-    public Guia_Envio toGuia_Envio(Guia_EnvioCrearDtos guia_EnvioCrearDtos){
-        Guia_Envio guia_envio = new Guia_Envio();
+    public Guia_De_Envio toGuia_Envio(Guia_De_EnvioCrearDtos guia_EnvioCrearDtos){
+        Guia_De_Envio guia_envio = new Guia_De_Envio();
         guia_envio.setFec_env(guia_EnvioCrearDtos.getFech_en());
 
         Transportadora transportadora = transportadoraRepositorie.findById(guia_EnvioCrearDtos.getTranspId())
@@ -38,8 +38,8 @@ public class Guia_EnvioMapperImple implements Guia_de_EnvioMapper{
     }
 
     @Override
-    public Guia_EnvioDto toGuia_EnvioDto(Guia_Envio guia_envio){
-        return new Guia_EnvioDto(
+    public Guia_De_EnvioDto toGuia_EnvioDto(Guia_De_Envio guia_envio){
+        return new Guia_De_EnvioDto(
             guia_envio.getId_guia(),
             guia_envio.getFec_env(),
             guia_envio.getTransportadora() != null ? guia_envio.getTransportadora().getId_transpor() : null,

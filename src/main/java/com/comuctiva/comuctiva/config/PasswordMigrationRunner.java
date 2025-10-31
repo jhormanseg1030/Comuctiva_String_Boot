@@ -4,7 +4,6 @@ import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 /**
  * Script de migración para encriptar contraseñas existentes.

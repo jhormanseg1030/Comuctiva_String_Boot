@@ -16,8 +16,9 @@ import com.comuctiva.comuctiva.Dto.PedidosDto;
 import com.comuctiva.comuctiva.services.PedidosServices;
 
 import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -50,27 +51,32 @@ public class PedidosController {
     }
 
     //consultar pedidos por id
-    @GetMapping("/{id}")
+    @GetMapping("/{id_pedido}")
     public ResponseEntity<PedidosDto> consultarPorId(@PathVariable Integer id_pedido){
         PedidosDto pedidos = pedidosServices.pedidosPorId(id_pedido);
         return ResponseEntity.ok(pedidos);
     }
 
-    //listar pedidos solo del usuario autenticado
+    //consultar todos los pedidos
     @GetMapping
-    public ResponseEntity<List<PedidosDto>> listartodos(Authentication authentication){
-        String documento = authentication.getName();
-        List<PedidosDto> pedidos = pedidosServices.listarPorDocumentoVendedor(documento);
+    public ResponseEntity<List<PedidosDto>> listar(){
+        List<PedidosDto> pedidos = pedidosServices.listartodos();
         return ResponseEntity.ok(pedidos);
     }
 
     //actualizar pedido
-    @PutMapping("/{id}")
-    public ResponseEntity<PedidosDto> actualizarPedido(@PathVariable Integer id_pedido,
-    @Valid @RequestBody PedidoUpdateDto pediActualizadoDto){
-        pediActualizadoDto.setEstId(id_pedido);
+    @PutMapping("/{id_pedido}")
+    public ResponseEntity<PedidosDto> actualizarPedido(@PathVariable Integer id_pedido, @RequestBody PedidoUpdateDto pediActualizadoDto){
+        pediActualizadoDto.setId_pedi(id_pedido);
         PedidosDto pedidosActualizado = pedidosServices.actualizarPedidos(pediActualizadoDto);
         return ResponseEntity.ok(pedidosActualizado);
+    }
+
+    //eliminar pedido
+    @DeleteMapping("/{id_pedido}")
+    public ResponseEntity<Void> eliminarPedido(@PathVariable Integer id_pedido){
+        pedidosServices.eliminarPedidos(id_pedido);
+        return ResponseEntity.ok().build();
     }
 }
 

@@ -10,7 +10,7 @@ public class PedidoUpdateDto {
     @NotNull
     private Integer id_pedi;
     private LocalDateTime fechor_pedi;
-    private Integer usuId;
-    private Integer guienId;
-    private Integer estId;
+    private Integer usuarioId;
+    private Integer guiaenviId;
+    private Integer estadoId;
 }

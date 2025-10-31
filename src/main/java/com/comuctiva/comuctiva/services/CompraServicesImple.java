@@ -43,9 +43,9 @@ public class CompraServicesImple implements CompraServices{
     }
 
     @Override
-    @Transactional()
-    public CompraDto compraPorId(Integer id){
-        Compra compra = compraRepositories.findById(id)
+    @Transactional(readOnly = true)
+    public CompraDto compraPorId(Integer id_comp){
+        Compra compra = compraRepositories.findById(id_comp)
         .orElseThrow(()-> new EntityNotFoundException("Compra no encontrada"));
         return compraMapper.toCompraDto(compra);
     }
@@ -60,10 +60,10 @@ public class CompraServicesImple implements CompraServices{
     }
 
     @Override
-    public void eliminarCompra(Integer id){
-        Compra compraEliminada = compraRepositories.findById(id)
+    public void eliminarCompra(Integer id_comp){
+        Compra compraEliminada = compraRepositories.findById(id_comp)
         .orElseThrow(()-> new EntityNotFoundException("Compra no encontrada"));
-        compraRepositories.save(compraEliminada);
+        compraRepositories.delete(compraEliminada);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class CompraServicesImple implements CompraServices{
         compra.setRef_pago(compraUpdateDto.getReferencia_pago());
         compra.setFec_com(compraUpdateDto.getFecha_compra());
 
-        Tipo_De_Pago tipo_De_Pago = tipo_De_PagoRepositories.findById(compraUpdateDto.getId_tipago())
+        Tipo_De_Pago tipo_De_Pago = tipo_De_PagoRepositories.findById(compraUpdateDto.getId_ti_pago())
         .orElseThrow(()-> new EntityNotFoundException("Tipo de pago no encontrado"));
         compra.setTipo_pago(tipo_De_Pago);
 

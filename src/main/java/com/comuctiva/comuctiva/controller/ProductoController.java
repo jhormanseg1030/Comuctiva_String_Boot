@@ -5,13 +5,13 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comuctiva.comuctiva.Dto.ProductoCreateDto;
@@ -32,50 +32,17 @@ public class ProductoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> crearProducto(
-        @RequestParam("nombre_Producto") String nombre_Producto,
-        @RequestParam("valor") Double valor,
-        @RequestParam("cantidad") Short cantidad,
-        @RequestParam(value = "imagen", required = false) org.springframework.web.multipart.MultipartFile imagen,
-        @RequestParam("descripcion") String descripcion,
-        @RequestParam("id_medida") Integer id_medida,
-        @RequestParam("categoria") String categoria,
-        org.springframework.security.core.Authentication authentication
-    ) {
+    public ResponseEntity<?> crear(@Valid @RequestBody ProductoCreateDto productoCreateDto) {
         try {
-            // Obtener el documento del vendedor autenticado
-            String documentoVendedor = authentication.getName();
-            
-            // Procesar la imagen y guardar el producto
-            String nombreImagen = null;
-            if (imagen != null && !imagen.isEmpty()) {
-                // Guardar la imagen en el servidor y obtener el nombre/ruta
-                java.nio.file.Path ruta = java.nio.file.Paths.get("uploads", imagen.getOriginalFilename());
-                java.nio.file.Files.createDirectories(ruta.getParent());
-                imagen.transferTo(ruta.toFile());
-                nombreImagen = imagen.getOriginalFilename();
-            }
-            ProductoCreateDto productoCreateDto = new ProductoCreateDto();
-            productoCreateDto.setNombre_Producto(nombre_Producto);
-            productoCreateDto.setValor(valor);
-            productoCreateDto.setCantidad(cantidad);
-            productoCreateDto.setImagen(nombreImagen);
-            productoCreateDto.setDescripcion(descripcion);
-            productoCreateDto.setId_medida(id_medida);
-            productoCreateDto.setCategoria(categoria);
-            
-            ProductoDto producto = productoServices.crearProducto(productoCreateDto, documentoVendedor);
+            ProductoDto producto = productoServices.crearProducto(productoCreateDto);
             return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Map.of("mensaje", "Producto creado con éxito", "detalles", producto));
+                .body(Map.of("Mensaje", "Producto creado exitosamente", "Detalles", producto));
         } catch (IllegalStateException ex) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Map.of("mensaje", ex.getMessage()));
-        } catch (IllegalArgumentException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("mensaje", ex.getMessage()));
+                .body(Map.of("Error", ex.getMessage()));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("mensaje", "Error al crear un producto", "detalles", ex.getMessage()));
+                .body(Map.of("Error", "Error al crear producto", "Detalles", ex.getMessage()));
         }
     }
     
@@ -97,5 +64,11 @@ public class ProductoController {
         productoUpdate.setId_producto(id_producto);
         ProductoDto actualizado = productoServices.actualizarProducto(productoUpdate);
         return ResponseEntity.ok(actualizado);
+    }
+
+    @DeleteMapping("/{id_producto}")
+    public ResponseEntity<Void> eliminarProducto(@PathVariable Integer id_producto) {
+        productoServices.eliminarProducto(id_producto);
+        return ResponseEntity.ok().build();
     }
 }

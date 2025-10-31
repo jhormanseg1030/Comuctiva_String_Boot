@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-public class Guia_Envio {
+public class Guia_De_Envio {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_guia;

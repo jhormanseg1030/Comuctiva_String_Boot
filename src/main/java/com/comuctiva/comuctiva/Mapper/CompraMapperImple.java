@@ -33,7 +33,7 @@ import jakarta.persistence.EntityNotFoundException;
             compra.setRef_pago(compraCreateDto.getReferencia_pago());
             compra.setFec_com(compraCreateDto.getFecha_compra());
 
-            Tipo_De_Pago tipo_De_Pago = tipo_De_PagoRepositories.findById(compraCreateDto.getId_tipago())
+            Tipo_De_Pago tipo_De_Pago = tipo_De_PagoRepositories.findById(compraCreateDto.getId_ti_pago())
             .orElseThrow(() -> new EntityNotFoundException("Tipo de pago no encontrado"));
             compra.setTipo_pago(tipo_De_Pago);
 

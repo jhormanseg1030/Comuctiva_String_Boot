@@ -42,6 +42,7 @@ public class SecurityConfig {
                 // DELETE - Solo Administrador
                 .requestMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("Administrador")
                 
+                .requestMatchers(HttpMethod.POST, "/api/producto/**").hasAnyAuthority("Administrador", "Cliente")
                 // POST y PUT - Administrador y Cliente
                 .requestMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority("Administrador", "Cliente")
                 .requestMatchers(HttpMethod.PUT, "/api/**").hasAnyAuthority("Administrador", "Cliente")
