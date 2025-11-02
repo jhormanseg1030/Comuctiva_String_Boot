@@ -31,6 +31,9 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            
                 // Rutas públicas (sin autenticación) - DEBEN IR PRIMERO
                 .requestMatchers("/api/usuario/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/usuario").permitAll()
