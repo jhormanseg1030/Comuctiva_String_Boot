@@ -49,7 +49,7 @@ public class UsuarioServicesImple implements UsuarioServices {
         System.out.println("TipDocId recibido: " + tipDocId + " (tipo: " + tipDocId.getClass().getName() + ")");
         System.out.println("NumDoc recibido: " + numDoc + " (tipo: " + numDoc.getClass().getName() + ")");
         
-        // Buscar usuario por tipDocId y numDoc
+        // Buscar usuario por tipDocId y numDoc :C pinche codigo
         var usuarioOpt = usuarioRepositories.findFirstByTipDocAndNumDoc(tipDocId, numDoc);
         
         if (usuarioOpt.isEmpty()) {
@@ -60,7 +60,7 @@ public class UsuarioServicesImple implements UsuarioServices {
         Usuario usuario = usuarioOpt.get();
         System.out.println("Usuario encontrado en BD: " + usuario.getNom_Usu());
         
-        // Verificar contraseña
+        // Verificar contraseña si existe el mlp :c
         String storedPassword = usuario.getPassword();
         System.out.println("Stored hash (prefix): " + (storedPassword != null && storedPassword.length() > 6 ? storedPassword.substring(0, 6) + "..." : "null"));
         
