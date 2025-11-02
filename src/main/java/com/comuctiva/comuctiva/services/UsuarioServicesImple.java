@@ -20,7 +20,6 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UsuarioServicesImple implements UsuarioServices {
-
     private final UsuarioRepositories usuarioRepositories;
     private final UsuarioMapper usuarioMapper;
     private final Tip_DocRepositories tip_DocRepositories;
@@ -32,44 +31,55 @@ public class UsuarioServicesImple implements UsuarioServices {
         this.tip_DocRepositories = tip_DocRepositories;
         this.passwordEncoder = passwordEncoder;
     }
+
     @Override
-    @Transactional(readOnly = true)
     public Usuario buscarPorDocumento(String documento) {
-        Long numDoc;
         try {
-            numDoc = Long.parseLong(documento);
+            Long numDoc = Long.parseLong(documento);
+            return usuarioRepositories.findByNumDoc(numDoc);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Documento inválido");
+            return null;
         }
-        return usuarioRepositories.findAll().stream()
-                .filter(u -> u.getNumDoc() != null && u.getNumDoc().equals(numDoc))
-                .findFirst()
-                .orElse(null);
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public Usuario buscarPorLogin(Integer tipDocId, Long numDoc, String password) {
         System.out.println("=== BUSCANDO USUARIO ===");
-        System.out.println("TipDocId recibido: " + tipDocId + " (tipo: " + (tipDocId != null ? tipDocId.getClass().getName() : "null") + ")");
-        System.out.println("NumDoc recibido: " + numDoc + " (tipo: " + (numDoc != null ? numDoc.getClass().getName() : "null") + ")");
+        System.out.println("TipDocId recibido: " + tipDocId + " (tipo: " + tipDocId.getClass().getName() + ")");
+        System.out.println("NumDoc recibido: " + numDoc + " (tipo: " + numDoc.getClass().getName() + ")");
         
-        // Buscar usuario por tipo de documento y número de documento
-        Usuario usuario = usuarioRepositories.findFirstByTipDocAndNumDoc(tipDocId, numDoc).orElse(null);
+        // Buscar usuario por tipDocId y numDoc
+        var usuarioOpt = usuarioRepositories.findFirstByTipDocAndNumDoc(tipDocId, numDoc);
         
-        System.out.println("Usuario encontrado en BD: " + (usuario != null ? usuario.getNom_Usu() : "null"));
-        
-        // Verificar si el usuario existe y si la contraseña coincide
-        if (usuario != null && passwordEncoder.matches(password, usuario.getPassword())) {
-            System.out.println("✅ Contraseña correcta");
-            return usuario;
+        if (usuarioOpt.isEmpty()) {
+            System.out.println("❌ Usuario NO encontrado en BD");
+            return null;
         }
         
-        if (usuario != null) {
+        Usuario usuario = usuarioOpt.get();
+        System.out.println("Usuario encontrado en BD: " + usuario.getNom_Usu());
+        
+        // Verificar contraseña
+        String storedPassword = usuario.getPassword();
+        System.out.println("Stored hash (prefix): " + (storedPassword != null && storedPassword.length() > 6 ? storedPassword.substring(0, 6) + "..." : "null"));
+        
+        if (storedPassword == null) {
+            System.out.println("⚠️ Contraseña almacenada es null");
+            return null;
+        }
+        
+        boolean passwordMatches = passwordEncoder.matches(password, storedPassword);
+        System.out.println("Password matches: " + passwordMatches);
+        
+        if (!passwordMatches) {
             System.out.println("❌ Contraseña incorrecta");
+            return null;
         }
         
-        return null;
+        System.out.println("✅ Login exitoso");
+        System.out.println("=== FIN BUSQUEDA ===");
+        return usuario;
     }
     
     @Override
