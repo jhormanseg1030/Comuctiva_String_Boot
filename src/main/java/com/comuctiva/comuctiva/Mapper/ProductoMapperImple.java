@@ -35,17 +35,17 @@ public class ProductoMapperImple implements ProductoMapper{
       return producto;
    }
 
-   @Override
-   public ProductoDto toProductoDto(Producto producto){
-      return new ProductoDto(
-         producto.getId_producto(),
-         producto.getNomprod(),
-         producto.getValor(),
-         producto.getCant(),
-         producto.getImagen(),
-         producto.getDescrip(),
-         producto.getCategoria(),
-         producto.getUnidad_Medida().getId_Medida()
-      );
-   }
+@Override
+public ProductoDto toProductoDto(Producto producto) {
+    ProductoDto dto = new ProductoDto();
+    dto.setId_pro(producto.getId_producto());
+    dto.setNombre_Producto(producto.getNomprod()); // ✅ Cambiado
+    dto.setValor(producto.getValor());                     // ✅ Cambiado
+    dto.setCantidad(producto.getCant());               // ✅ Cambiado
+    dto.setImagen(producto.getImagen());                   // ✅ Cambiado
+    dto.setDescripcion(producto.getDescrip());         // ✅ Cambiado
+    dto.setCategoria(producto.getCategoria());
+    dto.setId_medida(producto.getUnidad_Medida() != null ? producto.getUnidad_Medida().getId_Medida() : null);
+    return dto;
+}
 }
