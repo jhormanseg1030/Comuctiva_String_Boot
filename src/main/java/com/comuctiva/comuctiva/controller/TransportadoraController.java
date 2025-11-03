@@ -26,9 +26,9 @@ public class TransportadoraController{
             transdto.setId_trans(transportadora.getId_transpor());
             transdto.setLog(transportadora.getLogo());
             transdto.setTelefo(transportadora.getTelefono());
-            transdto.setNombt(transportadora.getNombret());
+            transdto.setNombt(transportadora.getNombre());  // Cambiado de getNombret() a getNombre()
             transdto.setCorreo(transportadora.getCorreo());
-            transdto.setDirec(transportadora.getDirecc());
+            transdto.setDirec(transportadora.getDireccion());  // Cambiado de getDirecc() a getDireccion()
             transdto.setSiti_web(transportadora.getSitio_web());
             return transdto;
         }).toList();
