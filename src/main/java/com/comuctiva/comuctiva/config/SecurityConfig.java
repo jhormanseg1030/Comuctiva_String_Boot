@@ -42,6 +42,9 @@ public class SecurityConfig {
                 // Rutas de solo lectura (públicas)
                 .requestMatchers(HttpMethod.GET, "/api/productos/**", "/api/comentarios/**").permitAll()
                 
+                // Rutas de transporte - Administrador y Cliente
+                .requestMatchers("/api/vehiculos/**", "/api/cotizaciones/**", "/api/fletes/**").hasAnyAuthority("Administrador", "Cliente")
+                
                 // DELETE - Solo Administrador
                 .requestMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("Administrador")
                 
