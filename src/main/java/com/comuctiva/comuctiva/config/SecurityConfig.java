@@ -41,7 +41,13 @@ public class SecurityConfig {
                 
                 // Rutas de solo lectura (públicas)
                 .requestMatchers(HttpMethod.GET, "/api/productos/**", "/api/comentarios/**").permitAll()
-                
+                .requestMatchers(HttpMethod.GET, "/api/mis-productos").hasAnyAuthority("Administrador", "Cliente")
+
+                .requestMatchers("/api/carrito/**").hasAnyAuthority("Administrador", "Cliente")
+
+                .requestMatchers(HttpMethod.PUT, "/api/producto/mis-productos/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.DELETE, "/api/producto/mis-productos/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.PUT, "/api/producto/mis-productos/*/restaurar").hasAnyAuthority("Administrador", "Cliente")
                 // DELETE - Solo Administrador
                 .requestMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("Administrador")
                 

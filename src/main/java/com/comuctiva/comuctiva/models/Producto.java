@@ -58,6 +58,10 @@ public class Producto {
     @JoinColumn(name = "ID_Medida", nullable = false, foreignKey = @ForeignKey(name = "FK_Unidad_Medida"))
     private Unidad_Medida unidad_Medida;
 
-    // Eliminado: Ya no hay relación con Tienda
-    // Eliminado: Ya no hay relación directa con Usuario (productos son gestionados por Admin)
+    @ManyToOne
+    @JoinColumn(name = "ID_Usuario", nullable = false)
+    private Usuario vendedor;
+
+    @Column(name = "activo", columnDefinition = "TINYINT(1) DEFAULT 1")
+    private Boolean activo = true;
 }

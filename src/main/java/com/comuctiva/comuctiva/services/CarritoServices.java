@@ -1,20 +1,17 @@
 package com.comuctiva.comuctiva.services;
 
-import java.util.List;
 
-import com.comuctiva.comuctiva.Dto.CarritoCreateDto;
+import com.comuctiva.comuctiva.Dto.AgregarCarritoDto;
 import com.comuctiva.comuctiva.Dto.CarritoDto;
-import com.comuctiva.comuctiva.Dto.CarritoUpdateDto;
 
 public interface CarritoServices {
-
-    CarritoDto crearCarrito(CarritoCreateDto carritoCreateDto);
-
-    CarritoDto carritoPorId(Integer id);
-
-    List<CarritoDto> listartodos();
-
-    void eliminarCarrito(Integer id);
-
-    CarritoDto actualizarCarrito(CarritoUpdateDto carritoUpdateDto);
+    CarritoDto obtenerCarrito(Integer idUsuario);
+    
+    CarritoDto agregarProducto(Integer idUsuario, AgregarCarritoDto dto);
+    
+    CarritoDto actualizarCantidad(Integer idUsuario, Integer idProducto, Integer cantidad);
+    
+    CarritoDto eliminarProducto(Integer idUsuario, Integer idProducto);
+    
+    void vaciarCarrito(Integer idUsuario);
 }
