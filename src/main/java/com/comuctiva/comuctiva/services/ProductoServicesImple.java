@@ -90,4 +90,20 @@ public class ProductoServicesImple implements ProductoServices {
         Producto productoGuardado = productoRepositorie.save(producto);
         return productoMapper.toProductoDto(productoGuardado);
     }
+
+    @Override
+    public java.util.List<ProductoDto> listarPendientes() {
+        return productoRepositorie.findByEstado("pendiente")
+                .stream()
+                .map(productoMapper::toProductoDto)
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    @Override
+    public void cambiarEstadoProducto(Integer id, String nuevoEstado) {
+        Producto producto = productoRepositorie.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Producto no encontrado con id: " + id));
+        producto.setEstado(nuevoEstado);
+        productoRepositorie.save(producto);
+    }
 }

@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 public class Producto {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_producto;
@@ -57,6 +57,13 @@ public class Producto {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_Medida", nullable = false, foreignKey = @ForeignKey(name = "FK_Unidad_Medida"))
     private Unidad_Medida unidad_Medida;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Producto_Usuario"))
+    private Usuario usuario;
+
+    @Column(length = 20, nullable = false)
+    private String estado; // pendiente, aprobado, rechazado
 
     // Eliminado: Ya no hay relación con Tienda
     // Eliminado: Ya no hay relación directa con Usuario (productos son gestionados por Admin)

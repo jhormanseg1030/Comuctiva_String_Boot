@@ -54,9 +54,37 @@ public class ProductoController {
     
     @GetMapping
     public ResponseEntity<List<ProductoDto>> listar() {
-        // Ya no se filtra por vendedor, se listan todos los productos
         List<ProductoDto> productos = productoServices.listar();
         return ResponseEntity.ok(productos);
+    }
+
+    // NUEVO: Listar productos pendientes de aprobación
+    @GetMapping("/pendientes")
+    public ResponseEntity<List<ProductoDto>> listarPendientes() {
+        List<ProductoDto> productosPendientes = productoServices.listarPendientes();
+        return ResponseEntity.ok(productosPendientes);
+    }
+
+    // NUEVO: Aprobar producto
+    @PostMapping("/aprobar/{id}")
+    public ResponseEntity<?> aprobarProducto(@PathVariable Integer id) {
+        try {
+            productoServices.cambiarEstadoProducto(id, "aprobado");
+            return ResponseEntity.ok(Map.of("mensaje", "Producto aprobado correctamente"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", ex.getMessage()));
+        }
+    }
+
+    // NUEVO: Rechazar producto
+    @PostMapping("/rechazar/{id}")
+    public ResponseEntity<?> rechazarProducto(@PathVariable Integer id) {
+        try {
+            productoServices.cambiarEstadoProducto(id, "rechazado");
+            return ResponseEntity.ok(Map.of("mensaje", "Producto rechazado correctamente"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", ex.getMessage()));
+        }
     }
 
     @PutMapping("/{id_producto}")

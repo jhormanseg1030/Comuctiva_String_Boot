@@ -37,15 +37,17 @@ public class ProductoMapperImple implements ProductoMapper{
 
 @Override
 public ProductoDto toProductoDto(Producto producto) {
-    ProductoDto dto = new ProductoDto();
-    dto.setId_pro(producto.getId_producto());
-    dto.setNombre_Producto(producto.getNomprod()); // ✅ Cambiado
-    dto.setValor(producto.getValor());                     // ✅ Cambiado
-    dto.setCantidad(producto.getCant());               // ✅ Cambiado
-    dto.setImagen(producto.getImagen());                   // ✅ Cambiado
-    dto.setDescripcion(producto.getDescrip());         // ✅ Cambiado
-    dto.setCategoria(producto.getCategoria());
-    dto.setId_medida(producto.getUnidad_Medida() != null ? producto.getUnidad_Medida().getId_Medida() : null);
-    return dto;
+   ProductoDto dto = new ProductoDto();
+   dto.setId_pro(producto.getId_producto());
+   dto.setNombre_Producto(producto.getNomprod());
+   dto.setValor(producto.getValor());
+   dto.setCantidad(producto.getCant());
+   dto.setImagen(producto.getImagen());
+   dto.setDescripcion(producto.getDescrip());
+   dto.setCategoria(producto.getCategoria());
+   dto.setId_medida(producto.getUnidad_Medida() != null ? producto.getUnidad_Medida().getId_Medida() : null);
+   dto.setEstado(producto.getEstado());
+   dto.setNombreVendedor(producto.getUsuario() != null ? producto.getUsuario().getNombre() : null);
+   return dto;
 }
 }
