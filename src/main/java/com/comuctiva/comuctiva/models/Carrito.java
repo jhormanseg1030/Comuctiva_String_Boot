@@ -1,18 +1,10 @@
 package com.comuctiva.comuctiva.models;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,18 +13,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Data
+@Table(name = "carrito")
 public class Carrito {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer id_carrito;
-@Column (length=10)
-private String cantidad;
-private Timestamp fecha_agre;
-
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_carrito")
+    private Integer idCarrito;
+    
+    @Column(name = "fecha_creacion", nullable = false, updatable = false)
+    private Timestamp fechaCreacion = new Timestamp(System.currentTimeMillis());
+    
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id_Usuario", nullable = false, foreignKey = @ForeignKey(name = "FK_Usuariossssss"))
+    @JoinColumn(name = "Id_Usuario", nullable = false, unique = true, foreignKey = @ForeignKey(name = "FK_Usuario_Carrito"))
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "carrito")
-    private List<Produc_Carri> pro;
+    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Produc_Carri> items = new ArrayList<>();
 }

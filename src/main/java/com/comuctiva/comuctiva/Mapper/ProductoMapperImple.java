@@ -59,7 +59,7 @@ public ProductoDto toProductoDto(Producto producto) {
     dto.setDescripcion(producto.getDescrip());         // ✅ Cambiado
     dto.setCategoria(producto.getCategoria());
     dto.setId_medida(producto.getUnidad_Medida() != null ? producto.getUnidad_Medida().getId_Medida() : null);
-    dto.setId_usuario(producto.getVendedor() != null ? producto.getVendedor().getId_Usuario() : null); // 🆕
+    dto.setId_usuario(producto.getVendedor() != null ? producto.getVendedor().getId_Usuario() : null);
     return dto;
 }
 }
