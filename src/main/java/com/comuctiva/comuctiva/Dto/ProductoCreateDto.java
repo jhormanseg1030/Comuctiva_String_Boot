@@ -16,5 +16,5 @@ public class ProductoCreateDto {
     @NotNull
     private Integer id_medida;
 
-    private Integer idUsuario;
+    private Integer id_Usuario;
 }

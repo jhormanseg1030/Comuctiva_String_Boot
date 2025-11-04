@@ -5,13 +5,13 @@ import com.comuctiva.comuctiva.Dto.AgregarCarritoDto;
 import com.comuctiva.comuctiva.Dto.CarritoDto;
 
 public interface CarritoServices {
-    CarritoDto obtenerCarrito(Integer idUsuario);
+    CarritoDto obtenerCarrito(Integer id_Usuario);
     
-    CarritoDto agregarProducto(Integer idUsuario, AgregarCarritoDto dto);
+    CarritoDto agregarProducto(Integer id_Usuario, AgregarCarritoDto dto);
     
-    CarritoDto actualizarCantidad(Integer idUsuario, Integer idProducto, Integer cantidad);
+    CarritoDto actualizarCantidad(Integer id_Usuario, Integer idProducto, Integer cantidad);
     
-    CarritoDto eliminarProducto(Integer idUsuario, Integer idProducto);
+    CarritoDto eliminarProducto(Integer id_Usuario, Integer idProducto);
     
-    void vaciarCarrito(Integer idUsuario);
+    void vaciarCarrito(Integer id_Usuario);
 }

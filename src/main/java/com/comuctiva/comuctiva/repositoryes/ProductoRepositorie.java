@@ -11,8 +11,8 @@ import com.comuctiva.comuctiva.models.Producto;
 
 public interface ProductoRepositorie extends JpaRepository<Producto, Integer> {
 
-	@Query("SELECT p FROM Producto p WHERE p.vendedor.id_Usuario = :idUsuario")
-    List<Producto> findByVendedorIdUsuario(@Param("idUsuario") Integer idUsuario);
+	@Query("SELECT p FROM Producto p WHERE p.vendedor.id_Usuario = :id_Usuario")
+    List<Producto> findByVendedorId_Usuario(@Param("id_Usuario") Integer id_Usuario);
 
     @Modifying
     @Query("UPDATE Producto p SET p.activo = false WHERE p.id_producto = :id")
@@ -24,6 +24,6 @@ public interface ProductoRepositorie extends JpaRepository<Producto, Integer> {
 
     List<Producto> findByActivoTrue();
 
-    @Query("SELECT p FROM Producto p WHERE p.vendedor.id_Usuario = :idUsuario AND p.activo = true")
-    List<Producto> findByVendedorIdUsuarioAndActivoTrue(@Param("idUsuario") Integer idUsuario);
+    @Query("SELECT p FROM Producto p WHERE p.vendedor.id_Usuario = :id_Usuario AND p.activo = true")
+    List<Producto> findByVendedorId_UsuarioAndActivoTrue(@Param("id_Usuario") Integer id_Usuario);
 }

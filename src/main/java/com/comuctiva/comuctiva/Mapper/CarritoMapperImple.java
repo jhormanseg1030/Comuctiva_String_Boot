@@ -20,7 +20,7 @@ public class CarritoMapperImple implements CarritoMapper {
         
         CarritoDto dto = new CarritoDto();
         dto.setIdCarrito(carrito.getIdCarrito());
-        dto.setIdUsuario(carrito.getUsuario() != null ? carrito.getUsuario().getId_Usuario() : null);
+        dto.setId_Usuario(carrito.getUsuario() != null ? carrito.getUsuario().getId_Usuario() : null);
         
         // ✅ Validar que items no sea null
         if (carrito.getItems() == null || carrito.getItems().isEmpty()) {

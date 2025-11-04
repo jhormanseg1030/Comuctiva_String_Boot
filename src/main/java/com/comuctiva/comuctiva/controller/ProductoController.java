@@ -46,7 +46,7 @@ public class ProductoController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
 
-            productoCreateDto.setIdUsuario(vendedor.getId_Usuario());
+            productoCreateDto.setId_Usuario(vendedor.getId_Usuario());
             ProductoDto producto = productoServices.crearProducto(productoCreateDto);
             return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Map.of("Mensaje", "Producto creado exitosamente", "Detalles", producto));

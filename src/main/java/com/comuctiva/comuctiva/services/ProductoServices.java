@@ -19,7 +19,7 @@ public interface ProductoServices {
 
     ProductoDto actualizarProducto(ProductoUpdateDto productoUpdateDto);
 
-    List<ProductoDto> listarMisProductos(Integer idUsuario);
+    List<ProductoDto> listarMisProductos(Integer id_Usuario);
 
     void desactivarProducto(Integer id);
     

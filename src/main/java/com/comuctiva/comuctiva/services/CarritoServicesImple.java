@@ -39,16 +39,16 @@ public class CarritoServicesImple implements CarritoServices {
     private CarritoMapper carritoMapper;
 
     @Override
-    public CarritoDto obtenerCarrito(Integer idUsuario) {
-        Carrito carrito = obtenerOCrearCarrito(idUsuario);
+    public CarritoDto obtenerCarrito(Integer id_Usuario) {
+        Carrito carrito = obtenerOCrearCarrito(id_Usuario);
         return carritoMapper.toCarritoDto(carrito);
     }
 
     @Override
-    public CarritoDto agregarProducto(Integer idUsuario, AgregarCarritoDto dto) {
+    public CarritoDto agregarProducto(Integer id_Usuario, AgregarCarritoDto dto) {
         try {
             // 1. Obtener o crear carrito
-            Carrito carrito = obtenerOCrearCarrito(idUsuario);
+            Carrito carrito = obtenerOCrearCarrito(id_Usuario);
             
             // 2. Validar que el producto exista y esté activo
             Producto producto = productoRepo.findById(dto.getIdProducto())
@@ -99,7 +99,7 @@ public class CarritoServicesImple implements CarritoServices {
             }
             
             // ✅ Recargar carrito completo desde la BD
-            carrito = carritoRepo.findByUsuarioIdUsuarioWithItems(idUsuario)
+            carrito = carritoRepo.findByUsuarioId_UsuarioWithItems(id_Usuario)
                 .orElseThrow(() -> new IllegalArgumentException("Error al recargar carrito"));
             
             return carritoMapper.toCarritoDto(carrito);
@@ -112,9 +112,9 @@ public class CarritoServicesImple implements CarritoServices {
     }
 
     @Override
-    public CarritoDto actualizarCantidad(Integer idUsuario, Integer idProducto, Integer cantidad) {
+    public CarritoDto actualizarCantidad(Integer id_Usuario, Integer idProducto, Integer cantidad) {
         try {
-            Carrito carrito = obtenerOCrearCarrito(idUsuario);
+            Carrito carrito = obtenerOCrearCarrito(id_Usuario);
             
             Produc_Carri producCarri = producCarriRepo
                 .findByCarritoAndProducto(carrito.getIdCarrito(), idProducto)
@@ -140,7 +140,7 @@ public class CarritoServicesImple implements CarritoServices {
             // ✅ FORZAR recarga desde BD con clear()
             carritoRepo.flush();
             
-            carrito = carritoRepo.findByUsuarioIdUsuarioWithItems(idUsuario)
+            carrito = carritoRepo.findByUsuarioId_UsuarioWithItems(id_Usuario)
                 .orElseThrow(() -> new IllegalArgumentException("Error al recargar carrito"));
             
             return carritoMapper.toCarritoDto(carrito);
@@ -153,16 +153,16 @@ public class CarritoServicesImple implements CarritoServices {
     }
 
     @Override
-    public CarritoDto eliminarProducto(Integer idUsuario, Integer idProducto) {
+    public CarritoDto eliminarProducto(Integer id_Usuario, Integer idProducto) {
         try {
-            Carrito carrito = obtenerOCrearCarrito(idUsuario);
+            Carrito carrito = obtenerOCrearCarrito(id_Usuario);
             
             // ✅ Usar deleteByCarritoAndProducto personalizado
             producCarriRepo.deleteByCarritoAndProducto(carrito.getIdCarrito(), idProducto);
             producCarriRepo.flush(); // ✅ Forzar ejecución inmediata
             
             // ✅ Recargar carrito desde BD
-            carrito = carritoRepo.findByUsuarioIdUsuarioWithItems(idUsuario)
+            carrito = carritoRepo.findByUsuarioId_UsuarioWithItems(id_Usuario)
                 .orElseThrow(() -> new IllegalArgumentException("Error al recargar carrito"));
             
             return carritoMapper.toCarritoDto(carrito);
@@ -175,9 +175,9 @@ public class CarritoServicesImple implements CarritoServices {
     }
 
     @Override
-    public void vaciarCarrito(Integer idUsuario) {
+    public void vaciarCarrito(Integer id_Usuario) {
         try {
-            Carrito carrito = carritoRepo.findByUsuarioIdUsuarioWithItems(idUsuario)
+            Carrito carrito = carritoRepo.findByUsuarioId_UsuarioWithItems(id_Usuario)
                 .orElseThrow(() -> new IllegalArgumentException("Carrito no encontrado"));
             
             // ✅ MÉTODO 1: Eliminar por query directa
@@ -193,11 +193,11 @@ public class CarritoServicesImple implements CarritoServices {
         }
     }
 
-    private Carrito obtenerOCrearCarrito(Integer idUsuario) {
-        return carritoRepo.findByUsuarioIdUsuarioWithItems(idUsuario)
+    private Carrito obtenerOCrearCarrito(Integer id_Usuario) {
+        return carritoRepo.findByUsuarioId_UsuarioWithItems(id_Usuario)
             .orElseGet(() -> {
-                Usuario usuario = usuarioRepo.findById(idUsuario)
-                    .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con ID: " + idUsuario));
+                Usuario usuario = usuarioRepo.findById(id_Usuario)
+                    .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con ID: " + id_Usuario));
                 
                 Carrito nuevoCarrito = new Carrito();
                 nuevoCarrito.setUsuario(usuario);

@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CarritoDto {
     private Integer idCarrito;
-    private Integer idUsuario;
+    private Integer id_Usuario;
     private List<Produc_CarriDto> items;
     private Integer totalItems;
     private Double total;
