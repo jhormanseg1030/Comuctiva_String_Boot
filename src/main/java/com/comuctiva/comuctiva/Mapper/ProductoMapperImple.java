@@ -6,7 +6,9 @@ import com.comuctiva.comuctiva.Dto.ProductoCreateDto;
 import com.comuctiva.comuctiva.Dto.ProductoDto;
 import com.comuctiva.comuctiva.models.Producto;
 import com.comuctiva.comuctiva.models.Unidad_Medida;
+import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.Unidad_MedidaRepositories;
+import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -14,9 +16,12 @@ import jakarta.persistence.EntityNotFoundException;
 public class ProductoMapperImple implements ProductoMapper{
 
    private final Unidad_MedidaRepositories unidad_MedidaRepositories;
+   private final UsuarioRepositories usuarioRepositories;
 
-   public ProductoMapperImple(Unidad_MedidaRepositories unidad_MedidaRepositories){
+   public ProductoMapperImple(Unidad_MedidaRepositories unidad_MedidaRepositories,
+                             UsuarioRepositories usuarioRepositories){
       this.unidad_MedidaRepositories = unidad_MedidaRepositories;
+      this.usuarioRepositories = usuarioRepositories;
    }
 
    @Override
@@ -32,6 +37,14 @@ public class ProductoMapperImple implements ProductoMapper{
       Unidad_Medida unidad_Medida = unidad_MedidaRepositories.findById(productoCreateDto.getId_medida())
       .orElseThrow(() -> new EntityNotFoundException("Unidad de medida no encontrada"));
       producto.setUnidad_Medida(unidad_Medida);
+      
+      // 🆕 Asignar vendedor si se proporciona
+      if (productoCreateDto.getId_usuario() != null) {
+         Usuario vendedor = usuarioRepositories.findById(productoCreateDto.getId_usuario())
+            .orElseThrow(() -> new EntityNotFoundException("Usuario vendedor no encontrado"));
+         producto.setVendedor(vendedor);
+      }
+      
       return producto;
    }
 
@@ -46,6 +59,7 @@ public ProductoDto toProductoDto(Producto producto) {
     dto.setDescripcion(producto.getDescrip());         // ✅ Cambiado
     dto.setCategoria(producto.getCategoria());
     dto.setId_medida(producto.getUnidad_Medida() != null ? producto.getUnidad_Medida().getId_Medida() : null);
+    dto.setId_usuario(producto.getVendedor() != null ? producto.getVendedor().getId_Usuario() : null); // 🆕
     return dto;
 }
 }

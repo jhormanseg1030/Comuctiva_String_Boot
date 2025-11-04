@@ -16,4 +16,5 @@ public class ProductoDto {
     private String descripcion;          // ✅ Cambiado de "descri"
     private String categoria;            // ✅ OK
     private Integer id_medida;           // ✅ Cambiado de "id_medi"
+    private Integer id_usuario;          // 🆕 ID del vendedor (propietario del producto)
 }

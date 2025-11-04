@@ -15,4 +15,6 @@ public class ProductoCreateDto {
 
     @NotNull
     private Integer id_medida;
+    
+    private Integer id_usuario; // 🆕 ID del vendedor (opcional, puede ser null para productos de COMUCTIVA)
 }
