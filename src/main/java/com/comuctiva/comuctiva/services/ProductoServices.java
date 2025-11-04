@@ -13,6 +13,12 @@ public interface ProductoServices {
     ProductoDto productoPorId(Integer id);
 
     List<ProductoDto> listar();
+
+    // Listar productos pendientes
+    List<ProductoDto> listarPendientes();
+
+    // Cambiar estado de producto
+    void cambiarEstadoProducto(Integer id, String nuevoEstado);
     // Método eliminado: listarPorDocumentoVendedor - No hay relación Producto-Usuario
 
     void eliminarProducto(Integer id);

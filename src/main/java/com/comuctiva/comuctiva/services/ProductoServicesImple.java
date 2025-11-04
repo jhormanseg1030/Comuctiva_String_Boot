@@ -99,29 +99,18 @@ public class ProductoServicesImple implements ProductoServices {
     }
 
     @Override
-        public List<ProductoDto> listarMisProductos(Integer id_usuario) {
-        List<Producto> productos = productoRepositorie.findByVendedorId_usuario(id_usuario);
-        return productos.stream()
-            .map(productoMapper::toProductoDto)
-            .collect(Collectors.toList());
+    public java.util.List<ProductoDto> listarPendientes() {
+        return productoRepositorie.findByEstado("pendiente")
+                .stream()
+                .map(productoMapper::toProductoDto)
+                .collect(java.util.stream.Collectors.toList());
     }
 
     @Override
-    @Transactional
-    public void desactivarProducto(Integer id) {
-        if (!productoRepositorie.existsById(id)) {
-            throw new IllegalArgumentException("Producto no encontrado");
-        }
-        productoRepositorie.softDelete(id);
-    }
-    
-    // ✅ NUEVO: Restaurar producto
-    @Override
-    @Transactional
-    public void restaurarProducto(Integer id) {
-        if (!productoRepositorie.existsById(id)) {
-            throw new IllegalArgumentException("Producto no encontrado");
-        }
-        productoRepositorie.restore(id);
+    public void cambiarEstadoProducto(Integer id, String nuevoEstado) {
+        Producto producto = productoRepositorie.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Producto no encontrado con id: " + id));
+        producto.setEstado(nuevoEstado);
+        productoRepositorie.save(producto);
     }
 }

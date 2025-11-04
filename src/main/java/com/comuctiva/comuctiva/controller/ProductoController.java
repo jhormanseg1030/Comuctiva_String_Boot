@@ -67,53 +67,38 @@ public class ProductoController {
     
     @GetMapping
     public ResponseEntity<List<ProductoDto>> listar() {
-        // Ya no se filtra por vendedor, se listan todos los productos
         List<ProductoDto> productos = productoServices.listar();
         return ResponseEntity.ok(productos);
     }
 
-    @GetMapping("/mis-productos")
-    public ResponseEntity<List<ProductoDto>> listarMisProductos(Authentication auth) {
+    // NUEVO: Listar productos pendientes de aprobación
+    @GetMapping("/pendientes")
+    public ResponseEntity<List<ProductoDto>> listarPendientes() {
+        List<ProductoDto> productosPendientes = productoServices.listarPendientes();
+        return ResponseEntity.ok(productosPendientes);
+    }
+
+    // NUEVO: Aprobar producto
+    @PostMapping("/aprobar/{id}")
+    public ResponseEntity<?> aprobarProducto(@PathVariable Integer id) {
         try {
-            String username = auth.getName(); // NumDoc del JWT
-            Usuario vendedor = usuarioRepositories.findByNumDoc(Long.parseLong(username));
-            
-            if (vendedor == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-            }
-            
-            List<ProductoDto> misProductos = productoServices.listarMisProductos(vendedor.getId_Usuario());
-            return ResponseEntity.ok(misProductos);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            productoServices.cambiarEstadoProducto(id, "aprobado");
+            return ResponseEntity.ok(Map.of("mensaje", "Producto aprobado correctamente"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", ex.getMessage()));
         }
     }
 
-    @GetMapping("/mis-productos/{id_producto}")
-public ResponseEntity<?> obtenerMiProductoPorId(@PathVariable Integer id_producto, Authentication auth) {
-    try {
-        String username = auth.getName();
-        Usuario vendedor = usuarioRepositories.findByNumDoc(Long.parseLong(username));
-        
-        if (vendedor == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // NUEVO: Rechazar producto
+    @PostMapping("/rechazar/{id}")
+    public ResponseEntity<?> rechazarProducto(@PathVariable Integer id) {
+        try {
+            productoServices.cambiarEstadoProducto(id, "rechazado");
+            return ResponseEntity.ok(Map.of("mensaje", "Producto rechazado correctamente"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", ex.getMessage()));
         }
-        
-        // Obtener el producto
-        ProductoDto producto = productoServices.productoPorId(id_producto);
-        
-        // ✅ Verificar que el producto sea del usuario autenticado
-        if (!producto.getId_usuario().equals(vendedor.getId_Usuario())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(Map.of("Error", "No tienes permiso para ver este producto"));
-        }
-        
-        return ResponseEntity.ok(producto);
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body(Map.of("Error", "Producto no encontrado"));
     }
-}
 
     @PutMapping("/{id_producto}")
     public ResponseEntity<ProductoDto> putActualizar(@PathVariable Integer id_producto, @RequestBody ProductoUpdateDto productoUpdate) {
