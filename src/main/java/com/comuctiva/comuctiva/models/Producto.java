@@ -61,4 +61,7 @@ public class Producto {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_Usuario", nullable = true, foreignKey = @ForeignKey(name = "FK_Producto_Usuario"))
     private Usuario vendedor;
+
+    @Column(name = "activo", columnDefinition = "TINYINT(1) DEFAULT 1")
+    private Boolean activo = true;
 }
