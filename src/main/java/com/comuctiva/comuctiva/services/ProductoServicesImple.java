@@ -12,6 +12,7 @@ import com.comuctiva.comuctiva.Dto.ProductoUpdateDto;
 import com.comuctiva.comuctiva.Mapper.ProductoMapper;
 import com.comuctiva.comuctiva.models.Producto;
 import com.comuctiva.comuctiva.models.Unidad_Medida;
+import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.ProductoRepositorie;
 import com.comuctiva.comuctiva.repositoryes.Unidad_MedidaRepositories;
 import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
@@ -24,11 +25,13 @@ public class ProductoServicesImple implements ProductoServices {
     private final ProductoRepositorie productoRepositorie;
     private final ProductoMapper productoMapper;
     private final Unidad_MedidaRepositories unidad_MedidaRepositories;
+    private final UsuarioRepositories usuarioRepositories;
 
     public ProductoServicesImple(ProductoRepositorie productoRepositorie, ProductoMapper productoMapper, Unidad_MedidaRepositories unidad_MedidaRepositories, UsuarioRepositories usuarioRepositories) {
         this.productoRepositorie = productoRepositorie;
         this.productoMapper = productoMapper;
         this.unidad_MedidaRepositories = unidad_MedidaRepositories;
+        this.usuarioRepositories = usuarioRepositories;
     }
 
     @Override
@@ -37,14 +40,17 @@ public class ProductoServicesImple implements ProductoServices {
         // Validar que la unidad de medida exista
         Unidad_Medida unidadMedida = unidad_MedidaRepositories.findById(productoCreateDto.getId_medida())
                 .orElseThrow(() -> new IllegalStateException("Unidad de medida no encontrada con id: " + productoCreateDto.getId_medida()));
+                Producto producto = productoMapper.toProducto(productoCreateDto);
+                producto.setUnidad_Medida(unidadMedida);
+        
 
-        // Convertir DTO a entidad
-        Producto producto = productoMapper.toProducto(productoCreateDto);
-        producto.setUnidad_Medida(unidadMedida);
-
-        // Guardar producto
-        Producto productoGuardado = productoRepositorie.save(producto);
-        return productoMapper.toProductoDto(productoGuardado);
+    if (productoCreateDto.getId_usuario() != null) {
+        Usuario vendedor = usuarioRepositories.findById(productoCreateDto.getId_usuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        producto.setVendedor(vendedor);
+    }
+        Producto guardado = productoRepositorie.save(producto);
+        return productoMapper.toProductoDto(guardado);
     }
 
     @Override
@@ -58,10 +64,11 @@ public class ProductoServicesImple implements ProductoServices {
     @Override
     @Transactional(readOnly = true)
     public List<ProductoDto> listar() {
-        return productoRepositorie.findAll()
-                .stream()
-                .map(productoMapper::toProductoDto)
-                .collect(Collectors.toList());
+        // ✅ Solo listar productos activos
+        List<Producto> productos = productoRepositorie.findByActivoTrue();
+        return productos.stream()
+            .map(productoMapper::toProductoDto)
+            .collect(Collectors.toList());
     }
 
     @Override

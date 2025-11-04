@@ -24,4 +24,10 @@ public interface ProductoServices {
     void eliminarProducto(Integer id);
 
     ProductoDto actualizarProducto(ProductoUpdateDto productoUpdateDto);
+
+    List<ProductoDto> listarMisProductos(Integer id_usuario);
+
+    void desactivarProducto(Integer id);
+    
+    void restaurarProducto(Integer id);
 }

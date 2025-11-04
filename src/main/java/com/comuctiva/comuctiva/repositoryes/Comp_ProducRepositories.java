@@ -19,4 +19,36 @@ public interface Comp_ProducRepositories extends JpaRepository<Comp_Produc, Comp
     // Buscar compras de un producto específico
     @Query("SELECT cp FROM Comp_Produc cp WHERE cp.produc.id_producto = :idProducto")
     List<Comp_Produc> findByProductoId(@Param("idProducto") Long idProducto);
+    
+    /**
+     * Obtiene las ventas de un vendedor específico
+     * (productos que le compraron al usuario)
+     */
+    @Query("""
+        SELECT cp 
+        FROM Comp_Produc cp
+        JOIN FETCH cp.compra c
+        JOIN FETCH c.pedido p
+        JOIN FETCH p.usuario u
+        JOIN FETCH cp.produc pr
+        WHERE pr.vendedor.id_Usuario = :idVendedor
+        ORDER BY c.fec_com DESC
+    """)
+    List<Comp_Produc> findVentasByVendedor(@Param("idVendedor") Integer idVendedor);
+    
+    /**
+     * Obtiene las compras de un cliente específico
+     * (productos que el usuario compró)
+     */
+    @Query("""
+        SELECT cp 
+        FROM Comp_Produc cp
+        JOIN FETCH cp.compra c
+        JOIN FETCH c.pedido p
+        JOIN FETCH cp.produc pr
+        LEFT JOIN FETCH pr.vendedor v
+        WHERE p.usuario.id_Usuario = :idCliente
+        ORDER BY c.fec_com DESC
+    """)
+    List<Comp_Produc> findComprasByCliente(@Param("idCliente") Integer idCliente);
 }

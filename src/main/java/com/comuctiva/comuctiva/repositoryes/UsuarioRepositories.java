@@ -19,4 +19,8 @@ public interface UsuarioRepositories extends JpaRepository<Usuario, Integer> {
     Optional<Usuario> findFirstByTipDocAndNumDoc(@Param("tipDocId") Integer tipDocId, @Param("numDoc") Long numDoc);
     
     Usuario findByNumDoc(Long numDoc);
+    
+    // Buscar usuario por nombre de usuario (username)
+    @Query("SELECT u FROM Usuario u WHERE u.nom_Usu = :nomUsu")
+    Optional<Usuario> findByNomUs(@Param("nomUsu") String nomUsu);
 }

@@ -17,5 +17,4 @@ public class ProductoDto {
     private String categoria;            // ✅ OK
     private Integer id_medida;           // ✅ Cambiado de "id_medi"
     private String estado;               // Estado del producto (pendiente, aprobado, rechazado)
-    private String nombreVendedor;       // Nombre del usuario que publicó el producto
 }

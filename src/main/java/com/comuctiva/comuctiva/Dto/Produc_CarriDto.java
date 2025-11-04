@@ -1,20 +1,19 @@
 package com.comuctiva.comuctiva.Dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Produc_CarriDto {
-
-    @NotNull(message = "El campo producto es obligatorio")
-    private Integer id_producto;
-
-    @NotNull(message = "El campo carro es obligatorio")
+    private Integer idProducto;
     private Integer id_carro;
-
-    private String nompro;
+    private String nombreProducto;
+    private Double valor;
+    private Integer cantidad;
+    private String imagen;
+    private String categoria;
+    private Double subtotal;
 }
