@@ -45,8 +45,8 @@ public class CarritoController {
     @GetMapping
     public ResponseEntity<?> obtenerCarrito(Authentication auth) {
         try {
-            Integer id_Usuario = obtenerIdUsuario(auth);
-            CarritoDto carrito = carritoServices.obtenerCarrito(id_Usuario);
+            Integer id_usuario = obtenerIdUsuario(auth);
+            CarritoDto carrito = carritoServices.obtenerCarrito(id_usuario);
             return ResponseEntity.ok(carrito);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -65,8 +65,8 @@ public class CarritoController {
         Authentication auth
     ) {
         try {
-            Integer id_Usuario = obtenerIdUsuario(auth);
-            CarritoDto carrito = carritoServices.agregarProducto(id_Usuario, dto);
+            Integer id_usuario = obtenerIdUsuario(auth);
+            CarritoDto carrito = carritoServices.agregarProducto(id_usuario, dto);
             return ResponseEntity.ok(Map.of(
                 "Mensaje", "Producto agregado al carrito",
                 "Carrito", carrito
@@ -92,8 +92,8 @@ public class CarritoController {
         Authentication auth
     ) {
         try {
-            Integer id_Usuario = obtenerIdUsuario(auth);
-            CarritoDto carrito = carritoServices.actualizarCantidad(id_Usuario, idProducto, dto.getCantidad());
+            Integer id_usuario = obtenerIdUsuario(auth);
+            CarritoDto carrito = carritoServices.actualizarCantidad(id_usuario, idProducto, dto.getCantidad());
             return ResponseEntity.ok(Map.of(
                 "Mensaje", "Cantidad actualizada",
                 "Carrito", carrito
@@ -117,8 +117,8 @@ public class CarritoController {
         Authentication auth
     ) {
         try {
-            Integer id_Usuario = obtenerIdUsuario(auth);
-            CarritoDto carrito = carritoServices.eliminarProducto(id_Usuario, idProducto);
+            Integer id_usuario = obtenerIdUsuario(auth);
+            CarritoDto carrito = carritoServices.eliminarProducto(id_usuario, idProducto);
             return ResponseEntity.ok(Map.of(
                 "Mensaje", "Producto eliminado del carrito",
                 "Carrito", carrito
@@ -139,8 +139,8 @@ public class CarritoController {
     @DeleteMapping
     public ResponseEntity<?> vaciarCarrito(Authentication auth) {
         try {
-            Integer id_Usuario = obtenerIdUsuario(auth);
-            carritoServices.vaciarCarrito(id_Usuario);
+            Integer id_usuario = obtenerIdUsuario(auth);
+            carritoServices.vaciarCarrito(id_usuario);
             return ResponseEntity.ok(Map.of("Mensaje", "Carrito vaciado exitosamente"));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

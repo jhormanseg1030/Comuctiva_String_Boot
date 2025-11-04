@@ -44,8 +44,8 @@ public class ProductoServicesImple implements ProductoServices {
                 producto.setUnidad_Medida(unidadMedida);
         
 
-    if (productoCreateDto.getId_Usuario() != null) {
-        Usuario vendedor = usuarioRepositories.findById(productoCreateDto.getId_Usuario())
+    if (productoCreateDto.getId_usuario() != null) {
+        Usuario vendedor = usuarioRepositories.findById(productoCreateDto.getId_usuario())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         producto.setVendedor(vendedor);
     }
@@ -99,8 +99,8 @@ public class ProductoServicesImple implements ProductoServices {
     }
 
     @Override
-        public List<ProductoDto> listarMisProductos(Integer id_Usuario) {
-        List<Producto> productos = productoRepositorie.findByVendedorId_Usuario(id_Usuario);
+        public List<ProductoDto> listarMisProductos(Integer id_usuario) {
+        List<Producto> productos = productoRepositorie.findByVendedorId_usuario(id_usuario);
         return productos.stream()
             .map(productoMapper::toProductoDto)
             .collect(Collectors.toList());
