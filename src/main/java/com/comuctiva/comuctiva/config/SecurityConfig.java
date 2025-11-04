@@ -44,6 +44,8 @@ public class SecurityConfig {
                 
                 // NUEVOS ENDPOINTS - Ventas y Compras (requieren autenticación)
                 .requestMatchers(HttpMethod.GET, "/api/mis-ventas", "/api/mis-compras").hasAnyAuthority("Administrador", "Cliente")
+                // Rutas de transporte - Administrador y Cliente
+                .requestMatchers("/api/vehiculos/**", "/api/cotizaciones/**", "/api/fletes/**").hasAnyAuthority("Administrador", "Cliente")
                 
                 // DELETE - Solo Administrador
                 .requestMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("Administrador")
