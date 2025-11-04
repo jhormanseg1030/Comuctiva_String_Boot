@@ -42,6 +42,9 @@ public class SecurityConfig {
                 // Rutas de solo lectura (públicas)
                 .requestMatchers(HttpMethod.GET, "/api/productos/**", "/api/comentarios/**").permitAll()
                 
+                // NUEVOS ENDPOINTS - Ventas y Compras (requieren autenticación)
+                .requestMatchers(HttpMethod.GET, "/api/mis-ventas", "/api/mis-compras").hasAnyAuthority("Administrador", "Cliente")
+                
                 // DELETE - Solo Administrador
                 .requestMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("Administrador")
                 
