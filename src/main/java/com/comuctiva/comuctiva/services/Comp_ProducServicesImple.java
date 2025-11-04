@@ -10,7 +10,6 @@ import com.comuctiva.comuctiva.Dto.Compra_AsignacionesDto;
 import com.comuctiva.comuctiva.Dto.Producto_AsignacionesDto;
 import com.comuctiva.comuctiva.Mapper.Comp_producMapper;
 import com.comuctiva.comuctiva.models.Comp_Produc;
-import com.comuctiva.comuctiva.models.Comp_ProducId;
 import com.comuctiva.comuctiva.repositoryes.Comp_ProductRepositories;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -30,11 +29,16 @@ public class Comp_ProducServicesImple implements Comp_ProducServices {
     public Com_ProducDto asignar(Com_ProducDto com_p) {
         Comp_Produc cp = mapper.toComp_Produc(com_p);
 
-        Comp_ProducId id = new Comp_ProducId(cp.getCompra().getId_compra(), cp.getProduc().getId_producto());
-        if (repositories.existsById(id)) {
-            
+        // Verificar si ya existe una asignación de este producto a esta compra
+        List<Comp_Produc> existentes = repositories.findByCompraIdAndProductoId(
+            cp.getCompra().getId_compra(), 
+            cp.getProduc().getId_producto()
+        );
+        
+        if (!existentes.isEmpty()) {
             throw new IllegalStateException("El producto ya esta asignado a la compra");
         }
+        
         Comp_Produc guardar = repositories.save(cp);
         return mapper.toCom_ProducDto(guardar);
     }
@@ -73,10 +77,14 @@ public class Comp_ProducServicesImple implements Comp_ProducServices {
 
     @Override
     public void eliminar(Integer compraId, Integer productoId) {
-        Comp_ProducId id = new Comp_ProducId(compraId, productoId);
-        if (!repositories.existsById(id)) {
+        // Buscar el registro por compra y producto
+        List<Comp_Produc> registros = repositories.findByCompraIdAndProductoId(compraId, productoId);
+        
+        if (registros.isEmpty()) {
             throw new EntityNotFoundException("compra o producto no encontrado");
         }
-        repositories.deleteById(id);
+        
+        // Eliminar el registro encontrado
+        repositories.delete(registros.get(0));
     }
 }

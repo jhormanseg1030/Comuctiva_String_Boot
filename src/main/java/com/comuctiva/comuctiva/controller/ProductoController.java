@@ -78,6 +78,25 @@ public class ProductoController {
         return ResponseEntity.ok(productosPendientes);
     }
 
+
+    @GetMapping("/mis-productos")
+    public ResponseEntity<List<ProductoDto>> listarMisProductos(Authentication auth) {
+        try {
+            String username = auth.getName(); // NumDoc del JWT
+            Usuario vendedor = usuarioRepositories.findByNumDoc(Long.parseLong(username));
+            
+            if (vendedor == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+            
+            List<ProductoDto> misProductos = productoServices.listarMisProductos(vendedor.getId_Usuario());
+            return ResponseEntity.ok(misProductos);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    
     // NUEVO: Aprobar producto
     @PostMapping("/aprobar/{id}")
     public ResponseEntity<?> aprobarProducto(@PathVariable Integer id) {
@@ -127,7 +146,7 @@ public class ProductoController {
                 ProductoDto productoExistente = productoServices.productoPorId(id_producto);
                 
                 // ✅ Verificar que el producto sea del usuario autenticado
-                if (!productoExistente.getId_usuario().equals(vendedor.getId_Usuario())) {
+                if (!productoExistente.getId_pro().equals(vendedor.getId_Usuario())) {
                     return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body(Map.of("Error", "No tienes permiso para editar este producto"));
                 }
@@ -163,7 +182,7 @@ public class ProductoController {
         
         // Verificar que el producto sea del usuario
         ProductoDto producto = productoServices.productoPorId(id_producto);
-        if (!producto.getId_usuario().equals(vendedor.getId_Usuario())) {
+        if (!producto.getId_pro().equals(vendedor.getId_Usuario())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(Map.of("Error", "No tienes permiso para eliminar este producto"));
         }
@@ -201,10 +220,63 @@ public ResponseEntity<?> restaurarMiProducto(@PathVariable Integer id_producto, 
     }
 }
 
+// 🆕 Activar producto
+@PutMapping("/{id_producto}/activar")
+public ResponseEntity<?> activarProducto(@PathVariable Integer id_producto) {
+    try {
+        productoServices.restaurarProducto(id_producto);
+        return ResponseEntity.ok(Map.of("Mensaje", "Producto activado exitosamente", "activo", true));
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(Map.of("Error", "Error al activar producto: " + e.getMessage()));
+    }
+}
+
+// 🆕 Desactivar producto
+@PutMapping("/{id_producto}/desactivar")
+public ResponseEntity<?> desactivarProducto(@PathVariable Integer id_producto) {
+    try {
+        productoServices.desactivarProducto(id_producto);
+        return ResponseEntity.ok(Map.of("Mensaje", "Producto desactivado exitosamente", "activo", false));
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(Map.of("Error", "Error al desactivar producto: " + e.getMessage()));
+    }
+}
+
+// 🆕 Toggle estado activo/inactivo del producto (más fácil de usar)
+@PutMapping("/{id_producto}/toggle-estado")
+public ResponseEntity<?> toggleEstadoProducto(@PathVariable Integer id_producto) {
+    try {
+        // Obtener el producto actual
+        ProductoDto producto = productoServices.productoPorId(id_producto);
+        
+        if (producto.getActivo() != null && producto.getActivo()) {
+            // Si está activo, desactivar
+            productoServices.desactivarProducto(id_producto);
+            return ResponseEntity.ok(Map.of(
+                "Mensaje", "Producto desactivado exitosamente", 
+                "activo", false,
+                "producto", producto.getNombre_Producto()
+            ));
+        } else {
+            // Si está inactivo, activar
+            productoServices.restaurarProducto(id_producto);
+            return ResponseEntity.ok(Map.of(
+                "Mensaje", "Producto activado exitosamente", 
+                "activo", true,
+                "producto", producto.getNombre_Producto()
+            ));
+        }
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(Map.of("Error", "Error al cambiar estado del producto: " + e.getMessage()));
+    }
+}
+
     @DeleteMapping("/{id_producto}")
     public ResponseEntity<Void> eliminarProducto(@PathVariable Integer id_producto) {
         productoServices.eliminarProducto(id_producto);
         return ResponseEntity.ok().build();
     }
-    
 }

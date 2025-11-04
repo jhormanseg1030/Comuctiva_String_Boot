@@ -22,7 +22,7 @@ import com.comuctiva.comuctiva.services.ComentarioServices;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/comentarios")
+@RequestMapping("api/comentario")
 public class ComentarioController {
     
     private final ComentarioServices comentarioServices;
@@ -52,7 +52,7 @@ public class ComentarioController {
     public ResponseEntity<ComentarioDto> obtenerId(@PathVariable Integer id) {
         ComentarioDto comentario = comentarioServices.buscarPorId(id);
         return ResponseEntity.ok(comentario);
-    }
+    } 
 
     // Listar todos los comentarios
     @GetMapping

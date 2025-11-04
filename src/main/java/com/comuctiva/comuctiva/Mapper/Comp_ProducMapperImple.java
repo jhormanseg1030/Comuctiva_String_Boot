@@ -6,7 +6,6 @@ import com.comuctiva.comuctiva.Dto.Com_ProducDto;
 import com.comuctiva.comuctiva.Dto.Compra_AsignacionesDto;
 import com.comuctiva.comuctiva.Dto.Producto_AsignacionesDto;
 import com.comuctiva.comuctiva.models.Comp_Produc;
-import com.comuctiva.comuctiva.models.Comp_ProducId;
 import com.comuctiva.comuctiva.models.Compra;
 import com.comuctiva.comuctiva.models.Producto;
 import com.comuctiva.comuctiva.repositoryes.CompraRepositories;
@@ -32,10 +31,9 @@ public class Comp_ProducMapperImple implements Comp_producMapper {
 
         Producto producto = productoRepositorie.findById(comp_producDto.getId_producto())
         .orElseThrow(()-> new EntityNotFoundException("Producto no encontrada con el id"));
-        Comp_ProducId id = new Comp_ProducId(comp_producDto.getId_compra(), comp_producDto.getId_producto());
 
         Comp_Produc cp = new Comp_Produc();
-        cp.setId(id);
+        // Ya no se usa setId porque ahora es auto-generado
         cp.setValor(comp_producDto.getValor());
         cp.setCant(comp_producDto.getCantidad());
         cp.setFechaAsignacion(comp_producDto.getFechaAsignacion());

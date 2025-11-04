@@ -38,10 +38,18 @@ public class SecurityConfig {
                 .requestMatchers("/api/usuario/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/usuario").permitAll()
                 .requestMatchers("/api/tipdoc/**", "/api/Unidad_Medida/**").permitAll()
+                // Permitir acceso público a productos
+                .requestMatchers(HttpMethod.GET, "/api/producto", "/api/producto/**").permitAll()
                 
                 // Rutas de solo lectura (públicas)
-                .requestMatchers(HttpMethod.GET, "/api/productos/**", "/api/comentarios/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/mis-productos").hasAnyAuthority("Administrador", "Cliente")
+                
+                // COMENTARIOS - Endpoints corregidos (singular: /api/comentario)
+                .requestMatchers(HttpMethod.GET, "/api/comentario", "/api/comentario/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.POST, "/api/comentario", "/api/comentario/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.PUT, "/api/comentario/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.DELETE, "/api/comentario/**").hasAnyAuthority("Administrador", "Cliente")
 
                 .requestMatchers("/api/carrito/**").hasAnyAuthority("Administrador", "Cliente")
 
@@ -72,7 +80,7 @@ public class SecurityConfig {
             .exceptionHandling(exceptions -> exceptions
                 .accessDeniedHandler(accessDeniedHandler)
             )
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); 
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

@@ -8,7 +8,6 @@ import com.comuctiva.comuctiva.Dto.ComentarioCreateDto;
 import com.comuctiva.comuctiva.Dto.ComentarioDto;
 import com.comuctiva.comuctiva.models.Comentarios;
 import com.comuctiva.comuctiva.models.Comp_Produc;
-import com.comuctiva.comuctiva.models.Comp_ProducId;
 import com.comuctiva.comuctiva.models.Usuario;
 import com.comuctiva.comuctiva.repositoryes.Comp_ProducRepositories;
 import com.comuctiva.comuctiva.repositoryes.UsuarioRepositories;
@@ -22,7 +21,7 @@ public class ComentarioMapperImple implements ComentarioMapper {
     private final UsuarioRepositories usuarioRepositories;
 
     public ComentarioMapperImple(Comp_ProducRepositories compProducRepositories, 
-                                 UsuarioRepositories usuarioRepositories) {
+                                UsuarioRepositories usuarioRepositories) {
         this.compProducRepositories = compProducRepositories;
         this.usuarioRepositories = usuarioRepositories;
     }
@@ -37,18 +36,22 @@ public class ComentarioMapperImple implements ComentarioMapper {
         comentario.setComentario(comentarioCreateDto.getComentario());
         comentario.setFechaComentario(LocalDateTime.now());
 
-        // Buscar Comp_Produc por ID compuesto
-        Comp_ProducId compProducId = new Comp_ProducId();
-        compProducId.setCompraId(comentarioCreateDto.getIdCompProduc());
-        compProducId.setProductoId(comentarioCreateDto.getIdCompProduc());
-        
-        Comp_Produc compProduc = compProducRepositories.findById(Long.valueOf(comentarioCreateDto.getIdCompProduc()))
-                .orElseThrow(() -> new EntityNotFoundException("Compra-Producto no encontrada"));
+        // Buscar Comp_Produc por ID simple
+        Comp_Produc compProduc = compProducRepositories.findById(comentarioCreateDto.getIdCompProduc())
+                .orElseThrow(() -> new EntityNotFoundException("Compra-Producto no encontrada con ID: " + comentarioCreateDto.getIdCompProduc()));
         comentario.setCompProduc(compProduc);
+
+        // Poblar id_compra e id_producto desde Comp_Produc
+        if (compProduc.getCompra() != null) {
+            comentario.setIdCompra(compProduc.getCompra().getId_compra());
+        }
+        if (compProduc.getProduc() != null) {
+            comentario.setIdProducto(compProduc.getProduc().getId_producto());
+        }
 
         // Buscar Usuario
         Usuario usuario = usuarioRepositories.findById(comentarioCreateDto.getIdUsuario())
-                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con ID: " + comentarioCreateDto.getIdUsuario()));
         comentario.setUsuario(usuario);
 
         return comentario;
@@ -66,8 +69,7 @@ public class ComentarioMapperImple implements ComentarioMapper {
         dto.setFechaComentario(comentario.getFechaComentario());
         
         if (comentario.getCompProduc() != null) {
-            // El ID es compuesto, usamos el ID de compra como referencia
-            dto.setIdCompProduc(comentario.getCompProduc().getId().getCompraId());
+            dto.setIdCompProduc(comentario.getCompProduc().getIdComProduc());
             if (comentario.getCompProduc().getProduc() != null) {
                 dto.setNombreProducto(comentario.getCompProduc().getProduc().getNomprod());
             }

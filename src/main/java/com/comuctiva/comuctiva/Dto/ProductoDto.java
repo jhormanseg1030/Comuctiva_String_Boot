@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ProductoDto {
-    private Integer id_pro;              // ✅ OK (el frontend usa "id" o "id_producto")
+    private Integer id_pro;
     private String nombre_Producto;      // ✅ Cambiado de "nopro"
     private Double valor;                // ✅ Cambiado de "valoor"
     private Short cantidad;              // ✅ Cambiado de "cantid"
@@ -17,4 +17,5 @@ public class ProductoDto {
     private String categoria;            // ✅ OK
     private Integer id_medida;           // ✅ Cambiado de "id_medi"
     private String estado;               // Estado del producto (pendiente, aprobado, rechazado)
+    private Boolean activo;              // Estado activo/inactivo del producto
 }

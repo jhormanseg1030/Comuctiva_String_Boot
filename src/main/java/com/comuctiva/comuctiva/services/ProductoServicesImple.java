@@ -113,4 +113,31 @@ public class ProductoServicesImple implements ProductoServices {
         producto.setEstado(nuevoEstado);
         productoRepositorie.save(producto);
     }
+
+        @Override
+        public List<ProductoDto> listarMisProductos(Integer idUsuario) {
+        List<Producto> productos = productoRepositorie.findByVendedorId_usuario(idUsuario);
+        return productos.stream()
+            .map(productoMapper::toProductoDto)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void desactivarProducto(Integer id) {
+        if (!productoRepositorie.existsById(id)) {
+            throw new IllegalArgumentException("Producto no encontrado");
+        }
+        productoRepositorie.softDelete(id);
+    }
+    
+    // ✅ NUEVO: Restaurar producto
+    @Override
+    @Transactional
+    public void restaurarProducto(Integer id) {
+        if (!productoRepositorie.existsById(id)) {
+            throw new IllegalArgumentException("Producto no encontrado");
+        }
+        productoRepositorie.restore(id);
+    }
 }

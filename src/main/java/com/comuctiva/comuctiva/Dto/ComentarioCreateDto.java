@@ -10,13 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ComentarioCreateDto {
-    
     @NotNull(message = "El ID de compra-producto es requerido")
     private Integer idCompProduc;
-    
+
     @NotNull(message = "El ID de usuario es requerido")
     private Integer idUsuario;
-    
+
     @NotBlank(message = "El comentario no puede estar vacío")
     private String comentario;
 }

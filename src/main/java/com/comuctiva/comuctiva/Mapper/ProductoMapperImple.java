@@ -19,7 +19,7 @@ public class ProductoMapperImple implements ProductoMapper{
    private final UsuarioRepositories usuarioRepositories;
 
    public ProductoMapperImple(Unidad_MedidaRepositories unidad_MedidaRepositories,
-                             UsuarioRepositories usuarioRepositories){
+                           UsuarioRepositories usuarioRepositories){
       this.unidad_MedidaRepositories = unidad_MedidaRepositories;
       this.usuarioRepositories = usuarioRepositories;
    }
@@ -33,6 +33,7 @@ public class ProductoMapperImple implements ProductoMapper{
       producto.setImagen(productoCreateDto.getImagen());
       producto.setDescrip(productoCreateDto.getDescripcion());
       producto.setCategoria(productoCreateDto.getCategoria());
+      producto.setEstado(productoCreateDto.getEstado()); // 🆕 Asignar estado
 
       Unidad_Medida unidad_Medida = unidad_MedidaRepositories.findById(productoCreateDto.getId_medida())
       .orElseThrow(() -> new EntityNotFoundException("Unidad de medida no encontrada"));
@@ -60,5 +61,7 @@ public ProductoDto toProductoDto(Producto producto) {
    dto.setCategoria(producto.getCategoria());
    dto.setId_medida(producto.getUnidad_Medida() != null ? producto.getUnidad_Medida().getId_Medida() : null);
    dto.setEstado(producto.getEstado());
+   dto.setActivo(producto.getActivo());
    return dto;
+}
 }
