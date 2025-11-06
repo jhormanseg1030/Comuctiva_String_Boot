@@ -140,4 +140,62 @@ public class ProductoServicesImple implements ProductoServices {
         }
         productoRepositorie.restore(id);
     }
+    @Override
+    @Transactional
+        public List<ProductoDto> obtenerProductosPorVendedor(Integer id_usuario) {
+        return productoRepositorie.findByVendedor_Id_Usuario(id_usuario)
+            .stream()
+            .map(productoMapper::toProductoDto)
+            .toList();
+    }
+    @Override
+    @Transactional
+        public ProductoDto obtenerProductoPorIdYVendedor(Integer id_producto, Integer id_usuario) {
+        return productoRepositorie.findByIdAndVendedor(id_producto, id_usuario)
+            .map(productoMapper::toProductoDto)
+            .orElse(null);
+    }
+    @Override
+    @Transactional
+        public ProductoDto actualizarProductoVendedor(Integer id_producto, Integer id_usuario, ProductoUpdateDto dto) {
+        var producto = productoRepositorie.findByIdAndVendedor(id_producto, id_usuario)
+            .orElse(null);
+        
+        if (producto == null) return null;
+        
+        if (dto.getNombre_Producto() != null) producto.setNomprod(dto.getNombre_Producto());
+        if (dto.getValor() != null) producto.setValor(dto.getValor());
+        if (dto.getCantidad() != null) producto.setCant(dto.getCantidad());
+        if (dto.getImagen() != null) producto.setImagen(dto.getImagen());
+        if (dto.getDescripcion() != null) producto.setDescrip(dto.getDescripcion());
+        if (dto.getCategoria() != null) producto.setCategoria(dto.getCategoria());
+        if (dto.getEstado() != null) producto.setEstado(dto.getEstado());
+
+        productoRepositorie.save(producto);
+        return productoMapper.toProductoDto(producto);
+    }
+    @Override
+    @Transactional
+        public boolean desactivarProductoVendedor(Integer id_producto, Integer id_usuario) {
+        var producto = productoRepositorie.findByIdAndVendedor(id_producto, id_usuario)
+            .orElse(null);
+        
+        if (producto == null) return false;
+        
+        producto.setActivo(false);
+        productoRepositorie.save(producto);
+        return true;
+    }
+    @Override
+    @Transactional
+        public boolean activarProductoVendedor(Integer id_producto, Integer id_usuario) {
+        var producto = productoRepositorie.findByIdAndVendedor(id_producto, id_usuario)
+            .orElse(null);
+        
+        if (producto == null) return false;
+        
+        producto.setActivo(true);
+        productoRepositorie.save(producto);
+        return true;
+    }
 }
