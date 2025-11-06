@@ -14,12 +14,9 @@ public interface ProductoServices {
 
     List<ProductoDto> listar();
 
-    // Listar productos pendientes
     List<ProductoDto> listarPendientes();
 
-    // Cambiar estado de producto
     void cambiarEstadoProducto(Integer id, String nuevoEstado);
-    // Método eliminado: listarPorDocumentoVendedor - No hay relación Producto-Usuario
 
     void eliminarProducto(Integer id);
 
@@ -30,4 +27,14 @@ public interface ProductoServices {
     void desactivarProducto(Integer id);
     
     void restaurarProducto(Integer id);
+
+        List<ProductoDto> obtenerProductosPorVendedor(Integer id_usuario);
+    
+    ProductoDto obtenerProductoPorIdYVendedor(Integer id_producto, Integer id_usuario);
+    
+    ProductoDto actualizarProductoVendedor(Integer id_producto, Integer id_usuario, ProductoUpdateDto dto);
+    
+    boolean desactivarProductoVendedor(Integer id_producto, Integer id_usuario);
+    
+    boolean activarProductoVendedor(Integer id_producto, Integer id_usuario);
 }

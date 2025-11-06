@@ -11,12 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class VentaDto {
     private Integer id_compra;
-    private Integer id_producto;
-    private String producto_nombre;
-    private String cliente_nombre;
-    private Integer id_cliente;
-    private Short cantidad;
-    private Double valor;
+    private LocalDateTime fec_com;
     private Double total;
-    private LocalDateTime fecha;
+    private String nombreUsuario;
+    private String nomprod;
+    private Short cantidad;
+    private Double precio;
 }

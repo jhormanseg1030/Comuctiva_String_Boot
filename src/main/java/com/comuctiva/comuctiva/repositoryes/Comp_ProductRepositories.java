@@ -13,18 +13,14 @@ import com.comuctiva.comuctiva.models.Compra;
 @Repository
 public interface Comp_ProductRepositories extends JpaRepository<Comp_Produc, Integer> {
     
-    // Buscar por ID de compra
-    @Query("SELECT cp FROM Comp_Produc cp WHERE cp.compra.id_compra = :compraId")
-    List<Comp_Produc> findByIdCompraId(@Param("compraId") Integer compraId);
+    @Query("SELECT cp FROM Comp_Produc cp WHERE cp.compra.id_compra = :id_compra")
+    List<Comp_Produc> findByCompra_Id_compra(@Param("id_compra") Integer id_compra);
     
-    // Buscar por ID de producto
-    @Query("SELECT cp FROM Comp_Produc cp WHERE cp.produc.id_producto = :productoId")
+    @Query("SELECT cp FROM Comp_Produc cp WHERE cp.producto.id_producto = :productoId")
     List<Comp_Produc> findByIdProductoId(@Param("productoId") Integer productoId);
     
-    // Buscar por compra
     List<Comp_Produc> findByCompra(Compra compra);
-    
-    // Buscar por compra y producto (para verificar duplicados)
-    @Query("SELECT cp FROM Comp_Produc cp WHERE cp.compra.id_compra = :compraId AND cp.produc.id_producto = :productoId")
-    List<Comp_Produc> findByCompraIdAndProductoId(@Param("compraId") Integer compraId, @Param("productoId") Integer productoId);
+
+    @Query("SELECT cp FROM Comp_Produc cp WHERE cp.producto.vendedor.id_Usuario = :id_usuario")
+    List<Comp_Produc> findVentasByVendedor(@Param("id_usuario") Integer id_usuario);
 }

@@ -16,6 +16,9 @@ public class ProductoUpdateDto {
     private Short cantidad;
     private String imagen;
     private String descripcion;
+    private String categoria;
+    private String estado;
+
 
     @NotNull
     private Integer id_medida;

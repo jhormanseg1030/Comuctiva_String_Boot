@@ -1,56 +1,64 @@
     package com.comuctiva.comuctiva.Mapper;
 
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
+
+import com.comuctiva.comuctiva.Dto.Com_ProducDto;
 import com.comuctiva.comuctiva.Dto.CompraCreateDto;
 import com.comuctiva.comuctiva.Dto.CompraDto;
+import com.comuctiva.comuctiva.models.Comp_Produc;
 import com.comuctiva.comuctiva.models.Compra;
-import com.comuctiva.comuctiva.models.Pedidos;
-import com.comuctiva.comuctiva.models.Tipo_De_Pago;
-import com.comuctiva.comuctiva.repositoryes.PedidoRepositorie;
-import com.comuctiva.comuctiva.repositoryes.Tipo_De_PagoRepositories;
-
-import jakarta.persistence.EntityNotFoundException;
 
     @Component
     public class CompraMapperImple implements CompraMapper {
 
-        private final Tipo_De_PagoRepositories tipo_De_PagoRepositories;
-        private final PedidoRepositorie pedidoRepositorie;
+    @Override
+    public Compra toCompra(CompraCreateDto compraCreateDto) {
+        if (compraCreateDto == null) return null;
+        
+        Compra compra = new Compra();
+        compra.setRef_pago(compraCreateDto.getRef_pago());
+        compra.setFec_com(java.time.LocalDateTime.now());
+        compra.setTotal(0.0); // Se calcula después
+        
+        return compra;
+    }
 
-        public CompraMapperImple(Tipo_De_PagoRepositories tipo_De_PagoRepositories, PedidoRepositorie pedidoRepositorie){
-            this.tipo_De_PagoRepositories = tipo_De_PagoRepositories;
-            this.pedidoRepositorie = pedidoRepositorie;
+    @Override
+    public CompraDto toCompraDto(Compra compra) {
+        if (compra == null) return null;
+        
+        CompraDto dto = new CompraDto();
+        dto.setId_compra(compra.getId_compra());
+        dto.setTotal(compra.getTotal());
+        dto.setRef_pago(compra.getRef_pago());
+        dto.setFec_com(compra.getFec_com());
+        dto.setId_pedido(compra.getPedido() != null ? compra.getPedido().getId_pedido() : null);
+        dto.setId_ti_pago(compra.getTipo_pago() != null ? compra.getTipo_pago().getId_tipago() : null);
+        dto.setTipo_pago(compra.getTipo_pago() != null ? compra.getTipo_pago().getTipos() : null);
+        
+        if (compra.getProductos() != null) {
+            dto.setProductos(compra.getProductos().stream()
+                .map(this::toCompraProductoDto)
+                .collect(Collectors.toList()));
         }
+        return dto;
+    }
 
-        @Override
-        public Compra toCompra(CompraCreateDto compraCreateDto){
-
-            if (compraCreateDto == null) {
-                return null;
-            }
-            Compra compra = new Compra();
-            compra.setTotal(compraCreateDto.getTotal());
-            compra.setRef_pago(compraCreateDto.getReferencia_pago());
-            compra.setFec_com(compraCreateDto.getFecha_compra());
-
-            Tipo_De_Pago tipo_De_Pago = tipo_De_PagoRepositories.findById(compraCreateDto.getId_ti_pago())
-            .orElseThrow(() -> new EntityNotFoundException("Tipo de pago no encontrado"));
-            compra.setTipo_pago(tipo_De_Pago);
-
-            Pedidos pedido = pedidoRepositorie.findById(compraCreateDto.getId_pedido())
-            .orElseThrow(() -> new EntityNotFoundException("Pedido no encontrado"));
-            compra.setPedido(pedido);
-            return compra;
-        }
-
-        @Override
-        public CompraDto toCompraDto(Compra compra){
-            return new CompraDto(
-                compra.getId_compra(),
-                compra.getTotal(),
-                compra.getRef_pago(),
-                compra.getFec_com(),
-                compra.getTipo_pago().getId_tipago(),
-                compra.getPedido().getId_pedido());
-        }
+    
+    @Override
+    public Com_ProducDto toCompraProductoDto(Comp_Produc comp_produc) {
+        if (comp_produc == null) return null;
+        
+        Com_ProducDto dto = new Com_ProducDto();
+        dto.setId_com_produc(comp_produc.getId_comp_produc());
+        dto.setId_producto(comp_produc.getProducto() != null ? comp_produc.getProducto().getId_producto() : null);
+        dto.setNombre_producto(comp_produc.getProducto() != null ? comp_produc.getProducto().getNomprod() : null);
+        dto.setCantidad(comp_produc.getCantidad());
+        dto.setPrecio(comp_produc.getPrecio());
+        dto.setSubtotal(comp_produc.getCantidad() * comp_produc.getPrecio());
+        
+        return dto;
+    }
     }

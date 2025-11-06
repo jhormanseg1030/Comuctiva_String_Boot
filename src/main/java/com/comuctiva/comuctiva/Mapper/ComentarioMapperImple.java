@@ -45,8 +45,8 @@ public class ComentarioMapperImple implements ComentarioMapper {
         if (compProduc.getCompra() != null) {
             comentario.setIdCompra(compProduc.getCompra().getId_compra());
         }
-        if (compProduc.getProduc() != null) {
-            comentario.setIdProducto(compProduc.getProduc().getId_producto());
+        if (compProduc.getProducto() != null) {
+            comentario.setIdProducto(compProduc.getProducto().getId_producto());
         }
 
         // Buscar Usuario
@@ -69,9 +69,9 @@ public class ComentarioMapperImple implements ComentarioMapper {
         dto.setFechaComentario(comentario.getFechaComentario());
         
         if (comentario.getCompProduc() != null) {
-            dto.setIdCompProduc(comentario.getCompProduc().getIdComProduc());
-            if (comentario.getCompProduc().getProduc() != null) {
-                dto.setNombreProducto(comentario.getCompProduc().getProduc().getNomprod());
+            dto.setIdCompProduc(comentario.getCompProduc().getId_comp_produc());
+            if (comentario.getCompProduc().getProducto() != null) {
+                dto.setNombreProducto(comentario.getCompProduc().getProducto().getNomprod());
             }
         }
         

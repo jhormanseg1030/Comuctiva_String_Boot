@@ -42,7 +42,7 @@ public class Producto {
     @OneToMany(mappedBy = "producto")
     private List<Ingres_Produc> ingre;
 
-    @OneToMany(mappedBy = "produc")
+    @OneToMany(mappedBy = "producto")
     private List<Comp_Produc> compras;
 
     @OneToMany(mappedBy = "produ")

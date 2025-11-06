@@ -11,7 +11,7 @@ import com.comuctiva.comuctiva.models.Comentarios;
 public interface ComentariosRepositories extends JpaRepository<Comentarios, Integer> {
     
     // Buscar comentarios por ID de producto
-    @Query("SELECT c FROM Comentarios c JOIN c.compProduc cp WHERE cp.produc.id_producto = :idProducto")
+    @Query("SELECT c FROM Comentarios c JOIN c.compProduc cp WHERE cp.producto.id_producto = :idProducto")
     List<Comentarios> findByProductoId(@Param("idProducto") Integer idProducto);
     
     // Buscar comentarios por ID de usuario

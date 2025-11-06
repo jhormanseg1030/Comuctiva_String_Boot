@@ -1,20 +1,20 @@
 package com.comuctiva.comuctiva.Dto;
 
-import java.time.LocalDateTime;
-
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import java.util.List;
 
 @Data
 public class CompraCreateDto {
-
-    @NotBlank
-    private Double total;
-    private String referencia_pago;
-    private LocalDateTime fecha_compra;
-
-    @NotNull
-    private Integer id_ti_pago;
+    
+    @NotNull(message = "El ID del pedido es requerido")
     private Integer id_pedido;
+    
+    @NotNull(message = "El tipo de pago es requerido")
+    private Integer id_ti_pago;
+    
+    private String ref_pago;
+    
+    @NotNull(message = "Debe incluir al menos un producto")
+    private List<Com_ProducCreateDto> productos;
 }

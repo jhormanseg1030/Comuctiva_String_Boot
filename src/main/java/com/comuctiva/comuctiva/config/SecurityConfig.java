@@ -34,44 +34,60 @@ public class SecurityConfig {
 
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             
-                // Rutas públicas (sin autenticación) - DEBEN IR PRIMERO
+                // ========== RUTAS PÚBLICAS ==========
                 .requestMatchers("/api/usuario/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/usuario").permitAll()
                 .requestMatchers("/api/tipdoc/**", "/api/Unidad_Medida/**").permitAll()
-                // Permitir acceso público a productos
+
+                    // ========== RUTAS DE COMPRA Y COMP_PRODUC ========== 🆕
+                .requestMatchers(HttpMethod.GET, "/api/compra/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.POST, "/api/compra").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.PUT, "/api/compra/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.DELETE, "/api/compra/**").hasAnyAuthority("Administrador", "Cliente")
+                
+                .requestMatchers(HttpMethod.GET, "/api/comp_produc/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.POST, "/api/comp_produc").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.PUT, "/api/comp_produc/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.DELETE, "/api/comp_produc/**").hasAnyAuthority("Administrador", "Cliente")
+                
+                // ========== MIS VENTAS Y MIS COMPRAS ==========
+                .requestMatchers(HttpMethod.GET, "/api/mis-ventas").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.GET, "/api/mis-compras").hasAnyAuthority("Administrador", "Cliente")
+                
+                // ========== RUTAS DE MIS PRODUCTOS (ESPECÍFICAS - DEBEN IR PRIMERO) ==========
+                // 🔥 ESTAS RUTAS REQUIEREN AUTENTICACIÓN
+                .requestMatchers(HttpMethod.GET, "/api/producto/mis-productos").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.GET, "/api/producto/mis-productos/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.PUT, "/api/producto/mis-productos/**").hasAnyAuthority("Administrador", "Cliente")
+                .requestMatchers(HttpMethod.DELETE, "/api/producto/mis-productos/**").hasAnyAuthority("Administrador", "Cliente")
+                
+                // ========== RUTAS GENERALES DE PRODUCTO (GENÉRICAS - VAN DESPUÉS) ==========
+                // 🔥 GET sin autenticación
                 .requestMatchers(HttpMethod.GET, "/api/producto", "/api/producto/**").permitAll()
-                
-                // Rutas de solo lectura (públicas)
                 .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/mis-productos").hasAnyAuthority("Administrador", "Cliente")
                 
-                // COMENTARIOS - Endpoints corregidos (singular: /api/comentario)
+                // 🔥 POST requiere autenticación
+                .requestMatchers(HttpMethod.POST, "/api/producto").hasAnyAuthority("Administrador", "Cliente")
+                
+                // 🔥 PUT requiere autenticación (rutas generales, no mis-productos)
+                .requestMatchers(HttpMethod.PUT, "/api/producto/**").hasAnyAuthority("Administrador", "Cliente")
+                
+                // 🔥 DELETE requiere ADMIN
+                .requestMatchers(HttpMethod.DELETE, "/api/producto/**").hasAuthority("Administrador")
+                
+                // ========== RUTAS DE COMENTARIOS ==========
                 .requestMatchers(HttpMethod.GET, "/api/comentario", "/api/comentario/**").hasAnyAuthority("Administrador", "Cliente")
                 .requestMatchers(HttpMethod.POST, "/api/comentario", "/api/comentario/**").hasAnyAuthority("Administrador", "Cliente")
                 .requestMatchers(HttpMethod.PUT, "/api/comentario/**").hasAnyAuthority("Administrador", "Cliente")
                 .requestMatchers(HttpMethod.DELETE, "/api/comentario/**").hasAnyAuthority("Administrador", "Cliente")
 
+                // ========== OTRAS RUTAS ==========
                 .requestMatchers("/api/carrito/**").hasAnyAuthority("Administrador", "Cliente")
-
-                .requestMatchers(HttpMethod.PUT, "/api/producto/mis-productos/**").hasAnyAuthority("Administrador", "Cliente")
-                .requestMatchers(HttpMethod.DELETE, "/api/producto/mis-productos/**").hasAnyAuthority("Administrador", "Cliente")
-                .requestMatchers(HttpMethod.PUT, "/api/producto/mis-productos/*/restaurar").hasAnyAuthority("Administrador", "Cliente")
-                
-                // NUEVOS ENDPOINTS - Ventas y Compras (requieren autenticación)
                 .requestMatchers(HttpMethod.GET, "/api/mis-ventas", "/api/mis-compras").hasAnyAuthority("Administrador", "Cliente")
-                // Rutas de transporte - Administrador y Cliente
                 .requestMatchers("/api/vehiculos/**", "/api/cotizaciones/**", "/api/fletes/**").hasAnyAuthority("Administrador", "Cliente")
-                
-                // DELETE - Solo Administrador
-                .requestMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("Administrador")
-                
-                .requestMatchers(HttpMethod.POST, "/api/producto/**").hasAnyAuthority("Administrador", "Cliente")
-                // POST y PUT - Administrador y Cliente
-                
                 .requestMatchers(HttpMethod.POST, "/api/pedi_produc/").hasAnyAuthority("Administrador","Cliente")
                 .requestMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority("Administrador", "Cliente")
                 .requestMatchers(HttpMethod.PUT, "/api/**").hasAnyAuthority("Administrador", "Cliente")
-                // GET autenticado - Administrador y Cliente
                 .requestMatchers(HttpMethod.GET, "/api/**").hasAnyAuthority("Administrador", "Cliente")
                 
                 // Cualquier otra petición requiere autenticación

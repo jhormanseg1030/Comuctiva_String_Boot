@@ -3,17 +3,16 @@ package com.comuctiva.comuctiva.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,22 +23,28 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Compra {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_Compra")
     private Integer id_compra;
+    
+    @Column(name = "total")
     private Double total;
-    @Column (length = 30)
+    
+    @Column(name = "Ref_Pago", length = 30)
     private String ref_pago;
+    
+    @Column(name = "Fec_com")
     private LocalDateTime fec_com;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name = "id_pedido", nullable = false, foreignKey = @ForeignKey(name = "FK_Pedido"))
+    
+    // ✅ USAR LOS NOMBRES CORRECTOS DE LA BD
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_Pedido", nullable = false)
     private Pedidos pedido;
-
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "id_ti_pago", nullable = false, foreignKey = @ForeignKey(name = "FK_TiPago"))
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_TiPago")
     private Tipo_De_Pago tipo_pago;
-
-    @OneToMany(mappedBy = "compra")
-    private List<Comp_Produc> produ;
-
+    
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comp_Produc> productos;
 }
