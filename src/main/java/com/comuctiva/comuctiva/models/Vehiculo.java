@@ -18,7 +18,7 @@ public class Vehiculo {
 
     @NotNull(message = "El tipo de vehículo es obligatorio")
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(name = "tipo_vehiculo", nullable = false, length = 20)
     private TipoVehiculo tipo;
 
     @NotBlank(message = "El nombre del vehículo es obligatorio")
@@ -39,7 +39,7 @@ public class Vehiculo {
     @NotNull(message = "La capacidad es obligatoria")
     @Min(value = 100, message = "La capacidad mínima es 100 kg")
     @Max(value = 10000, message = "La capacidad máxima es 10000 kg")
-    @Column(nullable = false)
+    @Column(name = "capacidad_kg", nullable = false)
     private Integer capacidadKg;
 
     @NotNull(message = "El estado es obligatorio")
@@ -55,14 +55,14 @@ public class Vehiculo {
     private String ubicacion;
 
     @Min(value = 0, message = "Los viajes no pueden ser negativos")
-    @Column(nullable = false)
+    @Column(name = "viajes_mes", nullable = false)
     private Integer viajesMes = 0;
 
     @Min(value = 0, message = "Los ingresos no pueden ser negativos")
-    @Column(nullable = false)
+    @Column(name = "ingresos_mes", nullable = false)
     private Double ingresosMes = 0.0;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_transportadora", nullable = false, foreignKey = @ForeignKey(name = "FK_Vehiculo_Transportadora"))
+    @JoinColumn(name = "id_transpor", nullable = false, foreignKey = @ForeignKey(name = "fk_vehiculo_transportadora"))
     private Transportadora transportadora;
 }
