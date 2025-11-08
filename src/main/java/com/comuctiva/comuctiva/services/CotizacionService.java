@@ -125,11 +125,11 @@ public class CotizacionService {
         // Crear cotización
         Cotizacion cotizacion = new Cotizacion();
         cotizacion.setProducto(createDto.getProducto());
-        cotizacion.setPesoKg(createDto.getPesoKg());
+        cotizacion.setPesoKg(createDto.getPesoKg().doubleValue());
         cotizacion.setTipoVehiculo(createDto.getTipoVehiculo());
         cotizacion.setOrigen(createDto.getOrigen());
         cotizacion.setDestino(createDto.getDestino());
-        cotizacion.setDistanciaKm(createDto.getDistanciaKm());
+        cotizacion.setDistanciaKm(createDto.getDistanciaKm().doubleValue());
         cotizacion.setEstado(EstadoCotizacion.PENDIENTE);
         cotizacion.setFecha(LocalDateTime.now());
         
@@ -208,11 +208,11 @@ public class CotizacionService {
         dto.setId_cotizacion(cotizacion.getId_cotizacion());
         dto.setFecha(cotizacion.getFecha());
         dto.setProducto(cotizacion.getProducto());
-        dto.setPesoKg(cotizacion.getPesoKg());
+        dto.setPesoKg(cotizacion.getPesoKg() != null ? cotizacion.getPesoKg().intValue() : 0);
         dto.setTipoVehiculo(cotizacion.getTipoVehiculo());
         dto.setOrigen(cotizacion.getOrigen());
         dto.setDestino(cotizacion.getDestino());
-        dto.setDistanciaKm(cotizacion.getDistanciaKm());
+        dto.setDistanciaKm(cotizacion.getDistanciaKm() != null ? cotizacion.getDistanciaKm().intValue() : 0);
         dto.setEstado(cotizacion.getEstado());
         dto.setTotal(cotizacion.getTotal());
         dto.setMotivoRechazo(cotizacion.getMotivoRechazo());

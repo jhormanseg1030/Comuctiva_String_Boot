@@ -28,12 +28,12 @@ public class Cotizacion {
 
     @NotNull(message = "El peso es obligatorio")
     @Min(value = 1, message = "El peso mínimo es 1 kg")
-    @Column(nullable = false)
-    private Integer pesoKg;
+    @Column(name = "peso_kg", nullable = false)
+    private Double pesoKg;
 
     @NotNull(message = "El tipo de vehículo es obligatorio")
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(name = "tipo_vehiculo", nullable = false, length = 20)
     private TipoVehiculo tipoVehiculo;
 
     @NotBlank(message = "El origen es obligatorio")
@@ -48,8 +48,8 @@ public class Cotizacion {
 
     @NotNull(message = "La distancia es obligatoria")
     @Min(value = 1, message = "La distancia mínima es 1 km")
-    @Column(nullable = false)
-    private Integer distanciaKm;
+    @Column(name = "distancia_km", nullable = false)
+    private Double distanciaKm;
 
     @NotNull(message = "El estado es obligatorio")
     @Enumerated(EnumType.STRING)
@@ -64,11 +64,11 @@ public class Cotizacion {
     private Double total;
 
     @Size(max = 500)
-    @Column(length = 500)
+    @Column(name = "motivo_rechazo", length = 500)
     private String motivoRechazo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_transportadora", foreignKey = @ForeignKey(name = "FK_Cotizacion_Transportadora"))
+    @JoinColumn(name = "id_transpor", foreignKey = @ForeignKey(name = "fk_cotizacion_transportadora"))
     private Transportadora transportadora;
 
     @ManyToOne(fetch = FetchType.LAZY)

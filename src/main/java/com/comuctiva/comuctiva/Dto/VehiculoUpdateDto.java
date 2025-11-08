@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class VehiculoUpdateDto {
     
-    @NotNull(message = "El ID es obligatorio")
+    // El ID se obtiene del path variable (/api/vehiculos/{id}); no es obligatorio en el cuerpo
     private Integer id_vehiculo;
 
     @Size(max = 100)
