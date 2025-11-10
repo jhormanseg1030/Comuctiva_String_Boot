@@ -37,6 +37,7 @@ public class SecurityConfig {
                 // ========== RUTAS PÚBLICAS ==========
                 .requestMatchers("/api/usuario/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/usuario").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/producto/imagen/**").permitAll()
                 .requestMatchers("/api/tipdoc/**", "/api/Unidad_Medida/**").permitAll()
 
                     // ========== RUTAS DE COMPRA Y COMP_PRODUC ========== 🆕
