@@ -33,7 +33,7 @@ public class Producto {
     @Column (nullable = false, length = 50)
     private String imagen;
 
-    @Column (nullable = false, length = 50)
+    @Column (nullable = false, length = 500)
     private String descrip;
 
     @Column (length = 50)
